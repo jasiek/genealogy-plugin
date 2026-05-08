@@ -19,3 +19,5 @@ dist/
 
 # Personal Heredis fixtures — never commit
 *.heredis
+
+.env
