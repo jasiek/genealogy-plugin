@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import pytest
 
-from heredis_mcp import queries
+from heredis_mcp.sources.heredis import queries
 
 
 def test_search_persons_no_filters_returns_page(conn):

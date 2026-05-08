@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title>Geneteka baza Polskiego Towarzystwa Genealogicznego</title>
+        <meta name="author" content="Genealodzy.PL Genealogia">
+        <meta name="copyright" content="Copyright (c) 2010-2026 by Polskie Towarzystwo Genealogiczne">
+        <meta name="description" content="Geneteka wyszukiwarka nazwisk Polskiego Towarzystwa Genealogicznego w metrykach i aktach stanu cywilnego. Zawiera ponad 47.000.000 indeksów z ponad 4500 parafii. ">
+        <meta name="keywords" content="Genealogia, Polskie Towarzystwo Genealogiczne, Geneteka, Wyszukiwarka, Chrzty, Małżeństwa, Zgony, Księga Chrztów, Księga Małżeństw, Księga Zgonów, Genealogia Polska, PTG, wyszukiwarki nazwisk, bazy genealogiczne, poszukiwanie przodków, poszukiwania genealogiczne, genealodzy, ród, nazwisko, parafia, parafie, przodek, przodkowie,  metryki, metryka, akta stanu cywilnego">
+        <meta name="revisit-after" content="1 days">
+        <meta name="robots" content="index,follow">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="style/style.css?ver=1.80" type="text/css">
+        <link rel="stylesheet" href="style/select2.min.css" type="text/css">
+        <link rel="stylesheet" type="text/css" href="style/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="style/gtk.css?ver=1.80" type="text/css">
+        <link rel="stylesheet" type="text/css" href="style/jquery-ui.min.css">
+
+        <script src="js/jquery.min.js"></script>
+        <script src="js/jquery.query.js"></script>
+        <script src="js/select2.full.js"></script>
+        <script src="js/snap.svg-min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+
+        <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" language="javascript" src="js/jquery.datatables.plugins.js"></script>
+
+        <script type="text/javascript">
+        sLang = 'pol';
+        _NORESULTS = 'Brak pasujących wyników';
+        _RESULTNEARPARISH = 'Wyszukano w parafiach';
+        </script>
+        
+        <script src="js/main.js?ver=1.80"></script>
+
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-22183956-1']);
+            _gaq.push(['_trackPageview']);
+
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+        <link rel="shortcut icon" href="images/favicon.ico">
+		<div id="fb-root"></div>
+	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v7.0&appId=270223130749757&autoLogAppEvents=1" nonce="dKK0imOQ"></script>
+    </head>
+    <body  background ="images/back.gif">
+
+<center>
+
+    <br>
+    <table border="0" cellpadding="0" cellspacing="0" width="1000" style="border: 1px solid rgb(100,100,100)">
+        <tr>
+            <td class="header" width="100%" align="right">
+                <a href="index.php" target="_self" title="https://geneteka.genealodzy.pl/"><img style="width:1000px;" src="images/PTG_Banner_Geneteka-OPP.png" border="0" alt="geneteka.genealodzy.pl" title="geneteka.genealodzy.pl"></a>
+            </td>
+        </tr>
+        <tr>
+            <td class="pasek2">
+
+                <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                    <tr>
+                        <td width="100%">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>	<td  width="505" valign="middle">
+									<a href="https://www.facebook.com/genealodzy"><img src="images/fbgt.png"></a>
+									<div class="fb-like" data-href="https://geneteka.genealodzy.pl" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="false"></div>
+									</td>
+                                    <td ><p align="right">
+
+<a href="?op=se&lang=pol"><img src="images/flag-pol.png" alt="flag-pol.png" width="30" height="16" title="polski" border="0"></a>
+<a href="?op=se&lang=eng"><img src="images/flag-eng.png" alt="flag-eng.png" width="30" height="16" title="english" border="0"></a>
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a target="_blank" href="https://genealodzy.pl"><img src="images/navhome.gif" width="20"
+height="20" alt="Genealodzy.PL" title="Genealodzy.PL" border="0"></a> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="index.php?lang=pol"><img src="images/navmapa.gif" width="20"
+height="20" alt="Strona główna" title="Strona główna" border="0"></a> 
+
+<a href="index.php?op=se&lang=pol"><img src="images/navnaz.gif" width="20"
+height="20" alt="Wyszukaj nazwisko w zasobach" title="Wyszukaj nazwisko w zasobach" border="0"></a> 
+
+<a href="rejestry.php?lang=pol"><img src="images/navzasob.gif" width="20"
+height="20" alt="Opracowane zasoby" title="Opracowane zasoby" border="0"></a> 
+
+<a href="autorzy.php?lang=pol"><img src="images/navautor.gif" width="20"
+height="20" alt="Autorzy indeksów" title="Autorzy indeksów" border="0"></a> 
+
+<a href="plany.php?lang=pol"><img src="images/navplany.gif" width="20"
+height="20" alt="Zasoby w trakcie indeksacji" title="Zasoby w trakcie indeksacji" border="0"></a> 
+
+<a href="jak-indeksowac-U-Z.php?lang=pol"><img src="images/navhelp.gif" width="20"
+height="20" alt="Jak indeksować" title="Jak indeksować" border="0"></a> 
+
+<a target="_blank" href="https://genealodzy.pl/donate.php?lang=pol"><img src="images/navdonate.gif" width="20"
+height="20" alt="Jak wspomóc" title="Jak wspomóc" border="0"></a> 
+</p></td>
+
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+        <tr><td><p align="left"><a href="index.php?lang=pol"><font color="darkred">Powrót</font></a></p><center><table border="0"><tr><td><div style="text-align:center"><span class="gt-title"><strong>Sprawdź występowanie nazwiska </strong></span><br><br><form method="get" action="index.php"><div><center><table border="0"><tr><td align="right"><span class="gt-normal"> Nazwiska </span></td><td><input class="gt-text" type="text" name="search_lastname" value="" size="10" maxlength="20"></td><td><input class="gt-text" type="text" name="search_lastname2" value="" size="10" maxlength="20"></td><td align="right"><span class="gt-normal"> od roku</span></td><td><input class="gt-text" type="text" name="from_date" value="" size="4" maxlength="4"></td><td align="right"><span class="gt-normal"> do roku</span></td><td><input class="gt-text" type="text" name="to_date" value="" size="4" maxlength="4"></td><tr><td><input type="hidden" name="rpp1" value=""><input type="hidden" name="bdm" value="" ><input type="hidden" name="w" value=""><input type="hidden" name="op" value="se" ><input type="hidden" name="lang" value="pol" ></td></tr><tr><td colspan="2"><input class="gt-button" type="submit" value="Wyszukaj"></td><td colspan = "8"><input type="checkbox" name="exac" value="1">Wyszukiwanie dokładne</td></tr></table></center></div></form></div><center><table><tr><td class="head" width="150"><b> Tereny </b></td><td class="head" width="90" align="right"><b> Urodzenia </b></td><td class="head" width="90" align="right"><b> Zgony </b></td><td class="head" width="90" align="right"><b> Małżeństwa </b></td></tr><tr onMouseOver="this.bgColor='#D0E0C0'" onMouseOut="this.bgColor=''" >
+<td class="gt"><a href="index.php?op=gt&amp;lang=pol&amp;w=01ds&amp;rid=A&amp;exac=&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date="> dolnośląskie </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=B&amp;bdm=B&amp;w=01ds"> 16130 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=D&amp;bdm=D&amp;w=01ds"> 4152 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=S&amp;bdm=S&amp;w=01ds"> 32937 </a></td></tr><tr onMouseOver="this.bgColor='#D0E0C0'" onMouseOut="this.bgColor=''" >
+<td class="gt"><a href="index.php?op=gt&amp;lang=pol&amp;w=02kp&amp;rid=A&amp;exac=&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date="> kujawsko-pomorskie </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=B&amp;bdm=B&amp;w=02kp"> 1975721 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=D&amp;bdm=D&amp;w=02kp"> 1088123 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=S&amp;bdm=S&amp;w=02kp"> 531313 </a></td></tr><tr onMouseOver="this.bgColor='#D0E0C0'" onMouseOut="this.bgColor=''" >
+<td class="gt"><a href="index.php?op=gt&amp;lang=pol&amp;w=03lb&amp;rid=A&amp;exac=&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date="> lubelskie </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=B&amp;bdm=B&amp;w=03lb"> 549256 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=D&amp;bdm=D&amp;w=03lb"> 460996 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=S&amp;bdm=S&amp;w=03lb"> 204397 </a></td></tr><tr onMouseOver="this.bgColor='#D0E0C0'" onMouseOut="this.bgColor=''" >
+<td class="gt"><a href="index.php?op=gt&amp;lang=pol&amp;w=04ls&amp;rid=A&amp;exac=&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date="> lubuskie </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=B&amp;bdm=B&amp;w=04ls"> 5114 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=D&amp;bdm=D&amp;w=04ls"> 1225 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=S&amp;bdm=S&amp;w=04ls"> 3794 </a></td></tr><tr onMouseOver="this.bgColor='#D0E0C0'" onMouseOut="this.bgColor=''" >
+<td class="gt"><a href="index.php?op=gt&amp;lang=pol&amp;w=05ld&amp;rid=A&amp;exac=&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date="> łódzkie </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=B&amp;bdm=B&amp;w=05ld"> 5096426 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=D&amp;bdm=D&amp;w=05ld"> 3386735 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=S&amp;bdm=S&amp;w=05ld"> 1303515 </a></td></tr><tr onMouseOver="this.bgColor='#D0E0C0'" onMouseOut="this.bgColor=''" >
+<td class="gt"><a href="index.php?op=gt&amp;lang=pol&amp;w=06mp&amp;rid=A&amp;exac=&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date="> małopolskie </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=B&amp;bdm=B&amp;w=06mp"> 3657371 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=D&amp;bdm=D&amp;w=06mp"> 2180225 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=S&amp;bdm=S&amp;w=06mp"> 905932 </a></td></tr><tr onMouseOver="this.bgColor='#D0E0C0'" onMouseOut="this.bgColor=''" >
+<td class="gt"><a href="index.php?op=gt&amp;lang=pol&amp;w=07mz&amp;rid=A&amp;exac=&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date="> mazowieckie </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=B&amp;bdm=B&amp;w=07mz"> 6246486 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=D&amp;bdm=D&amp;w=07mz"> 4262194 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=S&amp;bdm=S&amp;w=07mz"> 1579420 </a></td></tr><tr onMouseOver="this.bgColor='#D0E0C0'" onMouseOut="this.bgColor=''" >
+<td class="gt"><a href="index.php?op=gt&amp;lang=pol&amp;w=71wa&amp;rid=A&amp;exac=&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date="> Warszawa </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=B&amp;bdm=B&amp;w=71wa"> 1123317 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=D&amp;bdm=D&amp;w=71wa"> 969180 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=S&amp;bdm=S&amp;w=71wa"> 476274 </a></td></tr><tr onMouseOver="this.bgColor='#D0E0C0'" onMouseOut="this.bgColor=''" >
+<td class="gt"><a href="index.php?op=gt&amp;lang=pol&amp;w=08op&amp;rid=A&amp;exac=&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date="> opolskie </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=B&amp;bdm=B&amp;w=08op"> 163767 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=D&amp;bdm=D&amp;w=08op"> 90945 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=S&amp;bdm=S&amp;w=08op"> 52513 </a></td></tr><tr onMouseOver="this.bgColor='#D0E0C0'" onMouseOut="this.bgColor=''" >
+<td class="gt"><a href="index.php?op=gt&amp;lang=pol&amp;w=09pk&amp;rid=A&amp;exac=&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date="> podkarpackie </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=B&amp;bdm=B&amp;w=09pk"> 2161207 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=D&amp;bdm=D&amp;w=09pk"> 1537170 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=S&amp;bdm=S&amp;w=09pk"> 551842 </a></td></tr><tr onMouseOver="this.bgColor='#D0E0C0'" onMouseOut="this.bgColor=''" >
+<td class="gt"><a href="index.php?op=gt&amp;lang=pol&amp;w=10pl&amp;rid=A&amp;exac=&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date="> podlaskie </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=B&amp;bdm=B&amp;w=10pl"> 1888130 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=D&amp;bdm=D&amp;w=10pl"> 1297592 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=S&amp;bdm=S&amp;w=10pl"> 456935 </a></td></tr><tr onMouseOver="this.bgColor='#D0E0C0'" onMouseOut="this.bgColor=''" >
+<td class="gt"><a href="index.php?op=gt&amp;lang=pol&amp;w=11pm&amp;rid=A&amp;exac=&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date="> pomorskie </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=B&amp;bdm=B&amp;w=11pm"> 584712 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=D&amp;bdm=D&amp;w=11pm"> 408279 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=S&amp;bdm=S&amp;w=11pm"> 189879 </a></td></tr><tr onMouseOver="this.bgColor='#D0E0C0'" onMouseOut="this.bgColor=''" >
+<td class="gt"><a href="index.php?op=gt&amp;lang=pol&amp;w=12sl&amp;rid=A&amp;exac=&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date="> śląskie </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=B&amp;bdm=B&amp;w=12sl"> 3222052 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=D&amp;bdm=D&amp;w=12sl"> 2149960 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=S&amp;bdm=S&amp;w=12sl"> 1013069 </a></td></tr><tr onMouseOver="this.bgColor='#D0E0C0'" onMouseOut="this.bgColor=''" >
+<td class="gt"><a href="index.php?op=gt&amp;lang=pol&amp;w=13sk&amp;rid=A&amp;exac=&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date="> świętokrzyskie </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=B&amp;bdm=B&amp;w=13sk"> 2567122 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=D&amp;bdm=D&amp;w=13sk"> 1688767 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=S&amp;bdm=S&amp;w=13sk"> 655629 </a></td></tr><tr onMouseOver="this.bgColor='#D0E0C0'" onMouseOut="this.bgColor=''" >
+<td class="gt"><a href="index.php?op=gt&amp;lang=pol&amp;w=14wm&amp;rid=A&amp;exac=&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date="> warmińsko-mazurskie </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=B&amp;bdm=B&amp;w=14wm"> 361361 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=D&amp;bdm=D&amp;w=14wm"> 207750 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=S&amp;bdm=S&amp;w=14wm"> 113070 </a></td></tr><tr onMouseOver="this.bgColor='#D0E0C0'" onMouseOut="this.bgColor=''" >
+<td class="gt"><a href="index.php?op=gt&amp;lang=pol&amp;w=15wp&amp;rid=A&amp;exac=&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date="> wielkopolskie </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=B&amp;bdm=B&amp;w=15wp"> 1626093 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=D&amp;bdm=D&amp;w=15wp"> 812056 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=S&amp;bdm=S&amp;w=15wp"> 340358 </a></td></tr><tr onMouseOver="this.bgColor='#D0E0C0'" onMouseOut="this.bgColor=''" >
+<td class="gt"><a href="index.php?op=gt&amp;lang=pol&amp;w=16zp&amp;rid=A&amp;exac=&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date="> zachodniopomorskie </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=B&amp;bdm=B&amp;w=16zp"> 2421 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=D&amp;bdm=D&amp;w=16zp"> 921 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=S&amp;bdm=S&amp;w=16zp"> 1266 </a></td></tr><tr onMouseOver="this.bgColor='#D0E0C0'" onMouseOut="this.bgColor=''" >
+<td class="gt"><a href="index.php?op=gt&amp;lang=pol&amp;w=21uk&amp;rid=A&amp;exac=&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date="> Ukraina </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=B&amp;bdm=B&amp;w=21uk"> 1599236 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=D&amp;bdm=D&amp;w=21uk"> 960455 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=S&amp;bdm=S&amp;w=21uk"> 383017 </a></td></tr><tr onMouseOver="this.bgColor='#D0E0C0'" onMouseOut="this.bgColor=''" >
+<td class="gt"><a href="index.php?op=gt&amp;lang=pol&amp;w=22br&amp;rid=A&amp;exac=&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date="> Białoruś </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=B&amp;bdm=B&amp;w=22br"> 813807 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=D&amp;bdm=D&amp;w=22br"> 442293 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=S&amp;bdm=S&amp;w=22br"> 216237 </a></td></tr><tr onMouseOver="this.bgColor='#D0E0C0'" onMouseOut="this.bgColor=''" >
+<td class="gt"><a href="index.php?op=gt&amp;lang=pol&amp;w=23lt&amp;rid=A&amp;exac=&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date="> Litwa </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=B&amp;bdm=B&amp;w=23lt"> 683679 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=D&amp;bdm=D&amp;w=23lt"> 398485 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=S&amp;bdm=S&amp;w=23lt"> 272395 </a></td></tr><tr onMouseOver="this.bgColor='#D0E0C0'" onMouseOut="this.bgColor=''" >
+<td class="gt"><a href="index.php?op=gt&amp;lang=pol&amp;w=25po&amp;rid=A&amp;exac=&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date="> Pozostałe </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=B&amp;bdm=B&amp;w=25po"> 23393 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=D&amp;bdm=D&amp;w=25po"> 60398 </a></td>
+<td class="gt" align="right"><a href="index.php?op=gt&amp;lang=pol&amp;search_lastname=&amp;search_lastname2=&amp;from_date=&amp;to_date=&amp;exac=&amp;rid=S&amp;bdm=S&amp;w=25po"> 28678 </a></td></tr><tr><td class="gt"><b>Razem</b></td><td class="gt" align="right"> 34.366.801 </td><td class="gt" align="right"> 22.407.901 </td><td class="gt" align="right"> 9.312.470 </td></tr><tr><td class="head"></td><td class="head"></td><td class="head" align="right"></td><td class="head" align="right"> 66.087.172 </td></tr></table></center></td><td width="400" align="right">
+<iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FGenealodzyPL%2F153090808073768%23%21%2Fpages%2FGenealodzyPL%2F153090808073768%3Fv%3Dwall&amp;width=292&amp;colorscheme=light&amp;show_faces=true&amp;stream=true&amp;header=false&amp;height=700" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:600px;" allowTransparency="true"></iframe></td></table></center>			</td>
+		</tr>
+  
+  <tr>
+    <td class="pasek2">  
+	<center><a target="_blank" href="https://genealodzy.pl/donate-pol"><img src="images/donate.jpg" alt="donate"></a><br>
+            <font color="#333377">
+            <span id="online">
+                Online: 84,             </span>
+            ver. 1.80 &copy; 2010-2026 <a target="_blank" href="http://genealodzy.pl">Polskie Towarzystwo Genealogiczne</a></font>
+ ::
+	<script language="JavaScript" type="text/javascript">
+          user = "geneteka";
+          site = "genealodzy.pl";
+          document.write('<a href=\"mailto:' + user + '@' + site + '\">');
+          document.write('<Font class=fm> Administrator Geneteki <\/Font><\/a> ');
+          // End -->
+        </script> :: 
+		<p style="color:grey;">Producentem Geneteki (w rozumieniu ustawy o ochronie baz danych) jest Polskie Towarzystwo Genealogiczne</p>
+
+
+    </center></td>
+</tr>
+</table>
+</center>
+</body>
+</html>

@@ -8,25 +8,55 @@ import pytest
 
 from heredis_mcp.server import build_server
 
-EXPECTED_TOOLS = {
-    "search_persons",
-    "get_person",
-    "get_family",
-    "search_events",
-    "get_event",
-    "search_places",
-    "search_sources",
-    "get_source",
+HEREDIS_TOOLS = {
+    "heredis_search_persons",
+    "heredis_get_person",
+    "heredis_get_family",
+    "heredis_search_events",
+    "heredis_get_event",
+    "heredis_search_places",
+    "heredis_search_sources",
+    "heredis_get_source",
+}
+
+GENETEKA_TOOLS = {
+    "geneteka_list_regions",
+    "geneteka_search",
+    "geneteka_check_surname",
 }
 
 
-def test_build_server_registers_all_tools(db_path):
-    server = build_server(db_path)
+def _tool_names(server) -> set[str]:
     tools = asyncio.run(server.list_tools())
-    names = {t.name for t in tools}
-    assert EXPECTED_TOOLS.issubset(names)
+    return {t.name for t in tools}
+
+
+def test_build_server_registers_all_tools(db_path):
+    server = build_server(heredis_db=db_path)
+    names = _tool_names(server)
+    assert HEREDIS_TOOLS.issubset(names)
+    assert GENETEKA_TOOLS.issubset(names)
+
+
+def test_build_server_geneteka_only():
+    server = build_server(heredis_db=None, enable_geneteka=True)
+    names = _tool_names(server)
+    assert GENETEKA_TOOLS.issubset(names)
+    assert names.isdisjoint(HEREDIS_TOOLS)
+
+
+def test_build_server_heredis_only(db_path):
+    server = build_server(heredis_db=db_path, enable_geneteka=False)
+    names = _tool_names(server)
+    assert HEREDIS_TOOLS.issubset(names)
+    assert names.isdisjoint(GENETEKA_TOOLS)
+
+
+def test_build_server_rejects_no_sources():
+    with pytest.raises(ValueError):
+        build_server(heredis_db=None, enable_geneteka=False)
 
 
 def test_build_server_rejects_missing_file(tmp_path):
     with pytest.raises(FileNotFoundError):
-        build_server(tmp_path / "no-such-file.heredis")
+        build_server(heredis_db=tmp_path / "no-such-file.heredis")

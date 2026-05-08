@@ -1,8 +1,21 @@
 # heredis-mcp
 
-MCP server (Python) for Heredis genealogy software. Reads `.heredis` SQLite files.
+Multi-source MCP server (Python) for genealogy research.
 
-See [SCHEMA.md](SCHEMA.md) for the database schema.
+Two source tiers, layered under `src/heredis_mcp/sources/`:
+
+- **`heredis_*` tools** — read-only access to the user's `.heredis` SQLite
+  file. This is the **verified facts** tier: data the user has researched
+  and committed locally. See [SCHEMA.md](SCHEMA.md) for the schema.
+- **`geneteka_*` tools** — live search of https://geneteka.genealodzy.pl
+  (Polish parish-record indexes). This is the **research** tier — candidate
+  matches, never authoritative. The HTTP client is rate-limited
+  (`GENETEKA_MIN_INTERVAL`, default 5s) and uses a browser-style UA
+  because the upstream API rejects bot UAs with 403.
+
+To add a new source: create `sources/<name>/` with a `tools.py` that exposes
+`register(mcp, ...)`, then call it from `server.build_server`. Keep tool
+names prefixed with the source so they don't collide.
 
 ## Instructions
 
