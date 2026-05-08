@@ -12,6 +12,13 @@ Two source tiers, layered under `src/polish_genealogy_mcp/sources/`:
   matches, never authoritative. The HTTP client is rate-limited
   (`GENETEKA_MIN_INTERVAL`, default 5s) and uses a browser-style UA
   because the upstream API rejects bot UAs with 403.
+- **`genbaza_*` tools** — live search of the genbaza-family regional
+  vital-record indexes (`swietogen`, `polishgenealogy`, `warmia`,
+  `kurpie`, `pomerania`). All five share the same `/php/getdata.php`
+  endpoint with two row layouts; the parser handles both. Rate-limited
+  via `GENBAZA_MIN_INTERVAL` (default 5s). Surfaces `scan_url` to
+  `metryki.genbaza.pl` when the indexed entry links to a digitised
+  image (viewing scans typically requires a free GenBaza account).
 
 To add a new source: create `sources/<name>/` with a `tools.py` that exposes
 `register(mcp, ...)`, then call it from `server.build_server`. Keep tool
