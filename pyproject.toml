@@ -31,4 +31,4 @@ addopts = "-ra"
 
 [tool.black]
 line-length = 100
-target-version = ["py314"]
+target-version = ["py311"]

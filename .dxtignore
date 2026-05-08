@@ -1,0 +1,30 @@
+# Bytecode & caches
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+
+# Repo files irrelevant to the bundle
+.git/
+.github/
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.playwright-cli/
+.idea/
+.vscode/
+tests/
+dist/
+lib/
+scripts/
+*.heredis
+*.bak
+*~
+.DS_Store
+.python-version
+.tool-versions
+uv.lock
+CLAUDE.md
+CLAUDE.md~
+AGENTS.md
+SCHEMA.md

@@ -186,7 +186,7 @@ def _state_by_pid(message: dict[str, Any]) -> dict[str, Any]:
 def _change_type(change: list[Any]) -> str:
     try:
         return str(change[2][0])
-    except IndexError, TypeError:
+    except (IndexError, TypeError):
         return ""
 
 
