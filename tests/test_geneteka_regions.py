@@ -9,7 +9,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from heredis_mcp.sources.geneteka import regions as regions_mod
+from polish_genealogy_mcp.sources.geneteka import regions as regions_mod
 
 FIXTURES = Path(__file__).resolve().parent / "fixtures"
 

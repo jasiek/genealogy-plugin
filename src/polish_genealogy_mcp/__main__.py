@@ -1,9 +1,9 @@
 """Entry point for the genealogy MCP server.
 
 Usage:
-    heredis-mcp                                # live research sources only
-    heredis-mcp --heredis-db path/to/file.heredis
-    HEREDIS_DB=path/to/file heredis-mcp        # heredis + live research sources
+    polish-genealogy-mcp                                # live research sources only
+    polish-genealogy-mcp --heredis-db path/to/file.heredis
+    HEREDIS_DB=path/to/file polish-genealogy-mcp        # heredis + live research sources
 
 Environment overrides:
     HEREDIS_DB                — default --heredis-db
@@ -23,11 +23,11 @@ import os
 import sys
 from pathlib import Path
 
-from heredis_mcp.server import build_server
+from polish_genealogy_mcp.server import build_server
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(prog="heredis-mcp")
+    parser = argparse.ArgumentParser(prog="polish-genealogy-mcp")
     parser.add_argument(
         "--heredis-db",
         default=os.environ.get("HEREDIS_DB"),

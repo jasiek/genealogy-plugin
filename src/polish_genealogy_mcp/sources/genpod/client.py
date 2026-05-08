@@ -12,14 +12,14 @@ from typing import Any
 
 import httpx
 
-from heredis_mcp.sources.genpod.constants import (
+from polish_genealogy_mcp.sources.genpod.constants import (
     BASE_URL,
     DEFAULT_MIN_INTERVAL_SECONDS,
     DEFAULT_USER_AGENT,
     GRAPHQL_PATH,
     LOGIN_PATH,
 )
-from heredis_mcp.sources.genpod.models import GenpodRecordType
+from polish_genealogy_mcp.sources.genpod.models import GenpodRecordType
 
 SEARCH_VITAL_RECORDS_QUERY = """
 query SearchVitalRecords(

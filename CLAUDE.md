@@ -1,8 +1,8 @@
-# heredis-mcp
+# polish-genealogy-mcp
 
 Multi-source MCP server (Python) for genealogy research.
 
-Two source tiers, layered under `src/heredis_mcp/sources/`:
+Two source tiers, layered under `src/polish_genealogy_mcp/sources/`:
 
 - **`heredis_*` tools** — read-only access to the user's `.heredis` SQLite
   file. This is the **verified facts** tier: data the user has researched

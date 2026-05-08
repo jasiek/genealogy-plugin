@@ -6,7 +6,7 @@ import asyncio
 
 import pytest
 
-from heredis_mcp.server import build_server
+from polish_genealogy_mcp.server import build_server
 
 HEREDIS_TOOLS = {
     "heredis_search_persons",

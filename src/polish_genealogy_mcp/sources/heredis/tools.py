@@ -14,9 +14,9 @@ from typing import Iterator
 
 from fastmcp import FastMCP
 
-from heredis_mcp.sources.heredis import queries
-from heredis_mcp.sources.heredis.db import open_ro
-from heredis_mcp.sources.heredis.models import (
+from polish_genealogy_mcp.sources.heredis import queries
+from polish_genealogy_mcp.sources.heredis.db import open_ro
+from polish_genealogy_mcp.sources.heredis.models import (
     EventDetail,
     EventSearchResult,
     FamilyView,

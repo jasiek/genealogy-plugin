@@ -11,7 +11,7 @@ from urllib.parse import quote
 
 import httpx
 
-from heredis_mcp.sources.genealogia_w_archiwach.constants import (
+from polish_genealogy_mcp.sources.genealogia_w_archiwach.constants import (
     ACT_TYPE_KEYS,
     APP_PATH,
     BASE_URL,
@@ -21,12 +21,12 @@ from heredis_mcp.sources.genealogia_w_archiwach.constants import (
     SEARCH_SCOPE_KEYS,
     UIDL_PATH,
 )
-from heredis_mcp.sources.genealogia_w_archiwach.models import (
+from polish_genealogy_mcp.sources.genealogia_w_archiwach.models import (
     ActType,
     PersonRole,
     SearchScope,
 )
-from heredis_mcp.sources.genealogia_w_archiwach.parser import (
+from polish_genealogy_mcp.sources.genealogia_w_archiwach.parser import (
     parse_bootstrap_uidl,
     parse_uidl_text,
 )

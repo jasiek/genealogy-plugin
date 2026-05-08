@@ -11,7 +11,7 @@ from pathlib import Path
 
 import pytest
 
-from heredis_mcp.sources.geneteka.parser import (
+from polish_genealogy_mcp.sources.geneteka.parser import (
     _parse_uwagi,
     parse_rows,
     parse_total,

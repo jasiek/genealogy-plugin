@@ -8,8 +8,8 @@ from html import unescape
 from collections.abc import Iterable
 from typing import Any
 
-from heredis_mcp.sources.genealogia_w_archiwach.constants import BASE_URL
-from heredis_mcp.sources.genealogia_w_archiwach.models import (
+from polish_genealogy_mcp.sources.genealogia_w_archiwach.constants import BASE_URL
+from polish_genealogy_mcp.sources.genealogia_w_archiwach.models import (
     GenealogiaWArchiwachRecord,
 )
 

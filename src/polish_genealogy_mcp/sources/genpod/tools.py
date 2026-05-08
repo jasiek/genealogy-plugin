@@ -6,8 +6,8 @@ from typing import Literal
 
 from fastmcp import FastMCP
 
-from heredis_mcp.sources.genpod.client import GenpodClient, GenpodConfig
-from heredis_mcp.sources.genpod.models import (
+from polish_genealogy_mcp.sources.genpod.client import GenpodClient, GenpodConfig
+from polish_genealogy_mcp.sources.genpod.models import (
     GenpodParishCoverageResult,
     GenpodParishSummary,
     GenpodParishYearImportsResult,

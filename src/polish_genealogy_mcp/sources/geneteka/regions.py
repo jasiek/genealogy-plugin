@@ -8,8 +8,8 @@ week. On any failure we fall back to the static `REGIONS` dict in
 `constants.py` so the tool never goes dark.
 
 Cache layout: a single JSON file at
-`$XDG_CACHE_HOME/heredis-mcp/geneteka_regions.json` (falling back to
-`~/.cache/heredis-mcp/...`). Format:
+`$XDG_CACHE_HOME/polish-genealogy-mcp/geneteka_regions.json` (falling back to
+`~/.cache/polish-genealogy-mcp/...`). Format:
 
     {
       "fetched_at_epoch": 1715164800.123,
@@ -28,10 +28,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from heredis_mcp.sources.geneteka.constants import REGIONS as FALLBACK_REGIONS
+from polish_genealogy_mcp.sources.geneteka.constants import REGIONS as FALLBACK_REGIONS
 
 if TYPE_CHECKING:
-    from heredis_mcp.sources.geneteka.client import GenetekaClient
+    from polish_genealogy_mcp.sources.geneteka.client import GenetekaClient
 
 _REGION_LINK_RE = re.compile(r'<a[^>]*\bw=([0-9a-z]+)[^"]*"[^>]*>([^<]+)</a>')
 
@@ -51,7 +51,7 @@ def _ttl_seconds() -> float:
 
 def default_cache_path() -> Path:
     base = os.environ.get("XDG_CACHE_HOME") or str(Path.home() / ".cache")
-    return Path(base) / "heredis-mcp" / "geneteka_regions.json"
+    return Path(base) / "polish-genealogy-mcp" / "geneteka_regions.json"
 
 
 def parse_regions(html: str) -> dict[str, str]:

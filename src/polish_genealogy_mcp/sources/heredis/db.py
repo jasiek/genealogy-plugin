@@ -7,7 +7,7 @@ import unicodedata
 from datetime import date
 from pathlib import Path
 
-from heredis_mcp.sources.heredis.constants import COORD_NONE, DATE_TRI_NONE, SEX_FROM_CODE
+from polish_genealogy_mcp.sources.heredis.constants import COORD_NONE, DATE_TRI_NONE, SEX_FROM_CODE
 
 
 def open_ro(db_path: Path | str) -> sqlite3.Connection:

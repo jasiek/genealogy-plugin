@@ -12,15 +12,15 @@ from typing import Literal
 
 from fastmcp import FastMCP
 
-from heredis_mcp.sources.geneteka.client import GenetekaClient, GenetekaConfig
-from heredis_mcp.sources.geneteka.models import (
+from polish_genealogy_mcp.sources.geneteka.client import GenetekaClient, GenetekaConfig
+from polish_genealogy_mcp.sources.geneteka.models import (
     GenetekaRecord,
     GenetekaRegion,
     GenetekaSearchResult,
     RecordType,
 )
-from heredis_mcp.sources.geneteka.parser import parse_rows, parse_total
-from heredis_mcp.sources.geneteka.regions import get_regions
+from polish_genealogy_mcp.sources.geneteka.parser import parse_rows, parse_total
+from polish_genealogy_mcp.sources.geneteka.regions import get_regions
 
 
 def register(mcp: FastMCP, config: GenetekaConfig | None = None) -> GenetekaClient:

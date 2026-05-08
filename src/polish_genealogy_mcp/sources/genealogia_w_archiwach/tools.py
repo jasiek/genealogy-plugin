@@ -4,17 +4,17 @@ from __future__ import annotations
 
 from fastmcp import FastMCP
 
-from heredis_mcp.sources.genealogia_w_archiwach.client import (
+from polish_genealogy_mcp.sources.genealogia_w_archiwach.client import (
     GenealogiaWArchiwachClient,
     GenealogiaWArchiwachConfig,
 )
-from heredis_mcp.sources.genealogia_w_archiwach.models import (
+from polish_genealogy_mcp.sources.genealogia_w_archiwach.models import (
     ActType,
     GenealogiaWArchiwachSearchResult,
     PersonRole,
     SearchScope,
 )
-from heredis_mcp.sources.genealogia_w_archiwach.parser import (
+from polish_genealogy_mcp.sources.genealogia_w_archiwach.parser import (
     extract_urls,
     image_urls,
     parse_records,

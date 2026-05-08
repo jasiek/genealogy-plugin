@@ -27,17 +27,17 @@ from pathlib import Path
 
 from fastmcp import FastMCP
 
-from heredis_mcp.sources.genealogia_w_archiwach import (
+from polish_genealogy_mcp.sources.genealogia_w_archiwach import (
     register as register_genealogia_w_archiwach,
 )
-from heredis_mcp.sources.genealogia_w_archiwach.client import (
+from polish_genealogy_mcp.sources.genealogia_w_archiwach.client import (
     GenealogiaWArchiwachConfig,
 )
-from heredis_mcp.sources.genpod import register as register_genpod
-from heredis_mcp.sources.genpod.client import GenpodConfig
-from heredis_mcp.sources.geneteka import register as register_geneteka
-from heredis_mcp.sources.geneteka.client import GenetekaConfig
-from heredis_mcp.sources.heredis import register as register_heredis
+from polish_genealogy_mcp.sources.genpod import register as register_genpod
+from polish_genealogy_mcp.sources.genpod.client import GenpodConfig
+from polish_genealogy_mcp.sources.geneteka import register as register_geneteka
+from polish_genealogy_mcp.sources.geneteka.client import GenetekaConfig
+from polish_genealogy_mcp.sources.heredis import register as register_heredis
 
 INSTRUCTIONS = (
     "Genealogy MCP server. Two source tiers:\n"
@@ -74,7 +74,7 @@ def build_server(
     At least one source must be enabled. By default geneteka is on and
     heredis is enabled iff a path is provided.
     """
-    mcp = FastMCP(name="heredis-mcp", instructions=INSTRUCTIONS)
+    mcp = FastMCP(name="polish-genealogy-mcp", instructions=INSTRUCTIONS)
 
     if heredis_db is not None:
         register_heredis(mcp, heredis_db)

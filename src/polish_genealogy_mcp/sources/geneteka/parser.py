@@ -23,7 +23,7 @@ import html
 import re
 from typing import Iterable
 
-from heredis_mcp.sources.geneteka.models import (
+from polish_genealogy_mcp.sources.geneteka.models import (
     GenetekaPerson,
     GenetekaRecord,
     RecordType,

@@ -9,14 +9,14 @@ from dataclasses import dataclass
 
 import httpx
 
-from heredis_mcp.sources.geneteka.constants import (
+from polish_genealogy_mcp.sources.geneteka.constants import (
     API_PATH,
     BASE_URL,
     DEFAULT_MIN_INTERVAL_SECONDS,
     DEFAULT_USER_AGENT,
     RECORD_TYPE_TO_BDM,
 )
-from heredis_mcp.sources.geneteka.models import RecordType
+from polish_genealogy_mcp.sources.geneteka.models import RecordType
 
 
 @dataclass

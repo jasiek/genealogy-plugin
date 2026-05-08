@@ -4,20 +4,20 @@ from __future__ import annotations
 
 import sqlite3
 
-from heredis_mcp.sources.heredis.constants import (
+from polish_genealogy_mcp.sources.heredis.constants import (
     BIRTH_EVENT_TYPES,
     DEATH_EVENT_TYPES,
     EVENT_TYPE_LABELS,
     UNION_TYPE_LABELS,
 )
-from heredis_mcp.sources.heredis.db import (
+from polish_genealogy_mcp.sources.heredis.db import (
     coord_or_none,
     datetri_or_none,
     fold_ucd,
     sex_label,
     year_bounds,
 )
-from heredis_mcp.sources.heredis.models import (
+from polish_genealogy_mcp.sources.heredis.models import (
     EventDetail,
     EventSearchResult,
     EventSummary,
@@ -148,7 +148,7 @@ def search_persons(
         where.append("(n.NomUCD LIKE ? OR i.PrenomsUCD LIKE ?)")
         params.extend([f"%{folded}%", f"%{folded}%"])
     if sex:
-        from heredis_mcp.sources.heredis.constants import SEX_TO_CODE
+        from polish_genealogy_mcp.sources.heredis.constants import SEX_TO_CODE
 
         code = SEX_TO_CODE.get(sex.upper())
         if code is not None:
