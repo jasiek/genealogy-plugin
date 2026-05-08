@@ -1,6 +1,6 @@
 """FastMCP server multiplexing genealogy sources.
 
-Currently registers three tool groups:
+Currently registers these tool groups:
 
   - `heredis_*` — read-only access to the user's Heredis SQLite file. This
     is the *verified facts* tier: only data the user has researched and
@@ -17,6 +17,11 @@ Currently registers three tool groups:
   - `genpod_*` — authenticated live search of
     https://genpod.projektpodlasie.pl for Projekt Podlasie index candidates.
 
+  - `genbaza_*` — live search of the genbaza-family regional indexes
+    (swietogen, polishgenealogy, warmia, kurpie, pomerania). Surfaces
+    scan URLs on metryki.genbaza.pl when the indexed entry links to a
+    digitised image.
+
 New sources should follow the same shape: a `sources/<name>/tools.py` with
 a `register(mcp, ...)` function that adds prefixed tools.
 """
@@ -27,6 +32,8 @@ from pathlib import Path
 
 from fastmcp import FastMCP
 
+from polish_genealogy_mcp.sources.genbaza import register as register_genbaza
+from polish_genealogy_mcp.sources.genbaza.client import GenbazaConfig
 from polish_genealogy_mcp.sources.genealogia_w_archiwach import (
     register as register_genealogia_w_archiwach,
 )
@@ -53,10 +60,15 @@ INSTRUCTIONS = (
     "  - genpod_*: authenticated live search over Projekt Podlasie GenPod "
     "indexes — *research candidates only*. Requires GENPOD_USERNAME and "
     "GENPOD_PASSWORD in the server environment.\n"
+    "  - genbaza_*: live search over the genbaza-family regional vital-record "
+    "indexes (swietogen, polishgenealogy, warmia, kurpie, pomerania) — "
+    "*research candidates only*. Returns scan URLs when the indexed record "
+    "links to a digitised image (viewing the scan typically requires a free "
+    "GenBaza account).\n"
     "Workflow: call heredis_search_persons / heredis_get_family for "
     "context, then geneteka_search, genealogia_w_archiwach_search_person, "
-    "or genpod_search_vital_records to find candidate records, then present "
-    "matches for the user to confirm."
+    "genpod_search_vital_records, or genbaza_search to find candidate "
+    "records, then present matches for the user to confirm."
 )
 
 
@@ -65,9 +77,11 @@ def build_server(
     geneteka_config: GenetekaConfig | None = None,
     genealogia_w_archiwach_config: GenealogiaWArchiwachConfig | None = None,
     genpod_config: GenpodConfig | None = None,
+    genbaza_config: GenbazaConfig | None = None,
     enable_geneteka: bool = True,
     enable_genealogia_w_archiwach: bool = True,
     enable_genpod: bool = True,
+    enable_genbaza: bool = True,
 ) -> FastMCP:
     """Construct the unified FastMCP server.
 
@@ -88,16 +102,21 @@ def build_server(
     if enable_genpod:
         register_genpod(mcp, genpod_config)
 
+    if enable_genbaza:
+        register_genbaza(mcp, genbaza_config)
+
     if (
         heredis_db is None
         and not enable_geneteka
         and not enable_genealogia_w_archiwach
         and not enable_genpod
+        and not enable_genbaza
     ):
         raise ValueError(
             "build_server: at least one source must be enabled "
-            "(provide heredis_db, set enable_geneteka=True, or set "
-            "enable_genealogia_w_archiwach=True, or set enable_genpod=True)"
+            "(provide heredis_db, set enable_geneteka=True, "
+            "enable_genealogia_w_archiwach=True, enable_genpod=True, "
+            "or enable_genbaza=True)"
         )
 
     return mcp

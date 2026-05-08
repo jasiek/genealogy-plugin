@@ -1,7 +1,7 @@
 [project]
 name = "polish-genealogy-mcp"
 version = "0.2.0"
-description = "MCP server for genealogy: read-only access to a Heredis file (verified facts) plus live Geneteka parish-record search (research)."
+description = "MCP server for genealogy: read-only access to a Heredis file (verified facts) plus live Polish parish-record search (Geneteka, Genealogia w Archiwach, GenPod, genbaza family)."
 requires-python = ">=3.14"
 dependencies = [
     "fastmcp>=2.0",

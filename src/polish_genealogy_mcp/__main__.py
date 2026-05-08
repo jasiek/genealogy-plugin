@@ -14,6 +14,8 @@ Environment overrides:
                                 requests (default 5)
     GENEALOGIA_W_ARCHIWACH_USER_AGENT
                               — override the outgoing User-Agent
+    GENBAZA_MIN_INTERVAL      — seconds between genbaza requests (default 5)
+    GENBAZA_USER_AGENT        — override the outgoing User-Agent
 """
 
 from __future__ import annotations
@@ -47,6 +49,11 @@ def main() -> None:
         help="Disable the Genealogia w Archiwach research source.",
     )
     parser.add_argument(
+        "--no-genbaza",
+        action="store_true",
+        help="Disable the genbaza-family research source.",
+    )
+    parser.add_argument(
         "db_path",
         nargs="?",
         default=None,
@@ -57,14 +64,21 @@ def main() -> None:
     heredis_db = args.heredis_db or args.db_path
     enable_geneteka = not args.no_geneteka
     enable_genealogia_w_archiwach = not args.no_genealogia_w_archiwach
+    enable_genbaza = not args.no_genbaza
 
-    if not heredis_db and not enable_geneteka and not enable_genealogia_w_archiwach:
+    if (
+        not heredis_db
+        and not enable_geneteka
+        and not enable_genealogia_w_archiwach
+        and not enable_genbaza
+    ):
         parser.error("Nothing to do: pass --heredis-db or enable at least one research source.")
 
     server = build_server(
         heredis_db=Path(heredis_db) if heredis_db else None,
         enable_geneteka=enable_geneteka,
         enable_genealogia_w_archiwach=enable_genealogia_w_archiwach,
+        enable_genbaza=enable_genbaza,
     )
     server.run()
 

@@ -35,6 +35,12 @@ GENPOD_TOOLS = {
     "genpod_get_parish_year_imports",
 }
 
+GENBAZA_TOOLS = {
+    "genbaza_list_sites",
+    "genbaza_search",
+    "genbaza_list_resources",
+}
+
 
 def _tool_names(server) -> set[str]:
     tools = asyncio.run(server.list_tools())
@@ -48,6 +54,7 @@ def test_build_server_registers_all_tools(db_path):
     assert GENETEKA_TOOLS.issubset(names)
     assert GENEALOGIA_W_ARCHIWACH_TOOLS.issubset(names)
     assert GENPOD_TOOLS.issubset(names)
+    assert GENBAZA_TOOLS.issubset(names)
 
 
 def test_build_server_geneteka_only():
@@ -65,12 +72,14 @@ def test_build_server_heredis_only(db_path):
         enable_geneteka=False,
         enable_genealogia_w_archiwach=False,
         enable_genpod=False,
+        enable_genbaza=False,
     )
     names = _tool_names(server)
     assert HEREDIS_TOOLS.issubset(names)
     assert names.isdisjoint(GENETEKA_TOOLS)
     assert names.isdisjoint(GENEALOGIA_W_ARCHIWACH_TOOLS)
     assert names.isdisjoint(GENPOD_TOOLS)
+    assert names.isdisjoint(GENBAZA_TOOLS)
 
 
 def test_build_server_genealogia_w_archiwach_only():
@@ -79,12 +88,14 @@ def test_build_server_genealogia_w_archiwach_only():
         enable_geneteka=False,
         enable_genealogia_w_archiwach=True,
         enable_genpod=False,
+        enable_genbaza=False,
     )
     names = _tool_names(server)
     assert GENEALOGIA_W_ARCHIWACH_TOOLS.issubset(names)
     assert names.isdisjoint(HEREDIS_TOOLS)
     assert names.isdisjoint(GENETEKA_TOOLS)
     assert names.isdisjoint(GENPOD_TOOLS)
+    assert names.isdisjoint(GENBAZA_TOOLS)
 
 
 def test_build_server_genpod_only():
@@ -93,12 +104,30 @@ def test_build_server_genpod_only():
         enable_geneteka=False,
         enable_genealogia_w_archiwach=False,
         enable_genpod=True,
+        enable_genbaza=False,
     )
     names = _tool_names(server)
     assert GENPOD_TOOLS.issubset(names)
     assert names.isdisjoint(HEREDIS_TOOLS)
     assert names.isdisjoint(GENETEKA_TOOLS)
     assert names.isdisjoint(GENEALOGIA_W_ARCHIWACH_TOOLS)
+    assert names.isdisjoint(GENBAZA_TOOLS)
+
+
+def test_build_server_genbaza_only():
+    server = build_server(
+        heredis_db=None,
+        enable_geneteka=False,
+        enable_genealogia_w_archiwach=False,
+        enable_genpod=False,
+        enable_genbaza=True,
+    )
+    names = _tool_names(server)
+    assert GENBAZA_TOOLS.issubset(names)
+    assert names.isdisjoint(HEREDIS_TOOLS)
+    assert names.isdisjoint(GENETEKA_TOOLS)
+    assert names.isdisjoint(GENEALOGIA_W_ARCHIWACH_TOOLS)
+    assert names.isdisjoint(GENPOD_TOOLS)
 
 
 def test_build_server_rejects_no_sources():
@@ -108,6 +137,7 @@ def test_build_server_rejects_no_sources():
             enable_geneteka=False,
             enable_genealogia_w_archiwach=False,
             enable_genpod=False,
+            enable_genbaza=False,
         )
 
 
