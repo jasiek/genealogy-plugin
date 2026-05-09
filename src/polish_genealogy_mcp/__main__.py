@@ -26,21 +26,10 @@ from pathlib import Path
 from polish_genealogy_mcp._cli_config import (
     add_config_arguments,
     apply_cli_overrides,
+    dxt_env_vars,
     enabled_sources,
 )
 from polish_genealogy_mcp.server import build_server
-
-_DXT_ENV_VARS = (
-    "HEREDIS_DB",
-    "GEDCOM_PATH",
-    "GENETEKA_MIN_INTERVAL",
-    "GENEALOGIA_W_ARCHIWACH_MIN_INTERVAL",
-    "GENBAZA_MIN_INTERVAL",
-    "LUBGENS_MIN_INTERVAL",
-    "GENPOD_MIN_INTERVAL",
-    "GENPOD_USERNAME",
-    "GENPOD_PASSWORD",
-)
 
 
 def _scrub_dxt_templates() -> None:
@@ -50,7 +39,7 @@ def _scrub_dxt_templates() -> None:
     DXT runtime passes the literal `${user_config.<name>}` through as the env
     var rather than an empty string. Treat that as unset.
     """
-    for name in _DXT_ENV_VARS:
+    for name in dxt_env_vars():
         value = os.environ.get(name)
         if value is not None and "${" in value:
             os.environ.pop(name, None)
