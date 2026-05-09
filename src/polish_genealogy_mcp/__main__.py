@@ -32,6 +32,7 @@ from polish_genealogy_mcp.server import build_server
 
 _DXT_ENV_VARS = (
     "HEREDIS_DB",
+    "GEDCOM_PATH",
     "GENETEKA_MIN_INTERVAL",
     "GENEALOGIA_W_ARCHIWACH_MIN_INTERVAL",
     "GENBAZA_MIN_INTERVAL",
@@ -75,13 +76,18 @@ def main() -> None:
     apply_cli_overrides(args)
 
     heredis_db = os.environ.get("HEREDIS_DB") or args.db_path
+    gedcom_path = os.environ.get("GEDCOM_PATH")
     sources = enabled_sources(args)
 
-    if not heredis_db and not any(sources.values()):
-        parser.error("Nothing to do: pass --heredis-db or enable at least one research source.")
+    if not heredis_db and not gedcom_path and not any(sources.values()):
+        parser.error(
+            "Nothing to do: pass --heredis-db, --gedcom-path, "
+            "or enable at least one research source."
+        )
 
     server = build_server(
         heredis_db=Path(heredis_db) if heredis_db else None,
+        gedcom_path=Path(gedcom_path) if gedcom_path else None,
         **sources,
     )
     server.run()

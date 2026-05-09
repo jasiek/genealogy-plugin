@@ -7,6 +7,11 @@ Two source tiers, layered under `src/polish_genealogy_mcp/sources/`:
 - **`heredis_*` tools** — read-only access to the user's `.heredis` SQLite
   file. This is the **verified facts** tier: data the user has researched
   and committed locally. See [SCHEMA.md](SCHEMA.md) for the schema.
+- **`gedcom_*` tools** — same verified-facts tier loaded from a GEDCOM
+  file via `ged4py`. The file is parsed into in-memory dicts at startup;
+  queries run as pure Python scans. Activated when `GEDCOM_PATH` (env) or
+  `--gedcom-path` (CLI) is set. xref ids (`@I1@`, `@F1@`, `@S1@`) are
+  exposed verbatim; events get synthetic ids `<owner_xref>:<TAG>[#<n>]`.
 - **`geneteka_*` tools** — live search of https://geneteka.genealodzy.pl
   (Polish parish-record indexes). This is the **research** tier — candidate
   matches, never authoritative. The HTTP client is rate-limited

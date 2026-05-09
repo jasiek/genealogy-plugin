@@ -33,6 +33,11 @@ _ENV_FLAGS: tuple[tuple[str, str, str], ...] = (
         "Path to a .heredis SQLite file. Heredis tools register only when set.",
     ),
     (
+        "gedcom_path",
+        "GEDCOM_PATH",
+        "Path to a GEDCOM file. GEDCOM tools register only when set.",
+    ),
+    (
         "geneteka_min_interval",
         "GENETEKA_MIN_INTERVAL",
         "Seconds between Geneteka requests (default 5).",
