@@ -68,6 +68,35 @@ def test_parse_parish_links_requires_navigation_section() -> None:
         raise AssertionError("parse_parish_links should reject pages without #navigation")
 
 
+def test_fetch_page_verbose_prints_url(capsys) -> None:
+    module = load_script_module()
+
+    class Response:
+        text = "<html></html>"
+
+        def raise_for_status(self) -> None:
+            pass
+
+    class Session:
+        def get(self, url: str, timeout: float) -> Response:
+            assert url == "https://regestry.lubgens.eu/news.php"
+            assert timeout == 30.0
+            return Response()
+
+    assert (
+        module.fetch_page(
+            Session(),
+            "https://regestry.lubgens.eu/news.php",
+            30.0,
+            verbose=True,
+        )
+        == "<html></html>"
+    )
+
+    captured = capsys.readouterr()
+    assert captured.err == "Fetching https://regestry.lubgens.eu/news.php\n"
+
+
 def test_parse_parish_name_uses_name_after_place_comma() -> None:
     module = load_script_module()
     html = """

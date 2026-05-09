@@ -63,7 +63,11 @@ def extract_par_id(url: str) -> str:
     return values[0] if values else ""
 
 
-def fetch_page(session: requests.Session, url: str, timeout: float) -> str:
+def fetch_page(
+    session: requests.Session, url: str, timeout: float, *, verbose: bool = False
+) -> str:
+    if verbose:
+        print(f"Fetching {url}", file=sys.stderr)
     response = session.get(url, timeout=timeout)
     response.raise_for_status()
     return response.text
@@ -189,9 +193,10 @@ def fetch_index_years(
     category: str,
     decade: str,
     timeout: float,
+    verbose: bool,
 ) -> list[int]:
     query = urlencode({"par": par_id, "act": category, "decade": decade})
-    html = fetch_page(session, f"{INDEX_URL}?{query}", timeout)
+    html = fetch_page(session, f"{INDEX_URL}?{query}", timeout, verbose=verbose)
     return parse_years_from_index_html(html)
 
 
@@ -215,8 +220,9 @@ def crawl_parish(
     timeout: float,
     delay_seconds: float,
     exact_years: bool,
+    verbose: bool,
 ) -> list[LubgensBookRangeRow]:
-    parish_html = fetch_page(session, parish_link.url, timeout)
+    parish_html = fetch_page(session, parish_link.url, timeout, verbose=verbose)
     parish_name = parse_parish_name(parish_html, fallback=parish_link.label)
     decades_by_category = parse_decades(parish_html)
 
@@ -237,6 +243,7 @@ def crawl_parish(
                         category=category,
                         decade=decade,
                         timeout=timeout,
+                        verbose=verbose,
                     )
                 )
             if not years:
@@ -268,11 +275,14 @@ def crawl(
     delay_seconds: float,
     exact_years: bool,
     max_parishes: int | None,
+    verbose: bool,
 ) -> list[LubgensBookRangeRow]:
     session = requests.Session()
     session.headers.update({"User-Agent": USER_AGENT})
 
-    parish_links = parse_parish_links(fetch_page(session, base_url, timeout), base_url=base_url)
+    parish_links = parse_parish_links(
+        fetch_page(session, base_url, timeout, verbose=verbose), base_url=base_url
+    )
     if max_parishes is not None:
         parish_links = parish_links[:max_parishes]
 
@@ -287,6 +297,7 @@ def crawl(
                 timeout=timeout,
                 delay_seconds=delay_seconds,
                 exact_years=exact_years,
+                verbose=verbose,
             )
         )
         print(
@@ -345,6 +356,12 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         action="store_true",
         help="Use decade bucket bounds instead of fetching AJAX rows for exact years.",
     )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Print every crawled URL to stderr.",
+    )
     return parser.parse_args(argv)
 
 
@@ -356,6 +373,7 @@ def main(argv: list[str] | None = None) -> int:
         delay_seconds=args.delay,
         exact_years=not args.decade_bounds,
         max_parishes=args.max_parishes,
+        verbose=args.verbose,
     )
     write_csv(rows, args.output)
     print(f"Wrote {len(rows)} rows to {args.output}")
