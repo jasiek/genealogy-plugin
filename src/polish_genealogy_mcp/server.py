@@ -45,6 +45,8 @@ from polish_genealogy_mcp.sources.genpod.client import GenpodConfig
 from polish_genealogy_mcp.sources.geneteka import register as register_geneteka
 from polish_genealogy_mcp.sources.geneteka.client import GenetekaConfig
 from polish_genealogy_mcp.sources.heredis import register as register_heredis
+from polish_genealogy_mcp.sources.lubgens import register as register_lubgens
+from polish_genealogy_mcp.sources.lubgens.client import LubgensConfig
 
 INSTRUCTIONS = (
     "Genealogy MCP server. Two source tiers:\n"
@@ -65,10 +67,15 @@ INSTRUCTIONS = (
     "*research candidates only*. Returns scan URLs when the indexed record "
     "links to a digitised image (viewing the scan typically requires a free "
     "GenBaza account).\n"
+    "  - lubgens_*: live search over the Lubelskie Korzenie regional index "
+    "(https://regestry.lubgens.eu) of Lublin-area parish registers and USC "
+    "records — *research candidates only*. Returns scan URLs (typically "
+    "szukajwarchiwach.gov.pl or familysearch.org) when the indexed entry "
+    "links to a digitised image, plus best-effort parent extraction.\n"
     "Workflow: call heredis_search_persons / heredis_get_family for "
     "context, then geneteka_search, genealogia_w_archiwach_search_person, "
-    "genpod_search_vital_records, or genbaza_search to find candidate "
-    "records, then present matches for the user to confirm."
+    "genpod_search_vital_records, genbaza_search, or lubgens_search to "
+    "find candidate records, then present matches for the user to confirm."
 )
 
 
@@ -78,10 +85,12 @@ def build_server(
     genealogia_w_archiwach_config: GenealogiaWArchiwachConfig | None = None,
     genpod_config: GenpodConfig | None = None,
     genbaza_config: GenbazaConfig | None = None,
+    lubgens_config: LubgensConfig | None = None,
     enable_geneteka: bool = True,
     enable_genealogia_w_archiwach: bool = True,
     enable_genpod: bool = True,
     enable_genbaza: bool = True,
+    enable_lubgens: bool = True,
 ) -> FastMCP:
     """Construct the unified FastMCP server.
 
@@ -105,18 +114,22 @@ def build_server(
     if enable_genbaza:
         register_genbaza(mcp, genbaza_config)
 
+    if enable_lubgens:
+        register_lubgens(mcp, lubgens_config)
+
     if (
         heredis_db is None
         and not enable_geneteka
         and not enable_genealogia_w_archiwach
         and not enable_genpod
         and not enable_genbaza
+        and not enable_lubgens
     ):
         raise ValueError(
             "build_server: at least one source must be enabled "
             "(provide heredis_db, set enable_geneteka=True, "
             "enable_genealogia_w_archiwach=True, enable_genpod=True, "
-            "or enable_genbaza=True)"
+            "enable_genbaza=True, or enable_lubgens=True)"
         )
 
     return mcp

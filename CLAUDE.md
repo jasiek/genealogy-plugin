@@ -19,6 +19,15 @@ Two source tiers, layered under `src/polish_genealogy_mcp/sources/`:
   via `GENBAZA_MIN_INTERVAL` (default 5s). Surfaces `scan_url` to
   `metryki.genbaza.pl` when the indexed entry links to a digitised
   image (viewing scans typically requires a free GenBaza account).
+- **`lubgens_*` tools** — live search of https://regestry.lubgens.eu
+  ("Baza indeksów Lubelszczyzny"), the Lubelskie Korzenie regional
+  index of Lublin-area parish registers and USC. The form POSTs to
+  `viewpage.php?page_id=1057` and returns a full HTML page with up to
+  three result tables (births / marriages / deaths), each capped at
+  500 rows. Surfaces `scan_url` (typically szukajwarchiwach.gov.pl or
+  familysearch.org) and best-effort `father_name` / `mother_name`
+  extracted from the `UWAGI` cell. Rate-limited via
+  `LUBGENS_MIN_INTERVAL` (default 5s); browser-style UA required.
 
 To add a new source: create `sources/<name>/` with a `tools.py` that exposes
 `register(mcp, ...)`, then call it from `server.build_server`. Keep tool
