@@ -25,5 +25,6 @@ lib/
 
 # Personal Heredis fixtures — never commit
 *.heredis
+*.ged
 
 .env
