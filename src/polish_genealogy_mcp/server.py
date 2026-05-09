@@ -32,6 +32,7 @@ from pathlib import Path
 
 from fastmcp import FastMCP
 
+from polish_genealogy_mcp.sources.gedcom import register as register_gedcom
 from polish_genealogy_mcp.sources.genbaza import register as register_genbaza
 from polish_genealogy_mcp.sources.genbaza.client import GenbazaConfig
 from polish_genealogy_mcp.sources.genealogia_w_archiwach import (
@@ -52,6 +53,9 @@ INSTRUCTIONS = (
     "Genealogy MCP server. Two source tiers:\n"
     "  - heredis_*: the user's *verified facts* (their personal Heredis "
     "file). Treat as authoritative.\n"
+    "  - gedcom_*: the user's *verified facts* loaded from a GEDCOM file. "
+    "Same authoritative status as heredis_* — pick whichever source the "
+    "user has configured.\n"
     "  - geneteka_*: live search over Polish parish-record indexes — "
     "*research candidates only*. Do not propose changes to Heredis "
     "based on geneteka results without showing the candidates to the "
@@ -81,6 +85,7 @@ INSTRUCTIONS = (
 
 def build_server(
     heredis_db: Path | str | None = None,
+    gedcom_path: Path | str | None = None,
     geneteka_config: GenetekaConfig | None = None,
     genealogia_w_archiwach_config: GenealogiaWArchiwachConfig | None = None,
     genpod_config: GenpodConfig | None = None,
@@ -102,6 +107,9 @@ def build_server(
     if heredis_db is not None:
         register_heredis(mcp, heredis_db)
 
+    if gedcom_path is not None:
+        register_gedcom(mcp, gedcom_path)
+
     if enable_geneteka:
         register_geneteka(mcp, geneteka_config)
 
@@ -119,6 +127,7 @@ def build_server(
 
     if (
         heredis_db is None
+        and gedcom_path is None
         and not enable_geneteka
         and not enable_genealogia_w_archiwach
         and not enable_genpod
@@ -127,7 +136,7 @@ def build_server(
     ):
         raise ValueError(
             "build_server: at least one source must be enabled "
-            "(provide heredis_db, set enable_geneteka=True, "
+            "(provide heredis_db, gedcom_path, set enable_geneteka=True, "
             "enable_genealogia_w_archiwach=True, enable_genpod=True, "
             "enable_genbaza=True, or enable_lubgens=True)"
         )

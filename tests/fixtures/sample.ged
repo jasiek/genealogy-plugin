@@ -1,0 +1,65 @@
+0 HEAD
+1 SOUR test
+1 GEDC
+2 VERS 5.5.1
+2 FORM LINEAGE-LINKED
+1 CHAR UTF-8
+0 @I1@ INDI
+1 NAME Jan /Kowalski/
+1 SEX M
+1 BIRT
+2 DATE 1 JAN 1900
+2 PLAC Warszawa, Polska
+1 DEAT
+2 DATE 5 JUN 1970
+2 PLAC Kraków, Polska
+1 OCCU rolnik
+1 FAMS @F1@
+0 @I2@ INDI
+1 NAME Anna /Nowak/
+1 SEX F
+1 BIRT
+2 DATE 3 MAR 1905
+2 PLAC Warszawa, Polska
+1 FAMS @F1@
+0 @I3@ INDI
+1 NAME Piotr /Kowalski/
+1 SEX M
+1 BIRT
+2 DATE 10 JUL 1930
+2 PLAC Warszawa, Polska
+1 FAMC @F1@
+1 FAMS @F2@
+0 @I4@ INDI
+1 NAME Maria /Wiśniewska/
+1 SEX F
+1 BIRT
+2 DATE 12 FEB 1932
+2 PLAC Lublin, Polska
+1 FAMS @F2@
+0 @I5@ INDI
+1 NAME Ewa /Kowalska/
+1 SEX F
+1 BIRT
+2 DATE 15 AUG 1955
+2 PLAC Lublin, Polska
+1 FAMC @F2@
+0 @F1@ FAM
+1 HUSB @I1@
+1 WIFE @I2@
+1 CHIL @I3@
+1 MARR
+2 DATE 12 MAY 1925
+2 PLAC Warszawa, Polska
+0 @F2@ FAM
+1 HUSB @I3@
+1 WIFE @I4@
+1 CHIL @I5@
+1 MARR
+2 DATE 1 JUN 1953
+2 PLAC Lublin, Polska
+0 @S1@ SOUR
+1 TITL Księgi parafialne Warszawa
+1 AUTH Ksiądz X
+1 PUBL Archiwum
+0 TRLR
