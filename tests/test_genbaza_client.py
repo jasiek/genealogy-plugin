@@ -116,13 +116,48 @@ def test_search_uses_referer_matching_target_host():
     assert seen[0].headers["referer"] == "https://kurpie.genbaza.pl/"
 
 
-def test_search_propagates_http_errors():
+def test_search_propagates_http_errors(monkeypatch):
+    # Skip backoff between attempts to keep the test fast.
+    monkeypatch.setattr("polish_genealogy_mcp.sources._http_retry.time.sleep", lambda _s: None)
+
     def handler(request: httpx.Request) -> httpx.Response:
         return httpx.Response(503, text="oops")
 
     with _client_with(handler) as client:
         with pytest.raises(httpx.HTTPStatusError):
             client.search("swietogen", surname="x")
+
+
+def test_search_does_not_retry_non_5xx_errors():
+    seen: list[httpx.Request] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        seen.append(request)
+        return httpx.Response(404, text="missing")
+
+    with _client_with(handler) as client:
+        with pytest.raises(httpx.HTTPStatusError):
+            client.search("swietogen", surname="x")
+
+    assert len(seen) == 1
+
+
+def test_search_retries_transient_5xx_then_succeeds(monkeypatch):
+    monkeypatch.setattr("polish_genealogy_mcp.sources._http_retry.time.sleep", lambda _s: None)
+    seen: list[httpx.Request] = []
+    success = _read("swietogen_search.html")
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        seen.append(request)
+        if len(seen) < 3:
+            return httpx.Response(502, text="bad gateway")
+        return httpx.Response(200, text=success)
+
+    with _client_with(handler) as client:
+        result = client.search("swietogen", surname="Kowalski")
+
+    assert len(seen) == 3
+    assert result.site == "swietogen"
 
 
 def test_default_config_resolves_all_known_sites():

@@ -11,6 +11,7 @@ from urllib.parse import quote
 
 import httpx
 
+from polish_genealogy_mcp.sources._http_retry import RetryTransport
 from polish_genealogy_mcp.sources.genealogia_w_archiwach.constants import (
     ACT_TYPE_KEYS,
     APP_PATH,
@@ -90,6 +91,7 @@ class GenealogiaWArchiwachClient:
             headers={"User-Agent": self.config.user_agent},
             timeout=self.config.timeout_seconds,
             follow_redirects=True,
+            transport=RetryTransport(),
         )
         self._session: VaadinSession | None = None
 
@@ -219,6 +221,7 @@ class GenealogiaWArchiwachClient:
         }
         if extra:
             payload.update(extra)
+
         self._limiter.wait()
         resp = self._client.post(
             f"{UIDL_PATH}?v-uiId={session.ui_id}",

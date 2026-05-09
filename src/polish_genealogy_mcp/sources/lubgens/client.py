@@ -10,6 +10,7 @@ from typing import Iterable
 
 import httpx
 
+from polish_genealogy_mcp.sources._http_retry import RetryTransport
 from polish_genealogy_mcp.sources.lubgens.constants import (
     DEFAULT_BASE_URL,
     DEFAULT_MIN_INTERVAL_SECONDS,
@@ -82,7 +83,7 @@ class LubgensClient:
             },
             timeout=self.config.timeout_seconds,
             follow_redirects=True,
-            transport=transport,
+            transport=RetryTransport(transport),
         )
 
     def close(self) -> None:

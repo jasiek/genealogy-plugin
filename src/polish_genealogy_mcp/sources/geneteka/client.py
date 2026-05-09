@@ -9,6 +9,7 @@ from dataclasses import dataclass
 
 import httpx
 
+from polish_genealogy_mcp.sources._http_retry import RetryTransport
 from polish_genealogy_mcp.sources.geneteka.constants import (
     API_PATH,
     BASE_URL,
@@ -74,6 +75,7 @@ class GenetekaClient:
             },
             timeout=self.config.timeout_seconds,
             follow_redirects=True,
+            transport=RetryTransport(),
         )
 
     def close(self) -> None:
@@ -140,6 +142,7 @@ class GenetekaClient:
         code parses that into the canonical region table. Rate-limited via
         the same limiter as `search`.
         """
+
         self._limiter.wait()
         resp = self._client.get(
             "/index.php",
