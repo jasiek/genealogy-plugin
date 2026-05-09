@@ -13,6 +13,7 @@ dependencies = [
 
 [project.scripts]
 polish-genealogy-mcp = "polish_genealogy_mcp.__main__:main"
+polish-genealogy-mcp-call = "polish_genealogy_mcp.call:main"
 
 [dependency-groups]
 dev = [
