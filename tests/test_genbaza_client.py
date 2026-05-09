@@ -118,7 +118,7 @@ def test_search_uses_referer_matching_target_host():
 
 def test_search_propagates_http_errors(monkeypatch):
     # Skip backoff between attempts to keep the test fast.
-    monkeypatch.setenv("GENEALOGY_RETRY_BASE_DELAY", "0")
+    monkeypatch.setattr("polish_genealogy_mcp.sources._http_retry.time.sleep", lambda _s: None)
 
     def handler(request: httpx.Request) -> httpx.Response:
         return httpx.Response(503, text="oops")
@@ -143,7 +143,7 @@ def test_search_does_not_retry_non_5xx_errors():
 
 
 def test_search_retries_transient_5xx_then_succeeds(monkeypatch):
-    monkeypatch.setenv("GENEALOGY_RETRY_BASE_DELAY", "0")
+    monkeypatch.setattr("polish_genealogy_mcp.sources._http_retry.time.sleep", lambda _s: None)
     seen: list[httpx.Request] = []
     success = _read("swietogen_search.html")
 

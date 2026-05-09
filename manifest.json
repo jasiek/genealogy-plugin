@@ -30,10 +30,7 @@
         "LUBGENS_MIN_INTERVAL": "${user_config.lubgens_min_interval}",
         "GENPOD_MIN_INTERVAL": "${user_config.genpod_min_interval}",
         "GENPOD_USERNAME": "${user_config.genpod_username}",
-        "GENPOD_PASSWORD": "${user_config.genpod_password}",
-        "GENEALOGY_RETRY_MAX_ATTEMPTS": "${user_config.genealogy_retry_max_attempts}",
-        "GENEALOGY_RETRY_BASE_DELAY": "${user_config.genealogy_retry_base_delay}",
-        "GENEALOGY_RETRY_MAX_DELAY": "${user_config.genealogy_retry_max_delay}"
+        "GENPOD_PASSWORD": "${user_config.genpod_password}"
       }
     }
   },
@@ -98,27 +95,6 @@
       "description": "Password for Projekt Podlasie GenPod. Required to enable genpod_* tools.",
       "required": false,
       "sensitive": true
-    },
-    "genealogy_retry_max_attempts": {
-      "type": "string",
-      "title": "Transient retry attempts",
-      "description": "Total HTTP attempts (including the first) when an upstream returns 502/503/504 or drops the connection. Default 3.",
-      "default": "3",
-      "required": false
-    },
-    "genealogy_retry_base_delay": {
-      "type": "string",
-      "title": "Transient retry base delay (seconds)",
-      "description": "Initial backoff between retry attempts in seconds. Doubles each attempt up to the max delay. Default 1.",
-      "default": "1",
-      "required": false
-    },
-    "genealogy_retry_max_delay": {
-      "type": "string",
-      "title": "Transient retry max delay (seconds)",
-      "description": "Upper bound on a single retry backoff in seconds. Default 30.",
-      "default": "30",
-      "required": false
     }
   }
 }

@@ -185,42 +185,6 @@ CONFIG_ENTRIES: tuple[ConfigEntry, ...] = (
         manifest_description="Password for Projekt Podlasie GenPod. Required to enable genpod_* tools.",
         sensitive=True,
     ),
-    ConfigEntry(
-        dest="genealogy_retry_max_attempts",
-        env_var="GENEALOGY_RETRY_MAX_ATTEMPTS",
-        help="Total HTTP attempts (incl. first) on transient upstream errors (default 3).",
-        expose_in_manifest=True,
-        manifest_type="string",
-        manifest_title="Transient retry attempts",
-        manifest_description=(
-            "Total HTTP attempts (including the first) when an upstream returns "
-            "502/503/504 or drops the connection. Default 3."
-        ),
-        manifest_default="3",
-    ),
-    ConfigEntry(
-        dest="genealogy_retry_base_delay",
-        env_var="GENEALOGY_RETRY_BASE_DELAY",
-        help="Initial backoff in seconds; doubles each attempt (default 1).",
-        expose_in_manifest=True,
-        manifest_type="string",
-        manifest_title="Transient retry base delay (seconds)",
-        manifest_description=(
-            "Initial backoff between retry attempts in seconds. Doubles each "
-            "attempt up to the max delay. Default 1."
-        ),
-        manifest_default="1",
-    ),
-    ConfigEntry(
-        dest="genealogy_retry_max_delay",
-        env_var="GENEALOGY_RETRY_MAX_DELAY",
-        help="Cap on a single retry backoff in seconds (default 30).",
-        expose_in_manifest=True,
-        manifest_type="string",
-        manifest_title="Transient retry max delay (seconds)",
-        manifest_description=("Upper bound on a single retry backoff in seconds. Default 30."),
-        manifest_default="30",
-    ),
 )
 
 # (cli_dest, help_text) — boolean toggles, default False (i.e. source is enabled).
