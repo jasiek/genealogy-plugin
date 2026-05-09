@@ -1,0 +1,1 @@
+- Before invoking a tool, build an index of what is available where by crawling data source pages, only then load the tool.
