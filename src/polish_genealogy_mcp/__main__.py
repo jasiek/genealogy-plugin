@@ -27,8 +27,30 @@ from pathlib import Path
 
 from polish_genealogy_mcp.server import build_server
 
+_DXT_ENV_VARS = (
+    "HEREDIS_DB",
+    "GENETEKA_MIN_INTERVAL",
+    "GENEALOGIA_W_ARCHIWACH_MIN_INTERVAL",
+    "GENPOD_USERNAME",
+    "GENPOD_PASSWORD",
+)
+
+
+def _scrub_dxt_templates() -> None:
+    """Drop env vars whose value is still an unsubstituted DXT template.
+
+    When a Claude Desktop user leaves an optional user_config field blank, the
+    DXT runtime passes the literal `${user_config.<name>}` through as the env
+    var rather than an empty string. Treat that as unset.
+    """
+    for name in _DXT_ENV_VARS:
+        value = os.environ.get(name)
+        if value is not None and "${" in value:
+            os.environ.pop(name, None)
+
 
 def main() -> None:
+    _scrub_dxt_templates()
     parser = argparse.ArgumentParser(prog="polish-genealogy-mcp")
     parser.add_argument(
         "--heredis-db",
