@@ -2,7 +2,7 @@
   "dxt_version": "0.1",
   "name": "polish-genealogy-mcp",
   "display_name": "Polish Genealogy",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Heredis (read-only) + Geneteka and Genealogia w Archiwach search for Polish genealogy research.",
   "long_description": "Multi-source MCP server for Polish genealogy. Two tiers: (1) read-only access to a local Heredis SQLite file (verified facts), and (2) live search of the Geneteka parish-record indexes and Genealogia w Archiwach (research candidates). Live sources are rate-limited and use a browser-style User-Agent. Requires Python 3.10+ available on PATH; runtime dependencies are pip-installed into the extension directory on first run.",
   "author": {
