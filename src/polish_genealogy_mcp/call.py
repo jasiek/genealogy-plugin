@@ -1,5 +1,9 @@
 """CLI for invoking individual MCP tools without an MCP client.
 
+Configuration is read with the same precedence as the server itself:
+CLI flag > environment variable > built-in default. Run with `--help`
+for the full list of config flags.
+
 Examples:
 
     # list every registered tool
@@ -27,6 +31,11 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from polish_genealogy_mcp._cli_config import (
+    add_config_arguments,
+    apply_cli_overrides,
+    enabled_sources,
+)
 from polish_genealogy_mcp.server import build_server
 
 
@@ -70,8 +79,11 @@ def _serialize_result(result: Any) -> Any:
 
 
 async def _run(args: argparse.Namespace) -> int:
-    heredis_db = args.heredis_db or os.environ.get("HEREDIS_DB")
-    server = build_server(heredis_db=Path(heredis_db) if heredis_db else None)
+    heredis_db = os.environ.get("HEREDIS_DB")
+    server = build_server(
+        heredis_db=Path(heredis_db) if heredis_db else None,
+        **enabled_sources(args),
+    )
     tools = await server.list_tools()
     by_name = {t.name: t for t in tools}
 
@@ -116,13 +128,12 @@ async def _run(args: argparse.Namespace) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(
         prog="polish-genealogy-mcp-call",
-        description="Invoke an individual tool registered with the MCP server.",
+        description=(
+            "Invoke an individual tool registered with the MCP server. "
+            "Config precedence: CLI flag > environment variable > default."
+        ),
     )
-    parser.add_argument(
-        "--heredis-db",
-        default=None,
-        help="Path to .heredis SQLite file (also picked up from $HEREDIS_DB).",
-    )
+    add_config_arguments(parser)
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--list", action="store_true", help="List registered tools and exit.")
     mode.add_argument("--tool", help="Name of the tool to invoke or inspect.")
@@ -145,6 +156,7 @@ def main() -> int:
     if not args.list and not args.tool:
         parser.error("either --list or --tool is required")
 
+    apply_cli_overrides(args)
     return asyncio.run(_run(args))
 
 

@@ -25,6 +25,9 @@
         "HEREDIS_DB": "${user_config.heredis_db}",
         "GENETEKA_MIN_INTERVAL": "${user_config.geneteka_min_interval}",
         "GENEALOGIA_W_ARCHIWACH_MIN_INTERVAL": "${user_config.genealogia_w_archiwach_min_interval}",
+        "GENBAZA_MIN_INTERVAL": "${user_config.genbaza_min_interval}",
+        "LUBGENS_MIN_INTERVAL": "${user_config.lubgens_min_interval}",
+        "GENPOD_MIN_INTERVAL": "${user_config.genpod_min_interval}",
         "GENPOD_USERNAME": "${user_config.genpod_username}",
         "GENPOD_PASSWORD": "${user_config.genpod_password}"
       }
@@ -48,6 +51,27 @@
       "type": "string",
       "title": "Genealogia w Archiwach rate limit (seconds)",
       "description": "Minimum interval between Genealogia w Archiwach requests. Default 5.",
+      "default": "5",
+      "required": false
+    },
+    "genbaza_min_interval": {
+      "type": "string",
+      "title": "GenBaza rate limit (seconds)",
+      "description": "Minimum interval between GenBaza requests. Default 5.",
+      "default": "5",
+      "required": false
+    },
+    "lubgens_min_interval": {
+      "type": "string",
+      "title": "Lubgens rate limit (seconds)",
+      "description": "Minimum interval between Lubgens (regestry.lubgens.eu) requests. Default 5.",
+      "default": "5",
+      "required": false
+    },
+    "genpod_min_interval": {
+      "type": "string",
+      "title": "GenPod rate limit (seconds)",
+      "description": "Minimum interval between GenPod requests. Default 5.",
       "default": "5",
       "required": false
     },
