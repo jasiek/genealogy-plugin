@@ -80,8 +80,10 @@ def _serialize_result(result: Any) -> Any:
 
 async def _run(args: argparse.Namespace) -> int:
     heredis_db = os.environ.get("HEREDIS_DB")
+    gedcom_path = os.environ.get("GEDCOM_PATH")
     server = build_server(
         heredis_db=Path(heredis_db) if heredis_db else None,
+        gedcom_path=Path(gedcom_path) if gedcom_path else None,
         **enabled_sources(args),
     )
     tools = await server.list_tools()
