@@ -41,9 +41,11 @@ names prefixed with the source so they don't collide.
 ## Instructions
 
 * To determine if a change was successful, run the test suite.
+* If you added a new tool, run uv run  polish-genealogy-mcp-call --list to see that it was added. Additional configuration may be needed for it to become visible.
+* Ensure that there are corresponding configuration options surfaced via manifest.json
 * Before committing, format code using black.
 * Manage dependencies using uv.
-* Use python 3.14.3 (provided via asdf here).
+* Use python >= 3.11.
 * When a change is complete and working, create a descriptive message of what was the objective of the change, and what was changed.
 * When in doubt, ask questions and provide options.
 * Spawn sub-agents to reduce context pollution (for summarizing, running tools, etc)
