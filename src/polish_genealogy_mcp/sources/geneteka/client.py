@@ -9,7 +9,7 @@ from dataclasses import dataclass
 
 import httpx
 
-from polish_genealogy_mcp.sources._http_retry import request_with_retry
+from polish_genealogy_mcp.sources._http_retry import RetryTransport
 from polish_genealogy_mcp.sources.geneteka.constants import (
     API_PATH,
     BASE_URL,
@@ -75,6 +75,7 @@ class GenetekaClient:
             },
             timeout=self.config.timeout_seconds,
             follow_redirects=True,
+            transport=RetryTransport(),
         )
 
     def close(self) -> None:
@@ -129,11 +130,8 @@ class GenetekaClient:
         if exact:
             params["exac"] = 1
 
-        def _send() -> httpx.Response:
-            self._limiter.wait()
-            return self._client.get(API_PATH, params=params)
-
-        resp = request_with_retry(_send)
+        self._limiter.wait()
+        resp = self._client.get(API_PATH, params=params)
         resp.raise_for_status()
         return resp.json()
 
@@ -145,13 +143,10 @@ class GenetekaClient:
         the same limiter as `search`.
         """
 
-        def _send() -> httpx.Response:
-            self._limiter.wait()
-            return self._client.get(
-                "/index.php",
-                params={"op": "se", "lang": "pol"},
-            )
-
-        resp = request_with_retry(_send)
+        self._limiter.wait()
+        resp = self._client.get(
+            "/index.php",
+            params={"op": "se", "lang": "pol"},
+        )
         resp.raise_for_status()
         return resp.text

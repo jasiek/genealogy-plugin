@@ -10,7 +10,7 @@ from typing import Iterable
 
 import httpx
 
-from polish_genealogy_mcp.sources._http_retry import request_with_retry
+from polish_genealogy_mcp.sources._http_retry import RetryTransport
 from polish_genealogy_mcp.sources.lubgens.constants import (
     DEFAULT_BASE_URL,
     DEFAULT_MIN_INTERVAL_SECONDS,
@@ -83,7 +83,7 @@ class LubgensClient:
             },
             timeout=self.config.timeout_seconds,
             follow_redirects=True,
-            transport=transport,
+            transport=RetryTransport(transport),
         )
 
     def close(self) -> None:
@@ -136,15 +136,12 @@ class LubgensClient:
             }
         )
 
-        def _send() -> httpx.Response:
-            self._limiter.wait()
-            return self._client.post(
-                SEARCH_PATH,
-                data=data,
-                headers={"Referer": f"{self.config.base_url}/news.php"},
-            )
-
-        resp = request_with_retry(_send)
+        self._limiter.wait()
+        resp = self._client.post(
+            SEARCH_PATH,
+            data=data,
+            headers={"Referer": f"{self.config.base_url}/news.php"},
+        )
         resp.raise_for_status()
         # Upstream occasionally splits a multi-byte UTF-8 character with
         # an inline <span> highlight wrapper, leaving stray invalid

@@ -9,7 +9,7 @@ from dataclasses import dataclass, field
 
 import httpx
 
-from polish_genealogy_mcp.sources._http_retry import request_with_retry
+from polish_genealogy_mcp.sources._http_retry import RetryTransport
 from polish_genealogy_mcp.sources.genbaza.constants import (
     DEFAULT_COOKIES,
     DEFAULT_MIN_INTERVAL_SECONDS,
@@ -96,7 +96,7 @@ class GenbazaClient:
             cookies=DEFAULT_COOKIES,
             timeout=self.config.timeout_seconds,
             follow_redirects=True,
-            transport=transport,
+            transport=RetryTransport(transport),
         )
 
     def close(self) -> None:
@@ -216,15 +216,12 @@ class GenbazaClient:
             raise ValueError(f"Unknown genbaza site {site!r}. Known: {known}") from exc
 
     def _get(self, base: str, params: dict[str, str]) -> str:
-        def _send() -> httpx.Response:
-            self._limiter.wait()
-            return self._client.get(
-                f"{base}{ENDPOINT_PATH}",
-                params=params,
-                headers={"Referer": f"{base}/"},
-            )
-
-        resp = request_with_retry(_send)
+        self._limiter.wait()
+        resp = self._client.get(
+            f"{base}{ENDPOINT_PATH}",
+            params=params,
+            headers={"Referer": f"{base}/"},
+        )
         resp.raise_for_status()
         return resp.text
 

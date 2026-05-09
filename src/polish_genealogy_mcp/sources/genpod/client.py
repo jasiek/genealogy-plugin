@@ -12,7 +12,7 @@ from typing import Any
 
 import httpx
 
-from polish_genealogy_mcp.sources._http_retry import request_with_retry
+from polish_genealogy_mcp.sources._http_retry import RetryTransport
 from polish_genealogy_mcp.sources.genpod.constants import (
     BASE_URL,
     DEFAULT_MIN_INTERVAL_SECONDS,
@@ -221,7 +221,7 @@ class GenpodClient:
             },
             timeout=self.config.timeout_seconds,
             follow_redirects=True,
-            transport=transport,
+            transport=RetryTransport(transport),
         )
         self._authenticated = False
 
@@ -313,20 +313,16 @@ class GenpodClient:
         variables: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         self._ensure_authenticated()
-
-        def _send() -> httpx.Response:
-            self._limiter.wait()
-            return self._client.post(
-                GRAPHQL_PATH,
-                json={
-                    "operationName": operation_name,
-                    "variables": variables or {},
-                    "query": query,
-                },
-                headers={"Content-Type": "application/json"},
-            )
-
-        resp = request_with_retry(_send)
+        self._limiter.wait()
+        resp = self._client.post(
+            GRAPHQL_PATH,
+            json={
+                "operationName": operation_name,
+                "variables": variables or {},
+                "query": query,
+            },
+            headers={"Content-Type": "application/json"},
+        )
         resp.raise_for_status()
         payload = resp.json()
         errors = payload.get("errors")
@@ -345,30 +341,19 @@ class GenpodClient:
                 "GenPod credentials are required. Set GENPOD_USERNAME and GENPOD_PASSWORD."
             )
 
-        def _login_get() -> httpx.Response:
-            self._limiter.wait()
-            return self._client.get(LOGIN_PATH)
-
-        request_with_retry(_login_get).raise_for_status()
-
-        def _login_post() -> httpx.Response:
-            self._limiter.wait()
-            return self._client.post(
-                LOGIN_PATH,
-                data={"username": self.config.username, "password": self.config.password},
-                headers={"Content-Type": "application/x-www-form-urlencoded"},
-            )
-
-        login = request_with_retry(_login_post)
+        self._limiter.wait()
+        self._client.get(LOGIN_PATH).raise_for_status()
+        self._limiter.wait()
+        login = self._client.post(
+            LOGIN_PATH,
+            data={"username": self.config.username, "password": self.config.password},
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
+        )
         login.raise_for_status()
         user = _react_context_user(login.text)
         if user is None:
-
-            def _home_get() -> httpx.Response:
-                self._limiter.wait()
-                return self._client.get("/")
-
-            home = request_with_retry(_home_get)
+            self._limiter.wait()
+            home = self._client.get("/")
             home.raise_for_status()
             user = _react_context_user(home.text)
         if user is None:

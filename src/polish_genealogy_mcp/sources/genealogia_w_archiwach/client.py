@@ -11,7 +11,7 @@ from urllib.parse import quote
 
 import httpx
 
-from polish_genealogy_mcp.sources._http_retry import request_with_retry
+from polish_genealogy_mcp.sources._http_retry import RetryTransport
 from polish_genealogy_mcp.sources.genealogia_w_archiwach.constants import (
     ACT_TYPE_KEYS,
     APP_PATH,
@@ -91,6 +91,7 @@ class GenealogiaWArchiwachClient:
             headers={"User-Agent": self.config.user_agent},
             timeout=self.config.timeout_seconds,
             follow_redirects=True,
+            transport=RetryTransport(),
         )
         self._session: VaadinSession | None = None
 
@@ -157,23 +158,16 @@ class GenealogiaWArchiwachClient:
         if self._session is not None:
             return self._session
 
-        def _bootstrap_get() -> httpx.Response:
-            self._limiter.wait()
-            return self._client.get(f"{APP_PATH}?locale=pl#")
-
-        request_with_retry(_bootstrap_get)
+        self._limiter.wait()
+        self._client.get(f"{APP_PATH}?locale=pl#")
 
         params = self._browser_details_params()
-
-        def _bootstrap_post() -> httpx.Response:
-            self._limiter.wait()
-            return self._client.post(
-                f"{APP_PATH}?locale=pl&v-{int(time.time() * 1000)}",
-                content=params,
-                headers={"Content-Type": "application/x-www-form-urlencoded"},
-            )
-
-        resp = request_with_retry(_bootstrap_post)
+        self._limiter.wait()
+        resp = self._client.post(
+            f"{APP_PATH}?locale=pl&v-{int(time.time() * 1000)}",
+            content=params,
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
+        )
         resp.raise_for_status()
         uidl = parse_bootstrap_uidl(resp.text)
         self._session = VaadinSession(
@@ -228,18 +222,15 @@ class GenealogiaWArchiwachClient:
         if extra:
             payload.update(extra)
 
-        def _send() -> httpx.Response:
-            self._limiter.wait()
-            return self._client.post(
-                f"{UIDL_PATH}?v-uiId={session.ui_id}",
-                json=payload,
-                headers={
-                    "Content-Type": "application/json; charset=UTF-8",
-                    "Accept": "application/json",
-                },
-            )
-
-        resp = request_with_retry(_send)
+        self._limiter.wait()
+        resp = self._client.post(
+            f"{UIDL_PATH}?v-uiId={session.ui_id}",
+            json=payload,
+            headers={
+                "Content-Type": "application/json; charset=UTF-8",
+                "Accept": "application/json",
+            },
+        )
         resp.raise_for_status()
         messages = parse_uidl_text(resp.text)
         if messages:

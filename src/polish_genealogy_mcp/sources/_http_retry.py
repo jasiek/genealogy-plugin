@@ -1,10 +1,21 @@
-"""Transient-error retry helper for live HTTP sources.
+"""Transient-error retry middleware for httpx clients.
 
-Upstream genealogy sites (geneteka, genbaza, lubgens, ...) intermittently
-return 5xx responses or briefly drop the connection. Surfacing those as
-tool failures is unhelpful — a short exponential backoff almost always
-recovers. The helper here wraps a single request callable, retries on
-transient failures, and re-raises the last error if every attempt fails.
+Upstream genealogy sites (Geneteka, GenBaza, Lubgens, ...) intermittently
+return 5xx responses or briefly drop the connection. ``RetryTransport``
+wraps another ``httpx.BaseTransport`` and re-issues each request with
+full-jitter exponential backoff on:
+
+* ``httpx.TransportError`` / ``httpx.TimeoutException``
+* HTTP 502 / 503 / 504
+
+Use it once at client construction; retry then becomes invisible to call
+sites:
+
+    client = httpx.Client(transport=RetryTransport(), ...)
+
+If retries are exhausted on a 5xx, the last response is returned as-is
+(the caller's ``raise_for_status`` keeps its old behaviour). If retries
+are exhausted on a transport error, the last exception is re-raised.
 """
 
 from __future__ import annotations
@@ -12,7 +23,6 @@ from __future__ import annotations
 import logging
 import random
 import time
-from typing import Callable
 
 import httpx
 
@@ -25,54 +35,63 @@ BASE_DELAY_SECONDS = 1.0
 MAX_DELAY_SECONDS = 30.0
 
 
-def request_with_retry(
-    send: Callable[[], httpx.Response],
-    *,
-    max_attempts: int = MAX_ATTEMPTS,
-    base_delay: float = BASE_DELAY_SECONDS,
-    max_delay: float = MAX_DELAY_SECONDS,
-    retry_statuses: frozenset[int] = RETRYABLE_STATUS_CODES,
-    sleep: Callable[[float], None] = time.sleep,
-) -> httpx.Response:
-    """Call ``send`` and retry on transient HTTP errors.
+class RetryTransport(httpx.BaseTransport):
+    """An ``httpx`` transport that retries on transient errors."""
 
-    Transient = an ``httpx`` transport/timeout error or a response whose
-    status is in ``retry_statuses``. Non-transient responses are returned
-    as-is (the caller is still responsible for ``raise_for_status``).
-    """
-    attempts = max(1, max_attempts)
+    def __init__(
+        self,
+        wrapped: httpx.BaseTransport | None = None,
+        *,
+        max_attempts: int = MAX_ATTEMPTS,
+        base_delay: float = BASE_DELAY_SECONDS,
+        max_delay: float = MAX_DELAY_SECONDS,
+        retry_statuses: frozenset[int] = RETRYABLE_STATUS_CODES,
+    ) -> None:
+        self._wrapped = wrapped if wrapped is not None else httpx.HTTPTransport()
+        self._max_attempts = max(1, max_attempts)
+        self._base_delay = base_delay
+        self._max_delay = max_delay
+        self._retry_statuses = retry_statuses
 
-    last_exc: BaseException | None = None
-    for attempt in range(1, attempts + 1):
-        status: int | None = None
-        try:
-            resp = send()
-        except (httpx.TransportError, httpx.TimeoutException) as exc:
-            last_exc = exc
-        else:
-            status = resp.status_code
-            if status not in retry_statuses:
-                return resp
-            last_exc = httpx.HTTPStatusError(
-                f"Upstream returned {status}",
-                request=resp.request,
-                response=resp,
+    def handle_request(self, request: httpx.Request) -> httpx.Response:
+        last_exc: BaseException | None = None
+        last_resp: httpx.Response | None = None
+
+        for attempt in range(1, self._max_attempts + 1):
+            status: int | None = None
+            try:
+                resp = self._wrapped.handle_request(request)
+            except (httpx.TransportError, httpx.TimeoutException) as exc:
+                last_exc, last_resp = exc, None
+            else:
+                status = resp.status_code
+                if status not in self._retry_statuses:
+                    return resp
+                # Buffer the body so the caller can still read .text/.json
+                # after we've released the underlying connection.
+                resp.read()
+                resp.close()
+                last_exc, last_resp = None, resp
+
+            if attempt >= self._max_attempts:
+                break
+
+            delay = min(self._max_delay, self._base_delay * (2 ** (attempt - 1)))
+            # Full jitter: keeps concurrent retries from re-colliding.
+            delay = random.uniform(0, delay) if delay > 0 else 0.0
+            LOGGER.warning(
+                "Transient upstream error (status=%s, attempt=%d/%d); retrying in %.2fs",
+                status,
+                attempt,
+                self._max_attempts,
+                delay,
             )
+            time.sleep(delay)
 
-        if attempt >= attempts:
-            break
+        if last_resp is not None:
+            return last_resp
+        assert last_exc is not None
+        raise last_exc
 
-        delay = min(max_delay, base_delay * (2 ** (attempt - 1)))
-        # Full jitter — keeps concurrent retries from re-colliding.
-        delay = random.uniform(0, delay) if delay > 0 else 0.0
-        LOGGER.warning(
-            "Transient upstream error (status=%s, attempt=%d/%d); retrying in %.2fs",
-            status,
-            attempt,
-            attempts,
-            delay,
-        )
-        sleep(delay)
-
-    assert last_exc is not None
-    raise last_exc
+    def close(self) -> None:
+        self._wrapped.close()
