@@ -33,6 +33,19 @@ from polish_genealogy_mcp.sources.heredis.models import (
 )
 
 
+def _fetch_note_text(conn: sqlite3.Connection, code_id: int | None) -> str | None:
+    if code_id is None:
+        return None
+    row = conn.execute(
+        "SELECT Note FROM Notes WHERE CodeID = ?",
+        (code_id,),
+    ).fetchone()
+    if row is None:
+        return None
+    text = (row["Note"] or "").strip()
+    return text or None
+
+
 def _row_place(row: sqlite3.Row | None) -> PlaceRef | None:
     if row is None or row["CodeID"] is None:
         return None
@@ -109,6 +122,7 @@ _PERSON_SELECT_BASE = """
            i.Confidentiel, i.Numero, i.Prefixe, i.Suffixe, i.Surnom, i.Titre,
            i.Profession, i.XrefPere, i.XrefMere, i.XrefUnionParents,
            i.NombreUnions, i.NombreEnfants, i.NombreSources, i.NombreMedias,
+           i.XrefNote, i.XrefNoteRecherche,
            n.Nom, n.NomUCD
     FROM Individus i
     LEFT JOIN Noms n ON n.CodeID = i.XrefNom
@@ -247,6 +261,8 @@ def get_person(conn: sqlite3.Connection, code_id: int) -> PersonDetail | None:
         sosa_generation=sosa["Generation"] if sosa else None,
         events=events,
         unions=unions,
+        notes=[t for t in [_fetch_note_text(conn, row["XrefNote"])] if t],
+        research_notes=[t for t in [_fetch_note_text(conn, row["XrefNoteRecherche"])] if t],
     )
 
 
@@ -404,7 +420,8 @@ def get_event(conn: sqlite3.Connection, code_id: int) -> EventDetail | None:
     row = conn.execute(
         "SELECT CodeID, EventType, DateGed, DateTri, XrefLieu, Titre, "
         "Cause, AgeSurActe, Private, Shared, "
-        "XrefIndividuProprio, XrefUnionProprio, NombreSources, NombreMedias "
+        "XrefIndividuProprio, XrefUnionProprio, XrefNote, "
+        "NombreSources, NombreMedias "
         "FROM Evenements WHERE CodeID = ?",
         (code_id,),
     ).fetchone()
@@ -432,6 +449,7 @@ def get_event(conn: sqlite3.Connection, code_id: int) -> EventDetail | None:
         participants=participants,
         n_sources=row["NombreSources"] or 0,
         n_medias=row["NombreMedias"] or 0,
+        notes=[t for t in [_fetch_note_text(conn, row["XrefNote"])] if t],
     )
 
 

@@ -134,6 +134,34 @@ def test_search_persons_limit_capped(conn):
     assert res.limit == 100  # capped
 
 
+def test_get_person_includes_notes_when_present(conn):
+    row = conn.execute(
+        "SELECT i.CodeID FROM Individus i "
+        "JOIN Notes n ON n.CodeID = i.XrefNote "
+        "WHERE TRIM(n.Note) <> '' LIMIT 1"
+    ).fetchone()
+    if row is None:
+        pytest.skip("No person with a non-empty note in fixture")
+    detail = queries.get_person(conn, row["CodeID"])
+    assert detail is not None
+    assert detail.notes
+    assert detail.notes[0].strip()
+
+
+def test_get_event_includes_notes_when_present(conn):
+    row = conn.execute(
+        "SELECT e.CodeID FROM Evenements e "
+        "JOIN Notes n ON n.CodeID = e.XrefNote "
+        "WHERE TRIM(n.Note) <> '' LIMIT 1"
+    ).fetchone()
+    if row is None:
+        pytest.skip("No event with a non-empty note in fixture")
+    detail = queries.get_event(conn, row["CodeID"])
+    assert detail is not None
+    assert detail.notes
+    assert detail.notes[0].strip()
+
+
 def test_birth_event_has_date_or_place(conn):
     res = queries.search_persons(conn, limit=20)
     # At least *some* people in the fixture should have a known birth event.
