@@ -66,6 +66,8 @@ class PersonDetail(PersonSummary):
     sosa_generation: int | None = None
     events: list[EventSummary] = Field(default_factory=list)
     unions: list[UnionSummary] = Field(default_factory=list)
+    notes: list[str] = Field(default_factory=list)
+    research_notes: list[str] = Field(default_factory=list)
 
 
 class FamilyView(BaseModel):
@@ -87,6 +89,7 @@ class EventDetail(EventSummary):
     participants: list[dict] = Field(default_factory=list)
     n_sources: int = 0
     n_medias: int = 0
+    notes: list[str] = Field(default_factory=list)
 
 
 class SourceSummary(BaseModel):
