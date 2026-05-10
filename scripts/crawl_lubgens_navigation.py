@@ -268,15 +268,72 @@ def crawl_parish(
     return rows
 
 
+def progress_path_for(output: Path) -> Path:
+    return output.with_suffix(output.suffix + ".progress")
+
+
+def load_completed_par_ids(progress_path: Path) -> set[str]:
+    if not progress_path.exists():
+        return set()
+    return {
+        line.strip()
+        for line in progress_path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    }
+
+
+class ResumableCsvWriter:
+    """Append rows to a CSV per parish and record completed par_ids.
+
+    A sidecar ``<output>.progress`` file tracks which parishes have been
+    fully written. Presence of the progress file indicates a resumable
+    run: the existing CSV is appended to. Without it, the CSV is
+    rewritten from scratch.
+    """
+
+    def __init__(self, output: Path) -> None:
+        self.output = output
+        self.progress = progress_path_for(output)
+        self.completed: set[str] = load_completed_par_ids(self.progress)
+        output.parent.mkdir(parents=True, exist_ok=True)
+
+        resuming = bool(self.completed) and output.exists()
+        mode = "a" if resuming else "w"
+        self._file = output.open(mode, encoding="utf-8", newline="")
+        self._writer = csv.DictWriter(self._file, fieldnames=FIELDNAMES)
+        if not resuming:
+            self._writer.writeheader()
+            self._file.flush()
+            # Reset progress to match a fresh CSV.
+            if self.progress.exists():
+                self.progress.unlink()
+            self.completed = set()
+
+    def already_done(self, par_id: str) -> bool:
+        return par_id in self.completed
+
+    def write_parish(self, par_id: str, rows: list[LubgensBookRangeRow]) -> None:
+        for row in rows:
+            self._writer.writerow(row.as_csv_row())
+        self._file.flush()
+        with self.progress.open("a", encoding="utf-8") as f:
+            f.write(par_id + "\n")
+        self.completed.add(par_id)
+
+    def close(self) -> None:
+        self._file.close()
+
+
 def crawl(
     *,
     base_url: str,
+    output: Path,
     timeout: float,
     delay_seconds: float,
     exact_years: bool,
     max_parishes: int | None,
     verbose: bool,
-) -> list[LubgensBookRangeRow]:
+) -> int:
     session = requests.Session()
     session.headers.update({"User-Agent": USER_AGENT})
 
@@ -286,12 +343,22 @@ def crawl(
     if max_parishes is not None:
         parish_links = parish_links[:max_parishes]
 
-    rows: list[LubgensBookRangeRow] = []
-    for index, parish_link in enumerate(parish_links, start=1):
-        if delay_seconds > 0 and index > 1:
-            time.sleep(delay_seconds)
-        rows.extend(
-            crawl_parish(
+    writer = ResumableCsvWriter(output)
+    new_rows = 0
+    fetched = 0
+    try:
+        for index, parish_link in enumerate(parish_links, start=1):
+            if writer.already_done(parish_link.par_id):
+                print(
+                    f"Skipping {index}/{len(parish_links)}: {parish_link.label} "
+                    f"(already in {writer.progress.name})",
+                    file=sys.stderr,
+                )
+                continue
+            if delay_seconds > 0 and fetched > 0:
+                time.sleep(delay_seconds)
+            fetched += 1
+            rows = crawl_parish(
                 session,
                 parish_link,
                 timeout=timeout,
@@ -299,22 +366,17 @@ def crawl(
                 exact_years=exact_years,
                 verbose=verbose,
             )
-        )
-        print(
-            f"Crawled {index}/{len(parish_links)}: {parish_link.label} ({len(rows)} rows)",
-            file=sys.stderr,
-        )
+            writer.write_parish(parish_link.par_id, rows)
+            new_rows += len(rows)
+            print(
+                f"Crawled {index}/{len(parish_links)}: {parish_link.label} "
+                f"(+{len(rows)} rows, {new_rows} new total)",
+                file=sys.stderr,
+            )
+    finally:
+        writer.close()
 
-    return rows
-
-
-def write_csv(rows: list[LubgensBookRangeRow], output: Path) -> None:
-    output.parent.mkdir(parents=True, exist_ok=True)
-    with output.open("w", encoding="utf-8", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=FIELDNAMES)
-        writer.writeheader()
-        for row in rows:
-            writer.writerow(row.as_csv_row())
+    return new_rows
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
@@ -367,16 +429,16 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv or sys.argv[1:])
-    rows = crawl(
+    new_rows = crawl(
         base_url=args.url,
+        output=args.output,
         timeout=args.timeout,
         delay_seconds=args.delay,
         exact_years=not args.decade_bounds,
         max_parishes=args.max_parishes,
         verbose=args.verbose,
     )
-    write_csv(rows, args.output)
-    print(f"Wrote {len(rows)} rows to {args.output}")
+    print(f"Wrote {new_rows} new rows to {args.output}")
     return 0
 
 
