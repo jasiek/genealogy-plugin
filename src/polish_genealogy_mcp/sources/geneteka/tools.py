@@ -44,7 +44,7 @@ def register(mcp: FastMCP, config: GenetekaConfig | None = None) -> GenetekaClie
     def geneteka_search(
         record_type: Literal["birth", "marriage", "death"],
         region: str,
-        surname: str | None = None,
+        surname: str,
         given_name: str | None = None,
         surname2: str | None = None,
         given_name2: str | None = None,
@@ -62,6 +62,8 @@ def register(mcp: FastMCP, config: GenetekaConfig | None = None) -> GenetekaClie
         - `region` is a Geneteka region code from `geneteka_list_regions`
           (e.g. `05ld` for Łódzkie). The upstream search is region-scoped;
           to cover the whole country you must call once per region.
+        - `surname` is required by the upstream API; given-name or place alone
+          yields an empty response.
         - `surname2` / `given_name2` are the secondary parties:
             * for marriages, the bride (groom is the primary).
             * for births/deaths, the mother's maiden name.

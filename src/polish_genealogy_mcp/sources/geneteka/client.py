@@ -92,7 +92,7 @@ class GenetekaClient:
         *,
         record_type: RecordType,
         region_code: str,
-        surname: str | None = None,
+        surname: str,
         surname2: str | None = None,
         given_name: str | None = None,
         given_name2: str | None = None,
@@ -109,13 +109,17 @@ class GenetekaClient:
         The DataTables-compatible response has the shape
         `{draw, recordsTotal, recordsFiltered, data: [[...], ...]}`.
         """
+        if not surname or not surname.strip():
+            raise ValueError(
+                "Geneteka requires a surname; given-name or place alone returns " "an empty body."
+            )
         bdm = RECORD_TYPE_TO_BDM[record_type]
         params: dict[str, str | int] = {
             "op": "gt",
             "lang": "pol",
             "bdm": bdm,
             "w": region_code,
-            "search_lastname": surname or "",
+            "search_lastname": surname,
             "search_lastname2": surname2 or "",
             "search_name": given_name or "",
             "search_name2": given_name2 or "",
@@ -133,7 +137,20 @@ class GenetekaClient:
         self._limiter.wait()
         resp = self._client.get(API_PATH, params=params)
         resp.raise_for_status()
-        return resp.json()
+        body = resp.text
+        if not body.strip():
+            raise RuntimeError(
+                "Geneteka returned an empty response body (HTTP 200). This usually "
+                "means the query was rejected upstream — check that surname, region, "
+                "and record_type are valid."
+            )
+        try:
+            return resp.json()
+        except ValueError as e:
+            raise RuntimeError(
+                f"Geneteka returned a non-JSON response (HTTP {resp.status_code}): "
+                f"{body[:200]!r}"
+            ) from e
 
     def get_regions_html(self) -> str:
         """Fetch the surname-occurrence form page (`?op=se`).
