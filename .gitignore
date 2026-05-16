@@ -28,3 +28,6 @@ lib/
 *.ged
 
 .env
+
+# Scraper resume state
+*.progress
