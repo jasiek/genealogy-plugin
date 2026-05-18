@@ -238,7 +238,7 @@ CHOJENIEC,św. Nicety,Śluby,1810,1851
 CHOJENIEC,św. Nicety,Zgony,1810,1851
 CHOROSZCZYNKA,pw. Oczyszczenia NMP,Śluby,1822,1838
 CHOROSZCZYNKA,pw. Ścięcia Głowy św. Jana Chrzciciela,Śluby,1876,1909
-CHRZANÓW,św. Jacka,Śluby,1932,1944
+CHRZANÓW,św. Jacka,Śluby,1932,1945
 CHRZANÓW,św. Jacka,Zgony,1932,2006
 CHUTCZE,św. Apostołów Piotra i Pawła,Chrzty,1810,1863
 CHUTCZE,św. Apostołów Piotra i Pawła,Śluby,1810,1868
@@ -426,8 +426,8 @@ FIRLEJ,Firlej (mojż.),Śluby,1826,1826
 FIRLEJ,Firlej (mojż.),Zgony,1831,1831
 FRAMPOL,Frampol (mojż.),Chrzty,1871,1916
 FRAMPOL,Frampol (mojż.),Śluby,1871,1923
-FRAMPOL,św. Jana Nepomucena i Matki Bożej Szkaplerznej,Chrzty,1778,1918
-FRAMPOL,św. Jana Nepomucena i Matki Bożej Szkaplerznej,Śluby,1779,1944
+FRAMPOL,św. Jana Nepomucena i Matki Bożej Szkaplerznej,Chrzty,1778,1925
+FRAMPOL,św. Jana Nepomucena i Matki Bożej Szkaplerznej,Śluby,1779,1945
 FRAMPOL,św. Jana Nepomucena i Matki Bożej Szkaplerznej,Zgony,1778,1954
 GARBÓW,Przemienienia Pańskiego,Chrzty,1764,1925
 GARBÓW,Przemienienia Pańskiego,Śluby,1810,1940
@@ -441,8 +441,8 @@ GĘŚ,Gęś (gr.-kat.),Chrzty,1836,1867
 GĘŚ,pw. św. św. Apostołów Piotra i Pawła,Chrzty,1887,1887
 GĘŚ,pw. św. św. Apostołów Piotra i Pawła,Śluby,1887,1887
 GĘŚ,pw. św. św. Apostołów Piotra i Pawła,Zgony,1887,1887
-GILÓW,Gilów,Śluby,1932,1943
-GILÓW,Gilów,Zgony,1932,1943
+GILÓW,Gilów,Śluby,1932,1945
+GILÓW,Gilów,Zgony,1932,1945
 GNOJNO,św. Praksedy Mniszki,Chrzty,1810,1875
 GNOJNO,św. Praksedy Mniszki,Śluby,1810,1919
 GNOJNO,św. Praksedy Mniszki,Zgony,1810,1875
@@ -460,7 +460,7 @@ GOŁĘBIE/HOŁUBIE,św. Michała Archanioła,Zgony,1866,1866
 GOŁĘBIE/HOŁUBIE,pw. św. Michała Archanioła,Śluby,1876,1911
 GORAJ,pw. św. Bartłomieja Apostoła,Chrzty,1610,1925
 GORAJ,pw. św. Bartłomieja Apostoła,Śluby,1612,1945
-GORAJ,pw. św. Bartłomieja Apostoła,Zgony,0,1945
+GORAJ,pw. św. Bartłomieja Apostoła,Zgony,1788,1945
 GORAJ,Goraj (mojż.),Śluby,1871,1936
 GORAJ,Goraj (mojż.),Zgony,1919,1935
 GORZKÓW,św. Stanisława BM,Chrzty,1694,1913
@@ -485,7 +485,7 @@ GÓRECKO KOŚCIELNE,św. Stanisława BM,Śluby,1721,1943
 GÓRECKO KOŚCIELNE,św. Stanisława BM,Zgony,1733,1943
 GRABOWIEC,pw. św. Mikołaja,Chrzty,1777,1923
 GRABOWIEC,pw. św. Mikołaja,Śluby,1773,1923
-GRABOWIEC,pw. św. Mikołaja,Zgony,1753,1923
+GRABOWIEC,pw. św. Mikołaja,Zgony,1753,1945
 GRABOWIEC,Grabowiec (gr.-kat.),Chrzty,1811,1865
 GRABOWIEC,Grabowiec (gr.-kat.),Śluby,1811,1862
 GRABOWIEC,Grabowiec (gr.-kat.),Zgony,1811,1862
@@ -508,7 +508,7 @@ GRÓDEK NAD BUGIEM,pw. Ducha Świętego,Chrzty,1874,1914
 GRÓDEK NAD BUGIEM,pw. Ducha Świętego,Śluby,1874,1914
 GRÓDEK NAD BUGIEM,pw. Ducha Świętego,Zgony,1874,1914
 GRÓDKI,Gródki (pol.-kat.),Śluby,1929,1943
-GRÓDKI,Gródki (pol.-kat.),Zgony,1929,1943
+GRÓDKI,Gródki (pol.-kat.),Zgony,1929,1945
 HANNA,pw. św. Demetriusza,Chrzty,1867,1875
 HANNA,pw. św. Demetriusza,Śluby,1867,1875
 HANNA,pw. św. Demetriusza,Zgony,1867,1875
@@ -813,6 +813,7 @@ KOROSZCZYN,pw. Narodzenia Matki Bożej,Chrzty,1875,1914
 KOROSZCZYN,pw. Narodzenia Matki Bożej,Śluby,1875,1914
 KOROSZCZYN,pw. Narodzenia Matki Bożej,Zgony,1911,1914
 KOSOBUDY,św. Andrzeja Boboli,Chrzty,1919,1924
+KOSOBUDY,św. Andrzeja Boboli,Zgony,1939,1945
 KOSOBUDY,Podwyższenia św. Krzyża,Chrzty,1811,1875
 KOSOBUDY,Podwyższenia św. Krzyża,Śluby,1811,1875
 KOSOBUDY,Podwyższenia św. Krzyża,Zgony,1811,1893
@@ -1032,7 +1033,7 @@ LUCHÓW GÓRNY,pw. Opieki Matki Bożej,Zgony,1843,1914
 ŁAŃCUCHÓW,św. Jana Chrzciciela,Zgony,1810,1945
 ŁASZCZÓW,Świętych Apostołów Piotra i Pawła,Chrzty,1776,1918
 ŁASZCZÓW,Świętych Apostołów Piotra i Pawła,Śluby,1776,1923
-ŁASZCZÓW,Świętych Apostołów Piotra i Pawła,Zgony,1776,1918
+ŁASZCZÓW,Świętych Apostołów Piotra i Pawła,Zgony,1776,1945
 ŁASZCZÓW,Łaszczów (mojż.),Chrzty,1922,1924
 ŁASZCZÓW,Łaszczów (mojż.),Śluby,1922,1924
 ŁASZCZÓW,Łaszczów (mojż.),Zgony,1922,1924
@@ -1370,7 +1371,7 @@ OSZCZÓW,pw. Jana Jałmużnika,Chrzty,1897,1912
 OSZCZÓW,pw. Jana Jałmużnika,Śluby,1897,1912
 OSZCZÓW,pw. Jana Jałmużnika,Zgony,1897,1912
 OTROCZ,pw. Narodzenia Najświętszej Maryi Panny,Chrzty,1919,1923
-OTROCZ,pw. Narodzenia Najświętszej Maryi Panny,Śluby,1919,1944
+OTROCZ,pw. Narodzenia Najświętszej Maryi Panny,Śluby,1919,1945
 OTROCZ,pw. Narodzenia Najświętszej Maryi Panny,Zgony,1919,1985
 OTROCZ,Narodzenia NMP,Chrzty,1883,1889
 OTROCZ,Narodzenia NMP,Śluby,1884,1930
@@ -1667,7 +1668,7 @@ SEROKOMLA,św. Stanisława,Zgony,1810,1876
 SIEDLISKA,pw. św. Trójcy,Chrzty,1866,1875
 SIEDLISKA,pw. św. Trójcy,Śluby,1866,1875
 SIEDLISKA,pw. św. Trójcy,Zgony,1866,1875
-SIEDLISKA,pw. Narodzenia NMP,Chrzty,1876,1911
+SIEDLISKA,pw. Narodzenia NMP,Chrzty,1876,1923
 SIEDLISKA,pw. Narodzenia NMP,Śluby,1876,1911
 SIEDLISZCZE,św. Onufrego Pustelnika,Chrzty,1909,1910
 SIEDLISZCZE,św. Onufrego Pustelnika,Śluby,1909,1933
@@ -1829,7 +1830,7 @@ SWORY,św. Eliasza,Zgony,1876,1914
 SYCYNA,Przemienienia Pańskiego,Chrzty,1792,1857
 SYCYNA,Przemienienia Pańskiego,Śluby,1792,1854
 SYCYNA,Przemienienia Pańskiego,Zgony,1792,1857
-SZCZEBRZESZYN,św. Mikołaja,Chrzty,1658,1918
+SZCZEBRZESZYN,św. Mikołaja,Chrzty,1658,1922
 SZCZEBRZESZYN,św. Mikołaja,Śluby,1645,1921
 SZCZEBRZESZYN,św. Mikołaja,Zgony,1766,1918
 SZCZEBRZESZYN,pw. Zaśnięcia i Wniebowzięcia NMP,Chrzty,1718,1874
@@ -1981,6 +1982,8 @@ TOMASZÓW LUBELSKI,św. Mikołaja Cudotwórcy,Śluby,1876,1913
 TOMASZÓW LUBELSKI,św. Mikołaja Cudotwórcy,Zgony,1876,1944
 TOMASZÓW LUBELSKI,Tomaszów Lubelski - szpital,Zgony,1939,1939
 TOMASZÓW LUBELSKI,Tomaszów Lubelski (mojż.),Chrzty,1826,1836
+TOPÓLCZA,Topólcza,Chrzty,1919,1925
+TOPÓLCZA,Topólcza,Zgony,1919,1945
 TOPÓLCZA,Narodzenia NMP,Chrzty,1782,1874
 TOPÓLCZA,Narodzenia NMP,Śluby,1782,1873
 TOPÓLCZA,Narodzenia NMP,Zgony,1785,1874
@@ -1998,6 +2001,7 @@ TRZĘSINY,pw. św. Jana Chrzciciela,Zgony,1925,1948
 TUCHOWICZ,św. Marii Magdaleny,Chrzty,1800,1909
 TUCHOWICZ,św. Marii Magdaleny,Śluby,1800,1924
 TUCHOWICZ,św. Marii Magdaleny,Zgony,1810,1910
+TUCZĘPY,Tuczępy,Zgony,1925,1944
 TUCZĘPY,św. Trójcy/św. Anny Matki Bogarodzicy,Chrzty,1810,1875
 TUCZĘPY,św. Trójcy/św. Anny Matki Bogarodzicy,Śluby,1810,1875
 TUCZĘPY,św. Trójcy/św. Anny Matki Bogarodzicy,Zgony,1810,1878
@@ -2066,7 +2070,7 @@ UHRUSK,pw. św. Jana Chrzciciela,Zgony,1862,1922
 UHRUSK,pw. Zaśnięcia Bogurodzicy,Chrzty,1878,1921
 UHRUSK,pw. Zaśnięcia Bogurodzicy,Śluby,1878,1940
 UHRUSK,pw. Zaśnięcia Bogurodzicy,Zgony,1878,1940
-ULAN,pw. św. Małgorzaty,Chrzty,1819,1925
+ULAN,pw. św. Małgorzaty,Chrzty,1771,1925
 ULAN,pw. św. Małgorzaty,Śluby,1810,1944
 ULAN,pw. św. Małgorzaty,Zgony,1844,1926
 ULHÓWEK,Ulhówek filia Tarnoszyn (gr.-kat.),Chrzty,1872,1897
@@ -2247,7 +2251,7 @@ ZUBOWICE,Zubowice (prawosł.),Śluby,1909,1919
 ŻABIANKA,Wniebowzięcia NMP,Zgony,1889,1932
 ZWIERZYNIEC,Matki BKP,Chrzty,1919,1924
 ZWIERZYNIEC,Matki BKP,Śluby,1919,1924
-ZWIERZYNIEC,Matki BKP,Zgony,1919,1924
+ZWIERZYNIEC,Matki BKP,Zgony,1919,1945
 ŻDŻANNE,św. Michała Archanioła,Śluby,1920,1935
 ŻDŻANNE,św. Michała Archanioła,Zgony,1921,1945
 ŻDŻANNE,św. Demetrego Wielkiego Męczennika,Chrzty,1797,1876
@@ -2606,6 +2610,7 @@ PARAFIE ODLEGŁE ->,Żółkiew,Śluby,1920,1925
 -> ARCHIDIECEZJA MOHYLEWSKA,Taszkient,Chrzty,1902,1917
 -> ARCHIDIECEZJA MOHYLEWSKA,Taszkient,Śluby,1902,1917
 -> ARCHIDIECEZJA MOHYLEWSKA,Taszkient,Zgony,1902,1917
+-> ARCHIDIECEZJA MOHYLEWSKA,Jekaterynburg,Śluby,1898,1909
 -> ARCHIDIECEZJA MOHYLEWSKA,Tambow,Chrzty,1905,1916
 -> ARCHIDIECEZJA MOHYLEWSKA,Tambow,Śluby,1905,1916
 -> ARCHIDIECEZJA MOHYLEWSKA,Charków,Chrzty,1899,1916
@@ -2616,7 +2621,7 @@ PARAFIE ODLEGŁE ->,Żółkiew,Śluby,1920,1925
 -> ARCHIDIECEZJA MOHYLEWSKA,p.w. Opieki Matki Bożej Królowej Różańca Święteg,Chrzty,1864,1879
 -> ARCHIDIECEZJA MOHYLEWSKA,p.w. Opieki Matki Bożej Królowej Różańca Święteg,Śluby,1860,1909
 -> ARCHIDIECEZJA MOHYLEWSKA,Kaługa,Śluby,1879,1916
--> ARCHIDIECEZJA MOHYLEWSKA,Woroneż,Chrzty,1863,1869
+-> ARCHIDIECEZJA MOHYLEWSKA,Woroneż,Chrzty,1863,1879
 -> ARCHIDIECEZJA MOHYLEWSKA,Woroneż,Śluby,1863,1879
 -> ARCHIDIECEZJA MOHYLEWSKA,Nowonikołajewsk / Nowosybirsk,Chrzty,1907,1909
 -> ARCHIDIECEZJA MOHYLEWSKA,Nowonikołajewsk / Nowosybirsk,Śluby,1907,1919
@@ -2628,6 +2633,7 @@ PARAFIE ODLEGŁE ->,Żółkiew,Śluby,1920,1925
 -> CHINY,pw. Stanisława Biskupa,Zgony,1907,1919
 -> DIECEZJA TYRASPOLSKA,Saratów,Chrzty,1897,1906
 -> DIECEZJA TYRASPOLSKA,Odessa,Śluby,1900,1909
+-> DIECEZJA TYRASPOLSKA,Taganrog,Śluby,1880,1905
 -> DIECEZJA TYRASPOLSKA,Jekaterynosław,Chrzty,1897,1909
 -> DIECEZJA TYRASPOLSKA,Kiszyniów,Chrzty,1910,1922
 -> DIECEZJA TYRASPOLSKA,Kiszyniów,Śluby,1822,1921

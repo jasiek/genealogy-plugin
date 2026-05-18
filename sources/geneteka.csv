@@ -169,8 +169,8 @@ Brudnia,Brudnia,Zgony,1821,1939,kujawsko-pomorskie,11233
 Brześć Kujawski,Brześć Kujawski,Chrzty,1735,1925,kujawsko-pomorskie,3709
 Brześć Kujawski,Brześć Kujawski,Śluby,1709,1926,kujawsko-pomorskie,3710
 Brześć Kujawski,Brześć Kujawski,Zgony,1753,1926,kujawsko-pomorskie,17228
-Brześć Kujawski USC,Brześć Kujawski USC,Śluby,1940,1941,kujawsko-pomorskie,16551
-Brześć Kujawski USC,Brześć Kujawski USC,Zgony,1940,1944,kujawsko-pomorskie,16552
+Brześć Kujawski USC,Brześć Kujawski USC,Śluby,1940,1945,kujawsko-pomorskie,16551
+Brześć Kujawski USC,Brześć Kujawski USC,Zgony,1940,1945,kujawsko-pomorskie,16552
 Brzozie,Brzozie,Chrzty,1790,1820,kujawsko-pomorskie,9161
 Brzozie,Brzozie,Śluby,1808,1855,kujawsko-pomorskie,7954
 Byczyna,Byczyna,Chrzty,1670,1921,kujawsko-pomorskie,3385
@@ -1556,14 +1556,16 @@ Bednary,Bednary,Chrzty,1686,1925,łódzkie,1159
 Bednary,Bednary,Śluby,1686,1945,łódzkie,1204
 Bednary,Bednary,Zgony,1795,1947,łódzkie,1188
 Bełchatów,Bełchatów,Chrzty,1809,1924,łódzkie,6399
-Bełchatów,Bełchatów,Śluby,1810,1944,łódzkie,6472
-Bełchatów,Bełchatów,Zgony,1809,1944,łódzkie,6568
+Bełchatów,Bełchatów,Śluby,1810,1940,łódzkie,6472
+Bełchatów,Bełchatów,Zgony,1809,1940,łódzkie,6568
 Bełchatów (ewang.-augsb.),Bełchatów (ewang.-augsb.),Chrzty,1837,1919,łódzkie,6094
 Bełchatów (ewang.-augsb.),Bełchatów (ewang.-augsb.),Śluby,1837,1939,łódzkie,4671
 Bełchatów (ewang.-augsb.),Bełchatów (ewang.-augsb.),Zgony,1837,1939,łódzkie,6073
 Bełchatów (mojż.),Bełchatów (mojż.),Chrzty,1826,1914,łódzkie,8578
 Bełchatów (mojż.),Bełchatów (mojż.),Śluby,1832,1914,łódzkie,12301
 Bełchatów (mojż.),Bełchatów (mojż.),Zgony,1826,1935,łódzkie,9760
+Bełchatów USC,Bełchatów USC,Śluby,1940,1944,łódzkie,17264
+Bełchatów USC,Bełchatów USC,Zgony,1940,1944,łódzkie,17265
 Bełchatów-Grocholice,Bełchatów-Grocholice,Chrzty,1778,1924,łódzkie,271
 Bełchatów-Grocholice,Bełchatów-Grocholice,Śluby,1718,1939,łódzkie,31
 Bełchatów-Grocholice,Bełchatów-Grocholice,Zgony,1778,1939,łódzkie,272
@@ -1785,8 +1787,10 @@ Dzietrzniki,Dzietrzniki,Chrzty,1666,1924,łódzkie,4407
 Dzietrzniki,Dzietrzniki,Śluby,1666,1924,łódzkie,2976
 Dzietrzniki,Dzietrzniki,Zgony,1722,1927,łódzkie,4621
 Gałków Duży,Gałków Duży,Chrzty,1808,1925,łódzkie,4632
-Gałków Duży,Gałków Duży,Śluby,1810,1943,łódzkie,4633
+Gałków Duży,Gałków Duży,Śluby,1810,1940,łódzkie,4633
 Gałków Duży,Gałków Duży,Zgony,1808,1945,łódzkie,4634
+Gałków Duży USC,Gałków Duży USC,Śluby,1940,1943,łódzkie,17262
+Gałków Duży USC,Gałków Duży USC,Zgony,1940,1943,łódzkie,17263
 Gidle,Gidle,Chrzty,1790,1924,łódzkie,4964
 Gidle,Gidle,Śluby,1790,1924,łódzkie,4203
 Gidle,Gidle,Zgony,1787,1924,łódzkie,4965
@@ -1803,8 +1807,10 @@ Głuchów,Głuchów,Chrzty,1678,1917,łódzkie,1598
 Głuchów,Głuchów,Śluby,1731,1917,łódzkie,1599
 Głuchów,Głuchów,Zgony,1728,1917,łódzkie,1600
 Godynice,Godynice,Chrzty,1608,1922,łódzkie,1753
-Godynice,Godynice,Śluby,1602,1943,łódzkie,1990
-Godynice,Godynice,Zgony,1708,1943,łódzkie,1991
+Godynice,Godynice,Śluby,1602,1922,łódzkie,1990
+Godynice,Godynice,Zgony,1708,1922,łódzkie,1991
+Godynice USC,Godynice USC,Śluby,1942,1943,łódzkie,17268
+Godynice USC,Godynice USC,Zgony,1943,1943,łódzkie,17269
 Godzianów,Godzianów,Chrzty,1688,1925,łódzkie,4037
 Godzianów,Godzianów,Śluby,1701,1945,łódzkie,3958
 Godzianów,Godzianów,Zgony,1808,1945,łódzkie,4188
@@ -1832,9 +1838,11 @@ Grabno,Grabno,Chrzty,1689,1920,łódzkie,2963
 Grabno,Grabno,Śluby,1775,1920,łódzkie,2964
 Grabno,Grabno,Zgony,1747,1920,łódzkie,2965
 Grabów,Grabów,Chrzty,1636,1924,łódzkie,1287
-Grabów,Grabów,Śluby,1636,1943,łódzkie,412
-Grabów,Grabów,Zgony,1810,1943,łódzkie,1423
+Grabów,Grabów,Śluby,1636,1940,łódzkie,412
+Grabów,Grabów,Zgony,1810,1940,łódzkie,1423
 Grabów (aneksy),Grabów (aneksy),Śluby,1819,1936,łódzkie,4879
+Grabów USC,Grabów USC,Śluby,1940,1943,łódzkie,17270
+Grabów USC,Grabów USC,Zgony,1940,1943,łódzkie,17271
 Grochów,Grochów,Chrzty,1808,1925,łódzkie,2127
 Grochów,Grochów,Śluby,1809,1945,łódzkie,1312
 Grochów,Grochów,Zgony,1808,1945,łódzkie,2128
@@ -2042,8 +2050,9 @@ Lutomiersk,Lutomiersk,Chrzty,1757,1924,łódzkie,4586
 Lutomiersk,Lutomiersk,Śluby,1771,1940,łódzkie,4587
 Lutomiersk,Lutomiersk,Zgony,1779,1940,łódzkie,4588
 Lututów,Lututów,Chrzty,1808,1924,łódzkie,3027
-Lututów,Lututów,Śluby,1808,1944,łódzkie,3028
+Lututów,Lututów,Śluby,1808,1924,łódzkie,3028
 Lututów,Lututów,Zgony,1808,1924,łódzkie,3029
+Lututów USC,Lututów USC,Śluby,1940,1944,łódzkie,17274
 Łagiewniki pow. wieluński,Łagiewniki pow. wieluński,Chrzty,1808,1886,łódzkie,7072
 Łagiewniki pow. wieluński,Łagiewniki pow. wieluński,Śluby,1808,1886,łódzkie,7073
 Łagiewniki pow. wieluński,Łagiewniki pow. wieluński,Zgony,1808,1886,łódzkie,7074
@@ -2247,8 +2256,10 @@ Niewiesz,Niewiesz,Chrzty,1610,1923,łódzkie,4563
 Niewiesz,Niewiesz,Śluby,1719,1923,łódzkie,4219
 Niewiesz,Niewiesz,Zgony,1732,1923,łódzkie,4573
 Nowa Brzeźnica,Nowa Brzeźnica,Chrzty,1737,1915,łódzkie,3238
-Nowa Brzeźnica,Nowa Brzeźnica,Śluby,1737,1942,łódzkie,5593
-Nowa Brzeźnica,Nowa Brzeźnica,Zgony,1772,1943,łódzkie,13162
+Nowa Brzeźnica,Nowa Brzeźnica,Śluby,1737,1916,łódzkie,5593
+Nowa Brzeźnica,Nowa Brzeźnica,Zgony,1772,1925,łódzkie,13162
+Nowa Brzeźnica USC,Nowa Brzeźnica USC,Śluby,1940,1942,łódzkie,17260
+Nowa Brzeźnica USC,Nowa Brzeźnica USC,Zgony,1943,1943,łódzkie,17261
 Nowe gm. Krośniewice,Nowe gm. Krośniewice,Chrzty,1808,1923,łódzkie,2192
 Nowe gm. Krośniewice,Nowe gm. Krośniewice,Śluby,1808,1940,łódzkie,2193
 Nowe gm. Krośniewice,Nowe gm. Krośniewice,Zgony,1808,1940,łódzkie,2194
@@ -2268,7 +2279,7 @@ Osjaków,Osjaków,Śluby,1808,1933,łódzkie,5654
 Osjaków,Osjaków,Zgony,1776,1940,łódzkie,4256
 Oszkowice,Oszkowice,Chrzty,1808,1925,łódzkie,2773
 Oszkowice,Oszkowice,Śluby,1808,1945,łódzkie,2774
-Oszkowice,Oszkowice,Zgony,1808,1922,łódzkie,2775
+Oszkowice,Oszkowice,Zgony,1808,1945,łódzkie,2775
 Ozorków,Ozorków,Chrzty,1785,1913,łódzkie,403
 Ozorków,Ozorków,Śluby,1802,1913,łódzkie,402
 Ozorków,Ozorków,Zgony,1819,1913,łódzkie,1759
@@ -2312,7 +2323,8 @@ Pęczniew,Pęczniew,Śluby,1817,1920,łódzkie,2988
 Pęczniew,Pęczniew,Zgony,1817,1920,łódzkie,3055
 Piątek,Piątek,Chrzty,1733,1921,łódzkie,1500
 Piątek,Piątek,Śluby,1733,1931,łódzkie,4572
-Piątek,Piątek,Zgony,1723,1943,łódzkie,4565
+Piątek,Piątek,Zgony,1723,1921,łódzkie,4565
+Piątek USC,Piątek USC,Zgony,1943,1943,łódzkie,17283
 Pieczew,Pieczew,Chrzty,1809,1875,łódzkie,8363
 Pieczew,Pieczew,Śluby,1809,1940,łódzkie,4882
 Pieczew,Pieczew,Zgony,1810,1940,łódzkie,4883
@@ -2321,7 +2333,7 @@ Piotrków Trybunalski (ewang.),Piotrków Trybunalski (ewang.),Chrzty,1905,1920,�
 Piotrków Trybunalski (ewang.),Piotrków Trybunalski (ewang.),Śluby,1885,1937,łódzkie,5869
 Piotrków Trybunalski (ewang.),Piotrków Trybunalski (ewang.),Zgony,1913,1939,łódzkie,5890
 Piotrków Trybunalski (ewang. ) aneksy,Piotrków Trybunalski (ewang. ) aneksy,Śluby,1826,1843,łódzkie,5555
-Piotrków Trybunalski (mojż.),Piotrków Trybunalski (mojż.),Chrzty,1874,1885,łódzkie,14312
+Piotrków Trybunalski (mojż.),Piotrków Trybunalski (mojż.),Chrzty,1874,1886,łódzkie,14312
 Piotrków Trybunalski (mojż.),Piotrków Trybunalski (mojż.),Śluby,1873,1878,łódzkie,14313
 Piotrków Trybunalski (mojż.),Piotrków Trybunalski (mojż.),Zgony,1863,1942,łódzkie,10049
 Piotrków Trybunalski (prawosł.),Piotrków Trybunalski (prawosł.),Chrzty,1826,1914,łódzkie,8588
@@ -2433,9 +2445,9 @@ Siemkowice,Siemkowice,Zgony,1818,1940,łódzkie,2998
 Sieradz,Sieradz,Chrzty,1601,1918,łódzkie,3158
 Sieradz,Sieradz,Śluby,1757,1918,łódzkie,2298
 Sieradz,Sieradz,Zgony,1808,1918,łódzkie,3159
-Sieradz-Męka,Sieradz-Męka,Chrzty,1808,1918,łódzkie,2759
-Sieradz-Męka,Sieradz-Męka,Śluby,1808,1918,łódzkie,2760
-Sieradz-Męka,Sieradz-Męka,Zgony,1808,1918,łódzkie,2761
+Sieradz-Męka,Sieradz-Męka,Chrzty,1808,1921,łódzkie,2759
+Sieradz-Męka,Sieradz-Męka,Śluby,1808,1921,łódzkie,2760
+Sieradz-Męka,Sieradz-Męka,Zgony,1808,1921,łódzkie,2761
 Sieradz-Męka USC,Sieradz-Męka USC,Zgony,1943,1943,łódzkie,17246
 Sierzchowy,Sierzchowy,Chrzty,1748,1902,łódzkie,443
 Sierzchowy,Sierzchowy,Śluby,1808,1902,łódzkie,444
@@ -2722,7 +2734,7 @@ Zelów (ewang.-ref.),Zelów (ewang.-ref.),Śluby,1826,1940,łódzkie,2990
 Zelów (ewang.-ref.),Zelów (ewang.-ref.),Zgony,1826,1888,łódzkie,7767
 Zgierz,Zgierz,Chrzty,1708,1920,łódzkie,1962
 Zgierz,Zgierz,Śluby,1708,1920,łódzkie,1963
-Zgierz,Zgierz,Zgony,1724,1944,łódzkie,1964
+Zgierz,Zgierz,Zgony,1724,1940,łódzkie,1964
 Zgierz (bapt.),Zgierz (bapt.),Chrzty,1916,1919,łódzkie,16012
 Zgierz (bapt.),Zgierz (bapt.),Śluby,1914,1919,łódzkie,16013
 Zgierz (bapt.),Zgierz (bapt.),Zgony,1916,1919,łódzkie,16014
@@ -2731,6 +2743,7 @@ Zgierz (ewang.),Zgierz (ewang.),Śluby,1828,1919,łódzkie,4597
 Zgierz (ewang.),Zgierz (ewang.),Zgony,1828,1919,łódzkie,4615
 Zgierz (mariawici),Zgierz (mariawici),Śluby,1916,1935,łódzkie,9089
 Zgierz (mariawici),Zgierz (mariawici),Zgony,1916,1921,łódzkie,9101
+Zgierz USC,Zgierz USC,Zgony,1941,1944,łódzkie,17288
 Złaków Kościelny,Złaków Kościelny,Chrzty,1618,1925,łódzkie,711
 Złaków Kościelny,Złaków Kościelny,Śluby,1618,1945,łódzkie,723
 Złaków Kościelny,Złaków Kościelny,Zgony,1684,1948,łódzkie,713
@@ -2770,6 +2783,7 @@ Barcice,Barcice,Zgony,1768,1918,małopolskie,10891
 Bartne (gr.-kat.),Bartne (gr.-kat.),Chrzty,1784,1884,małopolskie,13315
 Bartne (gr.-kat.),Bartne (gr.-kat.),Śluby,1784,1884,małopolskie,15967
 Bartne (gr.-kat.),Bartne (gr.-kat.),Zgony,1784,1884,małopolskie,15977
+Barwałd Dolny,Barwałd Dolny,Chrzty,1777,1784,małopolskie,17294
 Bednarka (gr.-kat.),Bednarka (gr.-kat.),Chrzty,1873,1904,małopolskie,13314
 Bednarka (gr.-kat.),Bednarka (gr.-kat.),Śluby,1873,1904,małopolskie,17140
 Bednarka (gr.-kat.),Bednarka (gr.-kat.),Zgony,1873,1904,małopolskie,17143
@@ -3390,6 +3404,7 @@ Nowe Brzesko,Nowe Brzesko,Śluby,1669,1918,małopolskie,6805
 Nowe Brzesko,Nowe Brzesko,Zgony,1779,1935,małopolskie,6806
 Nowe Bystre,Nowe Bystre,Chrzty,1909,1924,małopolskie,16294
 Nowe Bystre,Nowe Bystre,Śluby,1909,1944,małopolskie,17250
+Nowe Bystre,Nowe Bystre,Zgony,1909,1944,małopolskie,17258
 Nowe Rybie,Nowe Rybie,Chrzty,1786,1906,małopolskie,12428
 Nowe Rybie,Nowe Rybie,Śluby,1786,1943,małopolskie,15506
 Nowe Rybie,Nowe Rybie,Zgony,1786,1944,małopolskie,11174
@@ -4702,7 +4717,7 @@ Marianów (pow. garwoliński),Marianów (pow. garwoliński),Śluby,1926,1939,maz
 Marki,Marki,Chrzty,1899,1926,mazowieckie,1986
 Marki,Marki,Śluby,1897,1945,mazowieckie,8515
 Marki,Marki,Zgony,1913,1945,mazowieckie,8790
-Miastków Kościelny,Miastków Kościelny,Chrzty,1890,1890,mazowieckie,17233
+Miastków Kościelny,Miastków Kościelny,Chrzty,1890,1893,mazowieckie,17233
 Michałowice,Michałowice,Chrzty,1808,1923,mazowieckie,3131
 Michałowice,Michałowice,Śluby,1808,1923,mazowieckie,3148
 Michałowice,Michałowice,Zgony,1808,1923,mazowieckie,3161
@@ -5186,7 +5201,7 @@ Rzeczniów,Rzeczniów,Chrzty,1766,1920,mazowieckie,1849
 Rzeczniów,Rzeczniów,Śluby,1766,1937,mazowieckie,2040
 Rzeczniów,Rzeczniów,Zgony,1760,1948,mazowieckie,2053
 Rzekuń,Rzekuń,Chrzty,1886,1920,mazowieckie,11276
-Rzekuń,Rzekuń,Śluby,1758,1939,mazowieckie,4571
+Rzekuń,Rzekuń,Śluby,1758,1941,mazowieckie,4571
 Rzekuń,Rzekuń,Zgony,1884,1934,mazowieckie,8483
 Sadowne,Sadowne,Chrzty,1810,1918,mazowieckie,4450
 Sadowne,Sadowne,Śluby,1798,1918,mazowieckie,4451
@@ -5821,6 +5836,7 @@ Krasiejów,Krasiejów,Chrzty,1831,1870,opolskie,16108
 Krasiejów,Krasiejów,Śluby,1867,1870,opolskie,16109
 Krasiejów,Krasiejów,Zgony,1868,1954,opolskie,14300
 Krasiejów USC,Krasiejów USC,Chrzty,1874,1918,opolskie,14301
+Krasiejów USC,Krasiejów USC,Śluby,1874,1938,opolskie,17259
 Krasiejów USC,Krasiejów USC,Zgony,1874,1933,opolskie,16634
 Krzywiczyny-Schönfeld USC,Krzywiczyny-Schönfeld USC,Chrzty,1874,1913,opolskie,11215
 Krzywiczyny-Schönfeld USC,Krzywiczyny-Schönfeld USC,Śluby,1900,1913,opolskie,14739
@@ -6564,7 +6580,7 @@ Mazury,Mazury,Zgony,1938,1943,podkarpackie,14344
 Medyka (gr.-kat.),Medyka (gr.-kat.),Chrzty,1784,1848,podkarpackie,17213
 Medyka (gr.-kat.),Medyka (gr.-kat.),Śluby,1784,1848,podkarpackie,17214
 Medyka (gr.-kat.),Medyka (gr.-kat.),Zgony,1784,1848,podkarpackie,17215
-Medynia Głogowska,Medynia Głogowska,Chrzty,1837,1857,podkarpackie,13073
+Medynia Głogowska,Medynia Głogowska,Chrzty,1837,1875,podkarpackie,13073
 Medynia Głogowska,Medynia Głogowska,Śluby,1786,1906,podkarpackie,13074
 Michałówka,Michałówka,Śluby,1849,1900,podkarpackie,4403
 Mielec - Rzochów,Mielec - Rzochów,Chrzty,1784,1924,podkarpackie,10181
@@ -6698,7 +6714,7 @@ Polana (pow. bieszczadzki) (gr.-kat.),Polana (pow. bieszczadzki) (gr.-kat.),Ślu
 Polana (pow. bieszczadzki) (gr.-kat.),Polana (pow. bieszczadzki) (gr.-kat.),Zgony,1872,1930,podkarpackie,12670
 Polany (pow. jasielski) (gr.-kat.),Polany (pow. jasielski) (gr.-kat.),Chrzty,1784,1871,podkarpackie,10475
 Polany (pow. jasielski) (gr.-kat.),Polany (pow. jasielski) (gr.-kat.),Śluby,1784,1871,podkarpackie,5364
-Polany (pow. jasielski) (gr.-kat.),Polany (pow. jasielski) (gr.-kat.),Zgony,1784,1884,podkarpackie,17100
+Polany (pow. jasielski) (gr.-kat.),Polany (pow. jasielski) (gr.-kat.),Zgony,1784,1871,podkarpackie,17100
 Polańczyk (gr.-kat.),Polańczyk (gr.-kat.),Chrzty,1854,1892,podkarpackie,15473
 Polańczyk (gr.-kat.),Polańczyk (gr.-kat.),Śluby,1784,1905,podkarpackie,15474
 Połomia,Połomia,Chrzty,1890,1896,podkarpackie,5057
@@ -6943,7 +6959,7 @@ Tarnowska Wola,Tarnowska Wola,Zgony,1927,1943,podkarpackie,16843
 Torki (gr.-kat.),Torki (gr.-kat.),Chrzty,1784,1857,podkarpackie,17216
 Torki (gr.-kat.),Torki (gr.-kat.),Śluby,1784,1857,podkarpackie,17217
 Torki (gr.-kat.),Torki (gr.-kat.),Zgony,1784,1857,podkarpackie,17218
-Trepcza (gr.-kat.),Trepcza (gr.-kat.),Chrzty,1781,1851,podkarpackie,16546
+Trepcza (gr.-kat.),Trepcza (gr.-kat.),Chrzty,1781,1905,podkarpackie,16546
 Trepcza (gr.-kat.),Trepcza (gr.-kat.),Śluby,1784,1851,podkarpackie,17096
 Trepcza (gr.-kat.),Trepcza (gr.-kat.),Zgony,1784,1851,podkarpackie,17125
 Tryńcza,Tryńcza,Chrzty,1883,1925,podkarpackie,17022
@@ -7216,7 +7232,7 @@ Choroszcz,Choroszcz,Chrzty,1808,1864,podlaskie,11192
 Choroszcz,Choroszcz,Śluby,1809,1871,podlaskie,11193
 Choroszcz,Choroszcz,Zgony,1808,1871,podlaskie,11194
 Ciechanowiec,Ciechanowiec,Chrzty,1770,1901,podlaskie,6121
-Ciechanowiec,Ciechanowiec,Śluby,1798,1858,podlaskie,6758
+Ciechanowiec,Ciechanowiec,Śluby,1780,1858,podlaskie,6758
 Ciechanowiec,Ciechanowiec,Zgony,1808,1838,podlaskie,7196
 Ciechanowiec (prawosł.),Ciechanowiec (prawosł.),Chrzty,1888,1913,podlaskie,16057
 Ciechanowiec (prawosł.),Ciechanowiec (prawosł.),Śluby,1888,1913,podlaskie,16058
@@ -7307,7 +7323,7 @@ Granne,Granne,Śluby,1667,1851,podlaskie,12457
 Granne,Granne,Zgony,1723,1848,podlaskie,12458
 Grodzisk,Grodzisk,Śluby,1921,1926,podlaskie,14468
 Grodzisk,Grodzisk,Zgony,1921,1926,podlaskie,14470
-Gródek (gr-kat),Gródek (gr-kat),Chrzty,1800,1809,podlaskie,10933
+Gródek (gr-kat),Gródek (gr-kat),Chrzty,1800,1813,podlaskie,10933
 Gródek (gr-kat),Gródek (gr-kat),Śluby,1809,1809,podlaskie,10935
 Gródek (gr-kat),Gródek (gr-kat),Zgony,1809,1809,podlaskie,10936
 Hajnówka,Hajnówka,Zgony,1923,1940,podlaskie,15553
@@ -7831,7 +7847,7 @@ Wyszki,Wyszki,Zgony,1779,1923,podlaskie,7966
 Wyszonki Kościelne,Wyszonki Kościelne,Chrzty,1731,1904,podlaskie,4419
 Wyszonki Kościelne,Wyszonki Kościelne,Śluby,1866,1940,podlaskie,6831
 Wyszonki Kościelne,Wyszonki Kościelne,Zgony,1866,1917,podlaskie,5253
-Zabłudów,Zabłudów,Chrzty,1808,1854,podlaskie,8340
+Zabłudów,Zabłudów,Chrzty,1808,1855,podlaskie,8340
 Zabłudów,Zabłudów,Śluby,1808,1871,podlaskie,5669
 Zabłudów,Zabłudów,Zgony,1808,1871,podlaskie,8341
 Zabłudów (prawosł.),Zabłudów (prawosł.),Chrzty,1759,1806,podlaskie,1696
@@ -7929,9 +7945,9 @@ Goręczyno,Goręczyno,Chrzty,1696,1900,pomorskie,564
 Goręczyno,Goręczyno,Śluby,1695,1930,pomorskie,743
 Goręczyno,Goręczyno,Zgony,1713,1803,pomorskie,908
 Gorzędziej,Gorzędziej,Zgony,1935,2005,pomorskie,1117
-Gowidlino USC,Gowidlino USC,Chrzty,1874,1875,pomorskie,17207
-Gowidlino USC,Gowidlino USC,Śluby,1874,1875,pomorskie,17208
-Gowidlino USC,Gowidlino USC,Zgony,1874,1875,pomorskie,17209
+Gowidlino USC,Gowidlino USC,Chrzty,1874,1878,pomorskie,17207
+Gowidlino USC,Gowidlino USC,Śluby,1874,1878,pomorskie,17208
+Gowidlino USC,Gowidlino USC,Zgony,1874,1878,pomorskie,17209
 Górowychy-Gross-Sonnenberg USC,Górowychy-Gross-Sonnenberg USC,Chrzty,1874,1875,pomorskie,15537
 Górowychy-Gross-Sonnenberg USC,Górowychy-Gross-Sonnenberg USC,Śluby,1874,1875,pomorskie,15538
 Górowychy-Gross-Sonnenberg USC,Górowychy-Gross-Sonnenberg USC,Zgony,1874,1876,pomorskie,15539
@@ -9300,9 +9316,9 @@ Tarnowskie Góry USC,Tarnowskie Góry USC,Zgony,1874,1881,śląskie,16489
 Tarnowskie Góry-Piaseczna-Piassetzna USC,Tarnowskie Góry-Piaseczna-Piassetzna USC,Śluby,1874,1909,śląskie,12133
 Tarnowskie Góry-Stare Tarnowice św. Marcina,Tarnowskie Góry-Stare Tarnowice św. Marcina,Śluby,1696,1945,śląskie,6187
 Tarnowskie Góry-Stare Tarnowice św. Marcina,Tarnowskie Góry-Stare Tarnowice św. Marcina,Zgony,1734,1820,śląskie,16084
-Tarnowskie Góry-Stare Tarnowice USC,Tarnowskie Góry-Stare Tarnowice USC,Chrzty,1874,1905,śląskie,15859
-Tarnowskie Góry-Stare Tarnowice USC,Tarnowskie Góry-Stare Tarnowice USC,Śluby,1874,1905,śląskie,5787
-Tarnowskie Góry-Stare Tarnowice USC,Tarnowskie Góry-Stare Tarnowice USC,Zgony,1874,1905,śląskie,16475
+Tarnowskie Góry-Stare Tarnowice USC,Tarnowskie Góry-Stare Tarnowice USC,Chrzty,1874,1920,śląskie,15859
+Tarnowskie Góry-Stare Tarnowice USC,Tarnowskie Góry-Stare Tarnowice USC,Śluby,1874,1919,śląskie,5787
+Tarnowskie Góry-Stare Tarnowice USC,Tarnowskie Góry-Stare Tarnowice USC,Zgony,1874,1920,śląskie,16475
 Tarnowskie Góry-Strzybnica NSPJ,Tarnowskie Góry-Strzybnica NSPJ,Śluby,1905,1942,śląskie,6789
 Toszek-Tost,Toszek-Tost,Chrzty,1789,1793,śląskie,7393
 Toszek-Tost,Toszek-Tost,Śluby,1777,1943,śląskie,11190
@@ -9431,6 +9447,7 @@ Zabrzeg,Zabrzeg,Zgony,1785,1914,śląskie,9361
 Zajączki,Zajączki,Chrzty,1787,1813,śląskie,12462
 Zajączki,Zajączki,Śluby,1785,1801,śląskie,12465
 Zajączki,Zajączki,Zgony,1787,1798,śląskie,12466
+Zarzecze (pow. cieszyński),Zarzecze (pow. cieszyński),Chrzty,1851,1870,śląskie,17289
 Zawada Książęca-Herzoglich Zawada USC,Zawada Książęca-Herzoglich Zawada USC,Chrzty,1874,1912,śląskie,13829
 Zawada Książęca-Herzoglich Zawada USC,Zawada Książęca-Herzoglich Zawada USC,Śluby,1874,1938,śląskie,13639
 Zawada Książęca-Herzoglich Zawada USC,Zawada Książęca-Herzoglich Zawada USC,Zgony,1874,1938,śląskie,13640
@@ -10459,9 +10476,12 @@ Lidzbark Welski,Lidzbark Welski,Śluby,1775,1840,warmińsko-mazurskie,7527
 Lidzbark-Lautenburg USC (miasto),Lidzbark-Lautenburg USC (miasto),Chrzty,1882,1897,warmińsko-mazurskie,3956
 Lidzbark-Lautenburg USC (miasto),Lidzbark-Lautenburg USC (miasto),Śluby,1874,1905,warmińsko-mazurskie,3732
 Lidzbark-Lautenburg USC (miasto),Lidzbark-Lautenburg USC (miasto),Zgony,1882,1895,warmińsko-mazurskie,12918
-Lipinki,Lipinki,Chrzty,1716,1888,warmińsko-mazurskie,7630
-Lipinki,Lipinki,Śluby,1716,1890,warmińsko-mazurskie,7829
-Lipinki,Lipinki,Zgony,1770,1878,warmińsko-mazurskie,7674
+Lipinki-Lippinken,Lipinki-Lippinken,Chrzty,1716,1888,warmińsko-mazurskie,7630
+Lipinki-Lippinken,Lipinki-Lippinken,Śluby,1716,1890,warmińsko-mazurskie,7829
+Lipinki-Lippinken,Lipinki-Lippinken,Zgony,1770,1878,warmińsko-mazurskie,7674
+Lipinki-Lippinken USC,Lipinki-Lippinken USC,Chrzty,1874,1879,warmińsko-mazurskie,17291
+Lipinki-Lippinken USC,Lipinki-Lippinken USC,Śluby,1874,1879,warmińsko-mazurskie,17292
+Lipinki-Lippinken USC,Lipinki-Lippinken USC,Zgony,1874,1879,warmińsko-mazurskie,17293
 Lipinki-Łąkorz,Lipinki-Łąkorz,Zgony,1770,1877,warmińsko-mazurskie,10421
 Lipowo-Leip USC,Lipowo-Leip USC,Chrzty,1876,1881,warmińsko-mazurskie,3926
 Lipowo-Leip USC,Lipowo-Leip USC,Śluby,1881,1881,warmińsko-mazurskie,4160
@@ -10472,9 +10492,9 @@ Lubawa,Lubawa,Śluby,1778,1800,warmińsko-mazurskie,12275
 Lubawa-Löbau USC,Lubawa-Löbau USC,Chrzty,1874,1914,warmińsko-mazurskie,7798
 Lubawa-Löbau USC,Lubawa-Löbau USC,Śluby,1874,1913,warmińsko-mazurskie,7806
 Lubawa-Löbau USC,Lubawa-Löbau USC,Zgony,1874,1914,warmińsko-mazurskie,7815
-Lutry-Lautern,Lutry-Lautern,Chrzty,1727,1760,warmińsko-mazurskie,17183
-Lutry-Lautern,Lutry-Lautern,Śluby,1727,1760,warmińsko-mazurskie,17184
-Lutry-Lautern,Lutry-Lautern,Zgony,1727,1760,warmińsko-mazurskie,17185
+Lutry-Lautern,Lutry-Lautern,Chrzty,1727,1765,warmińsko-mazurskie,17183
+Lutry-Lautern,Lutry-Lautern,Śluby,1727,1765,warmińsko-mazurskie,17184
+Lutry-Lautern,Lutry-Lautern,Zgony,1727,1765,warmińsko-mazurskie,17185
 Łąkorz-Lonkorz USC,Łąkorz-Lonkorz USC,Chrzty,1892,1899,warmińsko-mazurskie,12419
 Łąkorz-Lonkorz USC,Łąkorz-Lonkorz USC,Śluby,1874,1879,warmińsko-mazurskie,7752
 Łężany-Lossainen USC,Łężany-Lossainen USC,Chrzty,1874,1874,warmińsko-mazurskie,15102
@@ -12041,7 +12061,7 @@ Bołożynów (gr.-kat.) (obw. lwowski),Bołożynów (gr.-kat.) (obw. lwowski),Ch
 Bołożynów (gr.-kat.) (obw. lwowski),Bołożynów (gr.-kat.) (obw. lwowski),Śluby,1858,1941,Ukraina,16999
 Bołożynów (gr.-kat.) (obw. lwowski),Bołożynów (gr.-kat.) (obw. lwowski),Zgony,1858,1873,Ukraina,17000
 Boratyn (gr.-kat.) (obw. lwowski),Boratyn (gr.-kat.) (obw. lwowski),Chrzty,1791,1791,Ukraina,16694
-Boratyn (gr.-kat.) (obw. lwowski),Boratyn (gr.-kat.) (obw. lwowski),Śluby,1790,1863,Ukraina,16695
+Boratyn (gr.-kat.) (obw. lwowski),Boratyn (gr.-kat.) (obw. lwowski),Śluby,1789,1863,Ukraina,16695
 Boratyn (gr.-kat.) (obw. lwowski),Boratyn (gr.-kat.) (obw. lwowski),Zgony,1802,1831,Ukraina,16696
 Borki Małe (gr.-kat.) (obw. tarnopolski),Borki Małe (gr.-kat.) (obw. tarnopolski),Chrzty,1835,1835,Ukraina,17071
 Borki Małe (gr.-kat.) (obw. tarnopolski),Borki Małe (gr.-kat.) (obw. tarnopolski),Śluby,1835,1835,Ukraina,17072
@@ -12217,6 +12237,7 @@ Deraźne (obw. rówieński),Deraźne (obw. rówieński),Zgony,1825,1864,Ukraina,
 Derażnia (obw. chmielnicki),Derażnia (obw. chmielnicki),Chrzty,1795,1917,Ukraina,12014
 Derażnia (obw. chmielnicki),Derażnia (obw. chmielnicki),Śluby,1795,1917,Ukraina,12015
 Derażnia (obw. chmielnicki),Derażnia (obw. chmielnicki),Zgony,1795,1917,Ukraina,12016
+Dobraczyn (obw. lwowski) (gr.-kat.),Dobraczyn (obw. lwowski) (gr.-kat.),Chrzty,1855,1855,Ukraina,17257
 Dobromil (obw. lwowski),Dobromil (obw. lwowski),Chrzty,1869,1924,Ukraina,9739
 Dobromil (obw. lwowski),Dobromil (obw. lwowski),Śluby,1832,1943,Ukraina,9740
 Dobromil (obw. lwowski),Dobromil (obw. lwowski),Zgony,1901,1942,Ukraina,9741
@@ -13575,9 +13596,9 @@ Czereja,Czereja,Zgony,1830,1831,Białoruś,9554
 Czeress (gr.-kat.),Czeress (gr.-kat.),Chrzty,1817,1825,Białoruś,16404
 Czeress (gr.-kat.),Czeress (gr.-kat.),Śluby,1817,1818,Białoruś,16405
 Czeress (gr.-kat.),Czeress (gr.-kat.),Zgony,1817,1817,Białoruś,16406
-Czerlona (gr.-kat.),Czerlona (gr.-kat.),Chrzty,1782,1793,Białoruś,8324
-Czerlona (gr.-kat.),Czerlona (gr.-kat.),Śluby,1782,1794,Białoruś,8325
-Czerlona (gr.-kat.),Czerlona (gr.-kat.),Zgony,1782,1794,Białoruś,8326
+"Czerlona (gr.-kat., prawosł.)","Czerlona (gr.-kat., prawosł.)",Chrzty,1782,1901,Białoruś,8324
+"Czerlona (gr.-kat., prawosł.)","Czerlona (gr.-kat., prawosł.)",Śluby,1782,1901,Białoruś,8325
+"Czerlona (gr.-kat., prawosł.)","Czerlona (gr.-kat., prawosł.)",Zgony,1782,1901,Białoruś,8326
 Czernawczyce,Czernawczyce,Chrzty,1732,1746,Białoruś,11003
 Czernawczyce,Czernawczyce,Śluby,1920,1934,Białoruś,13522
 Czernawczyce,Czernawczyce,Zgony,1919,1934,Białoruś,13523
@@ -13752,8 +13773,8 @@ Iszczołna,Iszczołna,Zgony,1797,1889,Białoruś,10741
 Iwandar,Iwandar,Chrzty,1915,1916,Białoruś,12169
 Iwandar,Iwandar,Zgony,1840,1840,Białoruś,8277
 Iwje,Iwje,Chrzty,1798,1841,Białoruś,10482
-Iwje,Iwje,Śluby,1798,1841,Białoruś,3592
-Iwje,Iwje,Zgony,1798,1842,Białoruś,10483
+Iwje,Iwje,Śluby,1798,1845,Białoruś,3592
+Iwje,Iwje,Zgony,1798,1845,Białoruś,10483
 Izabelin (ewang.-ref.),Izabelin (ewang.-ref.),Chrzty,1779,1895,Białoruś,16938
 Izabelin (ewang.-ref.),Izabelin (ewang.-ref.),Śluby,1781,1939,Białoruś,16939
 Izabelin (ewang.-ref.),Izabelin (ewang.-ref.),Zgony,1779,1939,Białoruś,16940
@@ -14356,7 +14377,7 @@ Zasule (prawosł.),Zasule (prawosł.),Chrzty,1797,1865,Białoruś,12233
 Zasule (prawosł.),Zasule (prawosł.),Śluby,1797,1884,Białoruś,12234
 Zasule (prawosł.),Zasule (prawosł.),Zgony,1797,1865,Białoruś,12235
 Zawierz,Zawierz,Chrzty,1819,1821,Białoruś,13369
-Zawierz,Zawierz,Śluby,1819,1821,Białoruś,13370
+Zawierz,Zawierz,Śluby,1804,1826,Białoruś,13370
 Zawierz,Zawierz,Zgony,1819,1821,Białoruś,13371
 Zbirogi alias Zbierochy,Zbirogi alias Zbierochy,Chrzty,1736,1827,Białoruś,11369
 Zbirogi alias Zbierochy,Zbirogi alias Zbierochy,Śluby,1825,1860,Białoruś,7109
@@ -14598,7 +14619,7 @@ Mejszagoła-Maišiagala,Mejszagoła-Maišiagala,Chrzty,1813,1846,Litwa,5274
 Mejszagoła-Maišiagala,Mejszagoła-Maišiagala,Śluby,1802,1915,Litwa,5275
 Mejszagoła-Maišiagala,Mejszagoła-Maišiagala,Zgony,1835,1846,Litwa,5276
 Merecz-Merkinė,Merecz-Merkinė,Chrzty,1840,1840,Litwa,10370
-Merecz-Merkinė,Merecz-Merkinė,Śluby,1840,1840,Litwa,10371
+Merecz-Merkinė,Merecz-Merkinė,Śluby,1828,1840,Litwa,10371
 Merecz-Merkinė,Merecz-Merkinė,Zgony,1840,1840,Litwa,10372
 Mickuny-Mickūnai,Mickuny-Mickūnai,Chrzty,1923,1924,Litwa,16143
 Mickuny-Mickūnai,Mickuny-Mickūnai,Śluby,1923,1925,Litwa,16144
