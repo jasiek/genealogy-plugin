@@ -63,25 +63,17 @@ CONFIG_ENTRIES: tuple[ConfigEntry, ...] = (
     ConfigEntry(
         dest="heredis_db",
         env_var="HEREDIS_DB",
-        help="Path to a .heredis SQLite file. Heredis tools register only when set.",
-        expose_in_manifest=True,
-        manifest_type="file",
-        manifest_title="Heredis database",
-        manifest_description=(
-            "Path to your local .heredis SQLite file. Leave empty to enable only "
-            "the live research sources (Geneteka, Genealogia w Archiwach)."
+        help=(
+            "Path to a .heredis SQLite file. Overrides cwd auto-discovery. "
+            "Heredis tools register only when a file is set or discovered."
         ),
     ),
     ConfigEntry(
         dest="gedcom_path",
         env_var="GEDCOM_PATH",
-        help="Path to a GEDCOM file. GEDCOM tools register only when set.",
-        expose_in_manifest=True,
-        manifest_type="file",
-        manifest_title="GEDCOM file",
-        manifest_description=(
-            "Path to a GEDCOM (.ged) file. Activates the gedcom_* tools as the "
-            "verified-facts source. Use either this or heredis_db."
+        help=(
+            "Path to a GEDCOM file. Overrides cwd auto-discovery. "
+            "GEDCOM tools register only when a file is set or discovered."
         ),
     ),
     ConfigEntry(

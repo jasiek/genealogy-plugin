@@ -4,8 +4,6 @@
       "command": "${CLAUDE_PLUGIN_ROOT}/bin/run.sh",
       "args": [],
       "env": {
-        "HEREDIS_DB": "${user_config.heredis_db}",
-        "GEDCOM_PATH": "${user_config.gedcom_path}",
         "GENETEKA_MIN_INTERVAL": "${user_config.geneteka_min_interval}",
         "GENEALOGIA_W_ARCHIWACH_MIN_INTERVAL": "${user_config.genealogia_w_archiwach_min_interval}",
         "GENBAZA_MIN_INTERVAL": "${user_config.genbaza_min_interval}",

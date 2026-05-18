@@ -22,8 +22,6 @@
       "command": "${__dirname}/bin/run.sh",
       "args": [],
       "env": {
-        "HEREDIS_DB": "${user_config.heredis_db}",
-        "GEDCOM_PATH": "${user_config.gedcom_path}",
         "GENETEKA_MIN_INTERVAL": "${user_config.geneteka_min_interval}",
         "GENEALOGIA_W_ARCHIWACH_MIN_INTERVAL": "${user_config.genealogia_w_archiwach_min_interval}",
         "GENBAZA_MIN_INTERVAL": "${user_config.genbaza_min_interval}",
@@ -35,18 +33,6 @@
     }
   },
   "user_config": {
-    "heredis_db": {
-      "type": "file",
-      "title": "Heredis database",
-      "description": "Path to your local .heredis SQLite file. Leave empty to enable only the live research sources (Geneteka, Genealogia w Archiwach).",
-      "required": false
-    },
-    "gedcom_path": {
-      "type": "file",
-      "title": "GEDCOM file",
-      "description": "Path to a GEDCOM (.ged) file. Activates the gedcom_* tools as the verified-facts source. Use either this or heredis_db.",
-      "required": false
-    },
     "geneteka_min_interval": {
       "type": "string",
       "title": "Geneteka rate limit (seconds)",
