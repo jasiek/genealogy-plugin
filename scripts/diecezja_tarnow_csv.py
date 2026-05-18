@@ -1,41 +1,41 @@
 #!/usr/bin/env python3
 """Scrape archiwum.diecezjatarnow.pl parish-register catalogues into CSV.
 
-Output columns: Miejscowość,Parafia,Rodzaj Księgi,Rok od,Rok do
-
 Sources:
-  - https://archiwum.diecezjatarnow.pl/zasob-1.html
-      (Diecezja Tarnowska — one HTML table per parish, parish name is
-       the first row of each table, columns: nr tomu / nazwa / zakres
-       dat / sygnatura / uwagi. Rows with empty `nr tomu` continue the
-       previous volume.)
-  - https://archiwum.diecezjatarnow.pl/zasob-nr-2.html
-      (Diecezja Sandomierska — single table: Parafia / Lata / Sygnatura)
+  - https://archiwum.diecezjatarnow.pl/zasob-1.html (Tarnowska)
+  - https://archiwum.diecezjatarnow.pl/zasob-nr-2.html (Sandomierska)
   - https://archiwum.diecezjatarnow.pl/kopie-ksiag-metrykalnych-diecezja-sandomierska.html
-      (Diecezja Rzeszowska — same shape as zasob-nr-2.)
+    (Rzeszowska)
 
 These pages don't distinguish a "miejscowość" from the "parafia", so
-both columns get the same value.
-
-Per-type (Chrzty / Śluby / Zgony) entries are collapsed to one row per
-parish with the overall min/max year across every date range found.
+both columns get the same value. Per-type entries are collapsed to one
+row per parish with overall min/max year across every date range found.
 
 Usage:
-    uv run python scripts/diecezja_tarnow_csv.py > out.csv
-    uv run python scripts/diecezja_tarnow_csv.py --source tarnow > tarnow.csv
+    uv run python scripts/diecezja_tarnow_csv.py                     # stdout, all sources
+    uv run python scripts/diecezja_tarnow_csv.py --source tarnow -o tarnow.csv
 """
 
 from __future__ import annotations
 
 import argparse
-import csv
 import re
 import sys
+import time
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Iterable
 
-import requests
 from bs4 import BeautifulSoup
+
+from polish_genealogy_mcp.scrapers.common import (
+    BASE_FIELDS,
+    CsvSink,
+    add_common_args,
+    eprint,
+    fetch_text,
+    make_session,
+)
 
 SOURCES = {
     "tarnow": "https://archiwum.diecezjatarnow.pl/zasob-1.html",
@@ -79,25 +79,14 @@ def years_in(text: str) -> list[int]:
     return [int(m) for m in YEAR_RE.findall(text)]
 
 
-def fetch(url: str) -> BeautifulSoup:
-    headers = {"User-Agent": "Mozilla/5.0 (compatible; diecezja-tarnow-csv/1.0)"}
-    r = requests.get(url, headers=headers, timeout=30)
-    r.raise_for_status()
-    r.encoding = r.apparent_encoding or "utf-8"
-    return BeautifulSoup(r.text, "html.parser")
-
-
 def parse_tarnow(soup: BeautifulSoup) -> dict[str, ParishAcc]:
-    """zasob-1.html: one <table> per parish; first row contains the
-    parish name (single cell), second row is headers, then volume rows.
-    """
+    """zasob-1.html: one <table> per parish; first row is the parish name."""
     out: dict[str, ParishAcc] = {}
     for table in soup.find_all("table"):
         rows = table.find_all("tr")
         if len(rows) < 3:
             continue
         first = [c.get_text(" ", strip=True) for c in rows[0].find_all(["td", "th"])]
-        # Heuristic: parish-name row has exactly one non-empty cell and no header-like words.
         nonempty = [c for c in first if c]
         if len(nonempty) != 1:
             continue
@@ -106,19 +95,13 @@ def parse_tarnow(soup: BeautifulSoup) -> dict[str, ParishAcc]:
             h in parish.lower() for h in ("nr tomu", "parafia", "sygnatura", "zakres")
         ):
             continue
-        # Header row check
         hdr = " ".join(c.get_text(" ", strip=True).lower() for c in rows[1].find_all(["td", "th"]))
         if "nazwa" not in hdr and "zakres" not in hdr:
             continue
         acc = out.setdefault(parish, ParishAcc(parafia=parish))
         for tr in rows[2:]:
             cells = [c.get_text(" ", strip=True) for c in tr.find_all(["td", "th"])]
-            # Take the "nazwa" + "zakres dat" columns.
-            # Layouts seen: 5-col (with nr tomu) or 4-col (continuation rows
-            # missing the nr tomu cell).
-            if len(cells) >= 5:
-                nazwa, zakres = cells[1], cells[2]
-            elif len(cells) == 4:
+            if len(cells) >= 4:
                 nazwa, zakres = cells[1], cells[2]
             elif len(cells) == 3:
                 nazwa, zakres = cells[0], cells[1]
@@ -140,7 +123,6 @@ def parse_simple_table(soup: BeautifulSoup) -> dict[str, ParishAcc]:
         rows = table.find_all("tr")
         if not rows:
             continue
-        # Skip header rows (look for "Parafia" anywhere).
         for tr in rows:
             cells = [c.get_text(" ", strip=True) for c in tr.find_all(["td", "th"])]
             if len(cells) < 2:
@@ -155,8 +137,6 @@ def parse_simple_table(soup: BeautifulSoup) -> dict[str, ParishAcc]:
             lata = cells[1] if len(cells) >= 2 else ""
             if not parish or not lata:
                 continue
-            # The second column is e.g. "Ochrzczeni: 1801 - 1841" — type in
-            # the same string as the years.
             kinds = detect_types(lata)
             ys = years_in(lata)
             if not kinds:
@@ -167,9 +147,8 @@ def parse_simple_table(soup: BeautifulSoup) -> dict[str, ParishAcc]:
     return out
 
 
-def emit(parishes: dict[str, ParishAcc], writer: csv.writer) -> int:
+def emit(parishes: dict[str, ParishAcc], sink: CsvSink) -> int:
     n = 0
-    # Stable order: alphabetical by parish, then fixed type order.
     type_order = ["Chrzty", "Śluby", "Zgony"]
     for parish in sorted(parishes, key=lambda s: s.upper()):
         acc = parishes[parish]
@@ -177,44 +156,66 @@ def emit(parishes: dict[str, ParishAcc], writer: csv.writer) -> int:
             ys = acc.years.get(kind)
             if not ys:
                 continue
-            writer.writerow([parish, parish, kind, min(ys), max(ys)])
+            sink.write_row(
+                {
+                    "Miejscowość": parish,
+                    "Parafia": parish,
+                    "Rodzaj Księgi": kind,
+                    "Rok od": min(ys),
+                    "Rok do": max(ys),
+                }
+            )
             n += 1
     return n
 
 
-def main(argv: list[str] | None = None) -> int:
+def parse_args(argv: list[str]) -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    add_common_args(p, default_delay=0.5)
     p.add_argument(
         "--source",
         choices=[*SOURCES.keys(), "all"],
         default="all",
         help="Which source page to scrape (default: all three).",
     )
-    p.add_argument("-o", "--output", help="Write CSV here instead of stdout.")
-    args = p.parse_args(argv)
+    return p.parse_args(argv)
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = parse_args(argv or sys.argv[1:])
+
+    if args.input_html is not None:
+        # Offline parse of a single fixture. `--source` picks the parser
+        # ("tarnow" → multi-table-per-parish, anything else → simple
+        # parish/lata table). `all` falls back to the tarnow parser.
+        soup = BeautifulSoup(args.input_html.read_text(encoding="utf-8"), "html.parser")
+        parser_name = args.source if args.source != "all" else "tarnow"
+        parishes = parse_tarnow(soup) if parser_name == "tarnow" else parse_simple_table(soup)
+        with CsvSink(args.output, BASE_FIELDS) as sink:
+            n = emit(parishes, sink)
+        eprint(f"{parser_name} (offline): {len(parishes)} parishes, {n} rows")
+        return 0
 
     targets = list(SOURCES) if args.source == "all" else [args.source]
-
-    out_fh = open(args.output, "w", encoding="utf-8", newline="") if args.output else sys.stdout
-    writer = csv.writer(out_fh)
-    writer.writerow(["Miejscowość", "Parafia", "Rodzaj Księgi", "Rok od", "Rok do"])
+    session = make_session(args.user_agent)
 
     total = 0
-    for name in targets:
-        url = SOURCES[name]
-        print(f"# fetching {url}", file=sys.stderr)
-        soup = fetch(url)
-        if name == "tarnow":
-            parishes = parse_tarnow(soup)
-        else:
-            parishes = parse_simple_table(soup)
-        n = emit(parishes, writer)
-        print(f"# {name}: {len(parishes)} parishes, {n} rows", file=sys.stderr)
-        total += n
+    with CsvSink(args.output, BASE_FIELDS) as sink:
+        for i, name in enumerate(targets):
+            if i > 0 and args.delay > 0:
+                time.sleep(args.delay)
+            url = SOURCES[name]
+            html = fetch_text(session, url, timeout=args.timeout, verbose=args.verbose)
+            soup = BeautifulSoup(html, "html.parser")
+            if name == "tarnow":
+                parishes = parse_tarnow(soup)
+            else:
+                parishes = parse_simple_table(soup)
+            n = emit(parishes, sink)
+            eprint(f"{name}: {len(parishes)} parishes, {n} rows")
+            total += n
 
-    print(f"# total rows: {total}", file=sys.stderr)
-    if args.output:
-        out_fh.close()
+    eprint(f"total rows: {total}")
     return 0
 
 

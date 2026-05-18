@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
-"""Crawl Archiwum Archidiecezji Krakowskiej metryka pages to CSV."""
+"""Crawl Archiwum Archidiecezji Krakowskiej metryka pages to CSV.
+
+Usage:
+    uv run python scripts/diecezja_krakow_csv.py                   # stdout
+    uv run python scripts/diecezja_krakow_csv.py -o krakow.csv
+"""
 
 from __future__ import annotations
 
 import argparse
-import csv
 import re
 import sys
 import time
@@ -12,18 +16,20 @@ from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import urljoin
 
-import requests
 from bs4 import BeautifulSoup
 from bs4.element import NavigableString, Tag
 
-BASE_URL = "https://archiwum.diecezja.pl/metryka/"
-FIELDNAMES = ["Miejscowość", "Parafia", "Rodzaj Księgi", "Rok od", "Rok do"]
-USER_AGENT = (
-    "Mozilla/5.0 (compatible; polish-genealogy-mcp archiwum-metryka crawler; "
-    "+https://github.com/)"
+from polish_genealogy_mcp.scrapers.common import (
+    BASE_FIELDS,
+    CsvSink,
+    add_common_args,
+    eprint,
+    fetch_text,
+    make_session,
+    parse_year_ranges,
 )
 
-YEAR_RANGE_RE = re.compile(r"(\d{4})(?:\s*[–—-]\s*(\d{4}))?")
+BASE_URL = "https://archiwum.diecezja.pl/metryka/"
 PAGE_URL_RE = re.compile(r"/metryka/page/(\d+)/")
 
 
@@ -35,7 +41,7 @@ class MetrykaRow:
     rok_od: int
     rok_do: int
 
-    def as_csv_row(self) -> dict[str, str | int]:
+    def as_csv_row(self) -> dict[str, object]:
         return {
             "Miejscowość": self.miejscowosc,
             "Parafia": self.parafia,
@@ -60,12 +66,6 @@ def page_url(base_url: str, page_number: int) -> str:
     return urljoin(base_url, f"page/{page_number}/")
 
 
-def fetch_page(session: requests.Session, url: str, timeout: float) -> str:
-    response = session.get(url, timeout=timeout)
-    response.raise_for_status()
-    return response.text
-
-
 def discover_last_page(soup: BeautifulSoup) -> int:
     pages = [1]
     for link in soup.select(".pagination a[href]"):
@@ -85,15 +85,6 @@ def text_until_next_br(label: Tag) -> str:
         elif isinstance(sibling, Tag):
             pieces.append(sibling.get_text(" ", strip=True))
     return clean_text(" ".join(pieces))
-
-
-def parse_year_ranges(text: str) -> list[tuple[int, int]]:
-    ranges: list[tuple[int, int]] = []
-    for match in YEAR_RANGE_RE.finditer(text):
-        start = int(match.group(1))
-        end = int(match.group(2) or match.group(1))
-        ranges.append((start, end))
-    return ranges
 
 
 def parse_rows(html: str) -> list[MetrykaRow]:
@@ -136,14 +127,15 @@ def parse_rows(html: str) -> list[MetrykaRow]:
 def crawl(
     *,
     base_url: str,
+    user_agent: str | None,
     delay_seconds: float,
     timeout: float,
     max_pages: int | None,
+    verbose: bool,
 ) -> list[MetrykaRow]:
-    session = requests.Session()
-    session.headers.update({"User-Agent": USER_AGENT})
+    session = make_session(user_agent)
 
-    first_html = fetch_page(session, page_url(base_url, 1), timeout)
+    first_html = fetch_text(session, page_url(base_url, 1), timeout=timeout, verbose=verbose)
     first_soup = BeautifulSoup(first_html, "html.parser")
     last_page = discover_last_page(first_soup)
     if max_pages is not None:
@@ -153,46 +145,21 @@ def crawl(
     for page_number in range(2, last_page + 1):
         if delay_seconds > 0:
             time.sleep(delay_seconds)
-        rows.extend(parse_rows(fetch_page(session, page_url(base_url, page_number), timeout)))
+        url = page_url(base_url, page_number)
+        rows.extend(parse_rows(fetch_text(session, url, timeout=timeout, verbose=verbose)))
 
     return rows
 
 
-def write_csv(rows: list[MetrykaRow], output: Path) -> None:
-    with output.open("w", encoding="utf-8", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=FIELDNAMES)
-        writer.writeheader()
-        for row in rows:
-            writer.writerow(row.as_csv_row())
-
-
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Crawl https://archiwum.diecezja.pl/metryka/ and write a denormalized CSV."
+        description="Crawl https://archiwum.diecezja.pl/metryka/ to CSV."
     )
-    parser.add_argument(
-        "-o",
-        "--output",
-        type=Path,
-        default=Path("archiwum_metryka.csv"),
-        help="CSV output path. Defaults to ./archiwum_metryka.csv.",
-    )
+    add_common_args(parser, default_delay=0.5)
     parser.add_argument(
         "--base-url",
         default=BASE_URL,
-        help=f"Base listing URL. Defaults to {BASE_URL}",
-    )
-    parser.add_argument(
-        "--delay",
-        type=float,
-        default=0.5,
-        help="Seconds to wait between page requests. Defaults to 0.5.",
-    )
-    parser.add_argument(
-        "--timeout",
-        type=float,
-        default=30.0,
-        help="HTTP timeout in seconds. Defaults to 30.",
+        help=f"Base listing URL (default: {BASE_URL}).",
     )
     parser.add_argument(
         "--max-pages",
@@ -205,14 +172,21 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv or sys.argv[1:])
-    rows = crawl(
-        base_url=args.base_url,
-        delay_seconds=args.delay,
-        timeout=args.timeout,
-        max_pages=args.max_pages,
-    )
-    write_csv(rows, args.output)
-    print(f"Wrote {len(rows)} rows to {args.output}")
+    if args.input_html is not None:
+        rows = parse_rows(args.input_html.read_text(encoding="utf-8"))
+    else:
+        rows = crawl(
+            base_url=args.base_url,
+            user_agent=args.user_agent,
+            delay_seconds=args.delay,
+            timeout=args.timeout,
+            max_pages=args.max_pages,
+            verbose=args.verbose,
+        )
+    with CsvSink(args.output, BASE_FIELDS) as sink:
+        for row in rows:
+            sink.write_row(row.as_csv_row())
+    eprint(f"Wrote {len(rows)} rows" + (f" to {args.output}" if args.output else " to stdout"))
     return 0
 
 

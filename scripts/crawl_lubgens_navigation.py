@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
-"""Crawl Lubgens parish pages to a denormalized book-range CSV."""
+"""Crawl Lubgens parish pages to a denormalized book-range CSV.
+
+Usage:
+    uv run python scripts/crawl_lubgens_navigation.py                              # stdout
+    uv run python scripts/crawl_lubgens_navigation.py -o sources/lubgens_parish_books.csv
+"""
 
 from __future__ import annotations
 
 import argparse
-import csv
 import re
 import sys
 import time
@@ -16,13 +20,16 @@ import requests
 from bs4 import BeautifulSoup
 from bs4.element import Tag
 
+from polish_genealogy_mcp.scrapers.common import (
+    BASE_FIELDS,
+    ResumableCsvSink,
+    add_common_args,
+    eprint,
+    make_session,
+)
+
 BASE_URL = "https://regestry.lubgens.eu/news.php"
 INDEX_URL = "https://regestry.lubgens.eu/druk_usz_v2_1.php"
-FIELDNAMES = ["Miejscowość", "Parafia", "Rodzaj Księgi", "Rok od", "Rok do"]
-USER_AGENT = (
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
-)
 CATEGORY_NAMES = {"u": "Chrzty", "s": "Śluby", "z": "Zgony"}
 YEAR_RANGE_RE = re.compile(r"(\d{4})\s*[-–—]\s*(\d{4})")
 
@@ -43,7 +50,7 @@ class LubgensBookRangeRow:
     rok_od: int
     rok_do: int
 
-    def as_csv_row(self) -> dict[str, str | int]:
+    def as_csv_row(self) -> dict[str, object]:
         return {
             "Miejscowość": self.miejscowosc,
             "Parafia": self.parafia,
@@ -66,8 +73,15 @@ def extract_par_id(url: str) -> str:
 def fetch_page(
     session: requests.Session, url: str, timeout: float, *, verbose: bool = False
 ) -> str:
+    """Fetch ``url`` and return the body.
+
+    Kept as a local helper (rather than delegating to ``_common.fetch_text``)
+    because ``tests/test_crawl_lubgens_navigation.py`` exercises this
+    function with a minimal stub Session — and pins the exact stderr text
+    emitted with ``verbose=True``.
+    """
     if verbose:
-        print(f"Fetching {url}", file=sys.stderr)
+        eprint(f"Fetching {url}")
     response = session.get(url, timeout=timeout)
     response.raise_for_status()
     return response.text
@@ -268,74 +282,19 @@ def crawl_parish(
     return rows
 
 
-def progress_path_for(output: Path) -> Path:
-    return output.with_suffix(output.suffix + ".progress")
-
-
-def load_completed_par_ids(progress_path: Path) -> set[str]:
-    if not progress_path.exists():
-        return set()
-    return {
-        line.strip()
-        for line in progress_path.read_text(encoding="utf-8").splitlines()
-        if line.strip()
-    }
-
-
-class ResumableCsvWriter:
-    """Append rows to a CSV per parish and record completed par_ids.
-
-    A sidecar ``<output>.progress`` file tracks which parishes have been
-    fully written. Presence of the progress file indicates a resumable
-    run: the existing CSV is appended to. Without it, the CSV is
-    rewritten from scratch.
-    """
-
-    def __init__(self, output: Path) -> None:
-        self.output = output
-        self.progress = progress_path_for(output)
-        self.completed: set[str] = load_completed_par_ids(self.progress)
-        output.parent.mkdir(parents=True, exist_ok=True)
-
-        resuming = bool(self.completed) and output.exists()
-        mode = "a" if resuming else "w"
-        self._file = output.open(mode, encoding="utf-8", newline="")
-        self._writer = csv.DictWriter(self._file, fieldnames=FIELDNAMES)
-        if not resuming:
-            self._writer.writeheader()
-            self._file.flush()
-            # Reset progress to match a fresh CSV.
-            if self.progress.exists():
-                self.progress.unlink()
-            self.completed = set()
-
-    def already_done(self, par_id: str) -> bool:
-        return par_id in self.completed
-
-    def write_parish(self, par_id: str, rows: list[LubgensBookRangeRow]) -> None:
-        for row in rows:
-            self._writer.writerow(row.as_csv_row())
-        self._file.flush()
-        with self.progress.open("a", encoding="utf-8") as f:
-            f.write(par_id + "\n")
-        self.completed.add(par_id)
-
-    def close(self) -> None:
-        self._file.close()
-
-
 def crawl(
     *,
     base_url: str,
-    output: Path,
+    output: Path | None,
+    user_agent: str | None,
     timeout: float,
     delay_seconds: float,
     exact_years: bool,
     max_parishes: int | None,
+    restart: bool,
     verbose: bool,
 ) -> int:
-    session = requests.Session()
-    session.headers.update({"User-Agent": USER_AGENT})
+    session = make_session(user_agent)
 
     parish_links = parse_parish_links(
         fetch_page(session, base_url, timeout, verbose=verbose), base_url=base_url
@@ -343,17 +302,12 @@ def crawl(
     if max_parishes is not None:
         parish_links = parish_links[:max_parishes]
 
-    writer = ResumableCsvWriter(output)
     new_rows = 0
     fetched = 0
-    try:
+    with ResumableCsvSink(output, BASE_FIELDS, restart=restart) as sink:
         for index, parish_link in enumerate(parish_links, start=1):
-            if writer.already_done(parish_link.par_id):
-                print(
-                    f"Skipping {index}/{len(parish_links)}: {parish_link.label} "
-                    f"(already in {writer.progress.name})",
-                    file=sys.stderr,
-                )
+            if sink.already_done(parish_link.par_id):
+                eprint(f"Skipping {index}/{len(parish_links)}: {parish_link.label} (already done)")
                 continue
             if delay_seconds > 0 and fetched > 0:
                 time.sleep(delay_seconds)
@@ -366,15 +320,12 @@ def crawl(
                 exact_years=exact_years,
                 verbose=verbose,
             )
-            writer.write_parish(parish_link.par_id, rows)
-            new_rows += len(rows)
-            print(
+            n = sink.write_unit(parish_link.par_id, (r.as_csv_row() for r in rows))
+            new_rows += n
+            eprint(
                 f"Crawled {index}/{len(parish_links)}: {parish_link.label} "
-                f"(+{len(rows)} rows, {new_rows} new total)",
-                file=sys.stderr,
+                f"(+{n} rows, {new_rows} new total)"
             )
-    finally:
-        writer.close()
 
     return new_rows
 
@@ -383,29 +334,11 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Crawl Lubgens parish category date ranges to CSV."
     )
-    parser.add_argument(
-        "-o",
-        "--output",
-        type=Path,
-        default=Path("sources/lubgens_parish_books.csv"),
-        help="CSV output path. Defaults to sources/lubgens_parish_books.csv.",
-    )
+    add_common_args(parser, default_delay=0.2, supports_resume=True)
     parser.add_argument(
         "--url",
         default=BASE_URL,
-        help=f"Navigation page URL. Defaults to {BASE_URL}",
-    )
-    parser.add_argument(
-        "--timeout",
-        type=float,
-        default=30.0,
-        help="HTTP timeout in seconds. Defaults to 30.",
-    )
-    parser.add_argument(
-        "--delay",
-        type=float,
-        default=0.2,
-        help="Seconds to wait between requests. Defaults to 0.2.",
+        help=f"Navigation page URL (default: {BASE_URL}).",
     )
     parser.add_argument(
         "--max-parishes",
@@ -418,27 +351,57 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         action="store_true",
         help="Use decade bucket bounds instead of fetching AJAX rows for exact years.",
     )
-    parser.add_argument(
-        "-v",
-        "--verbose",
-        action="store_true",
-        help="Print every crawled URL to stderr.",
-    )
     return parser.parse_args(argv)
 
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv or sys.argv[1:])
+
+    if args.input_html is not None:
+        # Offline: treat the fixture as a *parish* page (the navigation
+        # page alone produces no rows — it just lists parish links).
+        # Decade-bounds mode is forced because exact-years parsing
+        # requires extra per-decade fetches.
+        parish_html = args.input_html.read_text(encoding="utf-8")
+        parish_name = parse_parish_name(parish_html, fallback=args.input_html.stem)
+        decades_by_category = parse_decades(parish_html)
+        rows: list[LubgensBookRangeRow] = []
+        for category, decades in decades_by_category.items():
+            if not decades:
+                continue
+            bounds = decade_bounds(decades)
+            if bounds is None:
+                continue
+            rok_od, rok_do = bounds
+            rows.append(
+                LubgensBookRangeRow(
+                    miejscowosc=parish_name.upper(),
+                    parafia=parish_name,
+                    rodzaj_ksiegi=CATEGORY_NAMES[category],
+                    rok_od=rok_od,
+                    rok_do=rok_do,
+                )
+            )
+        with ResumableCsvSink(args.output, BASE_FIELDS, restart=args.restart) as sink:
+            n = sink.write_unit(args.input_html.stem, (r.as_csv_row() for r in rows))
+        eprint(
+            f"{parish_name} (offline): {n} rows"
+            + (f" → {args.output}" if args.output else " → stdout")
+        )
+        return 0
+
     new_rows = crawl(
         base_url=args.url,
         output=args.output,
+        user_agent=args.user_agent,
         timeout=args.timeout,
         delay_seconds=args.delay,
         exact_years=not args.decade_bounds,
         max_parishes=args.max_parishes,
+        restart=args.restart,
         verbose=args.verbose,
     )
-    print(f"Wrote {new_rows} new rows to {args.output}")
+    eprint(f"Wrote {new_rows} new rows" + (f" to {args.output}" if args.output else " to stdout"))
     return 0
 
 
