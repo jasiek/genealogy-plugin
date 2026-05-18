@@ -40,9 +40,11 @@ _PAGINATION_RE = re.compile(
 )
 # The upstream sometimes omits the closing </tr> and relies on HTML5's
 # implicit row close (next <tr> or </table>). The lookahead handles both
-# the well-formed and the implicit-close cases.
+# the well-formed and the implicit-close cases. \Z covers the case where
+# _TABLE_RE has already stripped </table> and the last row has no </tr>
+# (warmia's single-row resource catalogue, for example).
 _TR_RE = re.compile(
-    r"<tr\b[^>]*>(.*?)(?=<tr\b|</table>)",
+    r"<tr\b[^>]*>(.*?)(?=<tr\b|</table>|\Z)",
     re.IGNORECASE | re.DOTALL,
 )
 _TD_RE = re.compile(r"<td\b[^>]*>(.*?)</td>", re.IGNORECASE | re.DOTALL)
