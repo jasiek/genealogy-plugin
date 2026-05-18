@@ -13,7 +13,7 @@ from pathlib import Path
 
 import pytest
 
-from polish_genealogy_mcp._cli_config import CONFIG_ENTRIES
+from genealogy_mcp._cli_config import CONFIG_ENTRIES
 
 
 @pytest.fixture(scope="module")

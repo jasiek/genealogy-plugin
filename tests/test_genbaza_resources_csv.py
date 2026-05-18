@@ -13,7 +13,7 @@ import importlib.util
 import io
 from pathlib import Path
 
-from polish_genealogy_mcp.scrapers.common import CsvSink
+from genealogy_mcp.scrapers.common import CsvSink
 
 _SCRIPT_PATH = Path(__file__).resolve().parents[1] / "scripts" / "genbaza_resources_csv.py"
 _FIXTURE_DIR = Path(__file__).resolve().parent / "fixtures" / "genbaza"

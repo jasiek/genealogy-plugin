@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from polish_genealogy_mcp.sources.heredis.db import open_ro
+from genealogy_mcp.sources.heredis.db import open_ro
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 FIXTURE_DB = REPO_ROOT / "Szumiec.heredis"

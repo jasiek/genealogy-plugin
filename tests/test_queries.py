@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import pytest
 
-from polish_genealogy_mcp.sources.heredis import queries
+from genealogy_mcp.sources.heredis import queries
 
 
 def test_search_persons_no_filters_returns_page(conn):

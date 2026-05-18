@@ -2,7 +2,7 @@ from datetime import date
 
 import pytest
 
-from polish_genealogy_mcp.sources.heredis.db import (
+from genealogy_mcp.sources.heredis.db import (
     coord_or_none,
     date_to_datetri,
     datetri_or_none,

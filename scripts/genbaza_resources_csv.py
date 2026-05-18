@@ -30,7 +30,7 @@ import time
 from pathlib import Path
 from urllib.parse import urlparse
 
-from polish_genealogy_mcp.scrapers.common import (
+from genealogy_mcp.scrapers.common import (
     BASE_FIELDS,
     CsvSink,
     add_common_args,
@@ -38,7 +38,7 @@ from polish_genealogy_mcp.scrapers.common import (
     fetch_text,
     make_session,
 )
-from polish_genealogy_mcp.sources.genbaza.parser import (
+from genealogy_mcp.sources.genbaza.parser import (
     _TABLE_RE,
     _TD_RE,
     _TH_RE,

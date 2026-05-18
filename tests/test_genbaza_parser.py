@@ -10,7 +10,7 @@ from pathlib import Path
 
 import pytest
 
-from polish_genealogy_mcp.sources.genbaza.parser import (
+from genealogy_mcp.sources.genbaza.parser import (
     parse_resources_response,
     parse_search_response,
 )

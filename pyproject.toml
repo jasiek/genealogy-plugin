@@ -1,5 +1,5 @@
 [project]
-name = "polish-genealogy-mcp"
+name = "genealogy-mcp"
 version = "0.3.3"
 description = "MCP server for genealogy: read-only access to a Heredis file (verified facts) plus live Polish parish-record search (Geneteka, Genealogia w Archiwach, GenPod, genbaza family)."
 requires-python = ">=3.11"
@@ -13,8 +13,8 @@ dependencies = [
 ]
 
 [project.scripts]
-polish-genealogy-mcp = "polish_genealogy_mcp.__main__:main"
-polish-genealogy-mcp-call = "polish_genealogy_mcp.call:main"
+genealogy-mcp = "genealogy_mcp.__main__:main"
+genealogy-mcp-call = "genealogy_mcp.call:main"
 
 [dependency-groups]
 dev = [
@@ -27,7 +27,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/polish_genealogy_mcp"]
+packages = ["src/genealogy_mcp"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

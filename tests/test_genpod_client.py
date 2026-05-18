@@ -8,7 +8,7 @@ from urllib.parse import parse_qs
 import httpx
 import pytest
 
-from polish_genealogy_mcp.sources.genpod.client import (
+from genealogy_mcp.sources.genpod.client import (
     GenpodAuthenticationError,
     GenpodClient,
     GenpodConfig,

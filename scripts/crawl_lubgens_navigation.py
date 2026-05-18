@@ -20,7 +20,7 @@ import requests
 from bs4 import BeautifulSoup
 from bs4.element import Tag
 
-from polish_genealogy_mcp.scrapers.common import (
+from genealogy_mcp.scrapers.common import (
     BASE_FIELDS,
     ResumableCsvSink,
     add_common_args,

@@ -7,7 +7,7 @@ set -euo pipefail
 
 DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
-log() { printf 'polish-genealogy-mcp: %s\n' "$*" >&2; }
+log() { printf 'genealogy-mcp: %s\n' "$*" >&2; }
 
 # 1. Try to locate uv. Claude Desktop GUI processes don't inherit a login shell
 #    PATH, so we check common install locations explicitly.
@@ -37,7 +37,7 @@ if [[ -n "$UV" ]]; then
   export UV_PROJECT_ENVIRONMENT="$DIR/.venv"
   export UV_PYTHON_PREFERENCE="${UV_PYTHON_PREFERENCE:-managed}"
   exec "$UV" run --directory "$DIR" --python ">=3.11" \
-    python -m polish_genealogy_mcp "$@"
+    python -m genealogy_mcp "$@"
 fi
 
 # 2. Fallback: find a Python ≥3.11 and pip install --target lib/.
@@ -80,4 +80,4 @@ if [[ ! -f "$MARKER" ]]; then
 fi
 
 export PYTHONPATH="$LIB:$DIR/src${PYTHONPATH:+:$PYTHONPATH}"
-exec "$PY" -m polish_genealogy_mcp "$@"
+exec "$PY" -m genealogy_mcp "$@"

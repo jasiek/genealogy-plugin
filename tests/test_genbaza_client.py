@@ -12,12 +12,12 @@ from pathlib import Path
 import httpx
 import pytest
 
-from polish_genealogy_mcp.sources.genbaza.client import (
+from genealogy_mcp.sources.genbaza.client import (
     GenbazaClient,
     GenbazaConfig,
     pl2uni,
 )
-from polish_genealogy_mcp.sources.genbaza.constants import SITES
+from genealogy_mcp.sources.genbaza.constants import SITES
 
 FIXTURES = Path(__file__).resolve().parent / "fixtures" / "genbaza"
 
@@ -118,7 +118,7 @@ def test_search_uses_referer_matching_target_host():
 
 def test_search_propagates_http_errors(monkeypatch):
     # Skip backoff between attempts to keep the test fast.
-    monkeypatch.setattr("polish_genealogy_mcp.sources._http_retry.time.sleep", lambda _s: None)
+    monkeypatch.setattr("genealogy_mcp.sources._http_retry.time.sleep", lambda _s: None)
 
     def handler(request: httpx.Request) -> httpx.Response:
         return httpx.Response(503, text="oops")
@@ -143,7 +143,7 @@ def test_search_does_not_retry_non_5xx_errors():
 
 
 def test_search_retries_transient_5xx_then_succeeds(monkeypatch):
-    monkeypatch.setattr("polish_genealogy_mcp.sources._http_retry.time.sleep", lambda _s: None)
+    monkeypatch.setattr("genealogy_mcp.sources._http_retry.time.sleep", lambda _s: None)
     seen: list[httpx.Request] = []
     success = _read("swietogen_search.html")
 

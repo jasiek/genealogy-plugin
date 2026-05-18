@@ -1,4 +1,4 @@
-# polish-genealogy-mcp
+# genealogy-mcp
 
 MCP server for Polish genealogy research. Two tiers:
 
@@ -11,7 +11,7 @@ Live sources are rate-limited (default 5 s between requests) and use a browser-s
 
 ### Claude Desktop (one-click via DXT)
 
-1. Download the latest `polish-genealogy-mcp-<version>.dxt` from the GitHub releases page.
+1. Download the latest `genealogy-mcp-<version>.dxt` from the GitHub releases page.
 2. Open Claude Desktop → **Settings → Extensions** → drag the `.dxt` onto the window (or click *Install Extension*).
 3. When prompted, optionally point **Heredis database** at your `.heredis` file. Leave empty to use only the live research sources.
 
@@ -28,12 +28,12 @@ Once published to PyPI:
 
 ```jsonc
 // ~/Library/Application Support/Claude/claude_desktop_config.json
-// or via:  claude mcp add polish-genealogy -- uvx polish-genealogy-mcp --heredis-db /path/to/file.heredis
+// or via:  claude mcp add polish-genealogy -- uvx genealogy-mcp --heredis-db /path/to/file.heredis
 {
   "mcpServers": {
     "polish-genealogy": {
       "command": "uvx",
-      "args": ["polish-genealogy-mcp", "--heredis-db", "/path/to/file.heredis"]
+      "args": ["genealogy-mcp", "--heredis-db", "/path/to/file.heredis"]
     }
   }
 }
@@ -46,21 +46,21 @@ git clone https://github.com/jszumiec/heredis-mcp
 cd heredis-mcp
 uv sync
 claude mcp add polish-genealogy -- \
-  uv --directory "$PWD" run polish-genealogy-mcp --heredis-db /path/to/file.heredis
+  uv --directory "$PWD" run genealogy-mcp --heredis-db /path/to/file.heredis
 ```
 
 ## Configuration
 
 Every knob can be set three ways. Precedence, highest to lowest:
 
-1. **Command-line flag** — passed to `polish-genealogy-mcp` (or `polish-genealogy-mcp-call`).
+1. **Command-line flag** — passed to `genealogy-mcp` (or `genealogy-mcp-call`).
 2. **Environment variable** — this is also the channel Claude Desktop and
    Claude Code use. The DXT manifest exposes the most common knobs as
    user-config fields, and `claude mcp add ... -e KEY=value` injects env
    vars into the MCP server entry.
 3. **Built-in default**.
 
-Run `polish-genealogy-mcp --help` for the full list. Common knobs:
+Run `genealogy-mcp --help` for the full list. Common knobs:
 
 | CLI flag | Environment variable | Default | Purpose |
 |---|---|---|---|
@@ -89,33 +89,33 @@ If neither a Heredis DB nor any live source is enabled, the server refuses to st
 
 ```bash
 # CLI flag wins over env var
-GENETEKA_MIN_INTERVAL=2 polish-genealogy-mcp --geneteka-min-interval 10  # → 10s
+GENETEKA_MIN_INTERVAL=2 genealogy-mcp --geneteka-min-interval 10  # → 10s
 
 # Claude Code: pass config as env vars
 claude mcp add polish-genealogy \
   -e HEREDIS_DB=/path/to/file.heredis \
   -e GENETEKA_MIN_INTERVAL=3 \
-  -- uvx polish-genealogy-mcp
+  -- uvx genealogy-mcp
 ```
 
 ## Testing tools from the command line
 
-`polish-genealogy-mcp-call` invokes any registered tool without spinning up
+`genealogy-mcp-call` invokes any registered tool without spinning up
 an MCP client. It honours the same config precedence as the server.
 
 ```bash
 # list every registered tool
-polish-genealogy-mcp-call --heredis-db Szumiec.heredis --list
+genealogy-mcp-call --heredis-db Szumiec.heredis --list
 
 # show a tool's input JSON Schema
-polish-genealogy-mcp-call --tool geneteka_search --schema
+genealogy-mcp-call --tool geneteka_search --schema
 
 # invoke with key=value (each value is JSON-parsed; falls back to string)
-polish-genealogy-mcp-call --heredis-db Szumiec.heredis \
+genealogy-mcp-call --heredis-db Szumiec.heredis \
     --tool heredis_search_persons surname=Szumiec limit=5
 
 # or pass the full argument object as JSON
-polish-genealogy-mcp-call --tool geneteka_search \
+genealogy-mcp-call --tool geneteka_search \
     --json '{"region":"06mp","surname":"Szumiec"}'
 ```
 
@@ -135,7 +135,7 @@ See [SCHEMA.md](SCHEMA.md) for the Heredis schema and [AGENTS.md](AGENTS.md) for
 ./scripts/build-dxt.sh
 ```
 
-Produces `dist/polish-genealogy-mcp-<version>.dxt`. The script vendors runtime
+Produces `dist/genealogy-mcp-<version>.dxt`. The script vendors runtime
 deps into `lib/` and packs everything via `@anthropic-ai/dxt`. Requires `uv`
 and `npx` on PATH. Attach the resulting file to a GitHub release.
 

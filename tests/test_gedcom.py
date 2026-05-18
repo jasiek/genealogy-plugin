@@ -7,9 +7,9 @@ from pathlib import Path
 
 import pytest
 
-from polish_genealogy_mcp.server import build_server
-from polish_genealogy_mcp.sources.gedcom import queries
-from polish_genealogy_mcp.sources.gedcom.parser import load
+from genealogy_mcp.server import build_server
+from genealogy_mcp.sources.gedcom import queries
+from genealogy_mcp.sources.gedcom.parser import load
 
 FIXTURE = Path(__file__).parent / "fixtures" / "sample.ged"
 

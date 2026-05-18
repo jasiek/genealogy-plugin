@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 
-from polish_genealogy_mcp.sources.genealogia_w_archiwach.parser import (
+from genealogy_mcp.sources.genealogia_w_archiwach.parser import (
     extract_urls,
     image_urls,
     parse_records,

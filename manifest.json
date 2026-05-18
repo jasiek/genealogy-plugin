@@ -1,6 +1,6 @@
 {
   "dxt_version": "0.1",
-  "name": "polish-genealogy-mcp",
+  "name": "genealogy-mcp",
   "display_name": "Polish Genealogy",
   "version": "0.3.3",
   "description": "Heredis (read-only) + Geneteka and Genealogia w Archiwach search for Polish genealogy research.",

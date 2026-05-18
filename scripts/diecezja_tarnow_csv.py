@@ -28,7 +28,7 @@ from typing import Iterable
 
 from bs4 import BeautifulSoup
 
-from polish_genealogy_mcp.scrapers.common import (
+from genealogy_mcp.scrapers.common import (
     BASE_FIELDS,
     CsvSink,
     add_common_args,

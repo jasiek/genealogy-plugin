@@ -5,13 +5,13 @@ from __future__ import annotations
 import httpx
 import pytest
 
-from polish_genealogy_mcp.sources._http_retry import RetryTransport
+from genealogy_mcp.sources._http_retry import RetryTransport
 
 
 @pytest.fixture(autouse=True)
 def _no_sleep(monkeypatch):
     """Skip backoff sleeps so the suite stays fast."""
-    monkeypatch.setattr("polish_genealogy_mcp.sources._http_retry.time.sleep", lambda _s: None)
+    monkeypatch.setattr("genealogy_mcp.sources._http_retry.time.sleep", lambda _s: None)
 
 
 def _client(handler) -> httpx.Client:

@@ -1,8 +1,8 @@
-# polish-genealogy-mcp
+# genealogy-mcp
 
 Multi-source MCP server (Python) for genealogy research.
 
-Two source tiers, layered under `src/polish_genealogy_mcp/sources/`:
+Two source tiers, layered under `src/genealogy_mcp/sources/`:
 
 - **`heredis_*` tools** — read-only access to the user's `.heredis` SQLite
   file. This is the **verified facts** tier: data the user has researched
@@ -41,7 +41,7 @@ names prefixed with the source so they don't collide.
 ## Instructions
 
 * To determine if a change was successful, run the test suite.
-* If you added a new tool, run uv run  polish-genealogy-mcp-call --list to see that it was added. Additional configuration may be needed for it to become visible.
+* If you added a new tool, run uv run  genealogy-mcp-call --list to see that it was added. Additional configuration may be needed for it to become visible.
 * Ensure that there are corresponding configuration options surfaced via manifest.json
 * Before committing, format code using black.
 * Manage dependencies using uv.

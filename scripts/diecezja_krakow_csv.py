@@ -19,7 +19,7 @@ from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 from bs4.element import NavigableString, Tag
 
-from polish_genealogy_mcp.scrapers.common import (
+from genealogy_mcp.scrapers.common import (
     BASE_FIELDS,
     CsvSink,
     add_common_args,

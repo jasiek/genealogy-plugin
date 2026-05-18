@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from polish_genealogy_mcp.sources.lubgens.parser import parse_search_response
+from genealogy_mcp.sources.lubgens.parser import parse_search_response
 
 FIXTURES = Path(__file__).resolve().parent / "fixtures" / "lubgens"
 
