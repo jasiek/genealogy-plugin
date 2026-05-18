@@ -21,6 +21,8 @@ lib/
 
 # Editor backups
 *~
+\#*\#
+.\#*
 .DS_Store
 
 # Personal Heredis fixtures — never commit
