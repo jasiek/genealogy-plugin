@@ -49,4 +49,11 @@ names prefixed with the source so they don't collide.
 * When a change is complete and working, create a descriptive message of what was the objective of the change, and what was changed.
 * When in doubt, ask questions and provide options.
 * Spawn sub-agents to reduce context pollution (for summarizing, running tools, etc)
-
+* When writing crawling scripts keep in mind the following:
+  * These scripts are to produce CSV, with the following columns:
+    Miejscowość, Parafia, Rodzaj Ksiegi, Rok od, Rok do
+  * Use comma as the separator. Quote if needed, output is UTF-8.
+  * The role of these is to act as an index, to select the right source, so it needs to be greppable/fzf/etc.
+  * Additonal columns can be added if the source supports it: Powiat, Województwo, Rodzaj źródła
+  * For sources with date ranges which are not continuous, produce one row for each range, so for 3 disjoint ranges produce 3 rows, each with a date range.
+  * When writing scripts add sanity checks which are going to have the script bail out if the structure of the page has changed, so there is some other quality issue.
