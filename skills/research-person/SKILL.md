@@ -15,14 +15,18 @@ For each person, maintain an Obsidian-style markdown file. Name of the file shou
 where ID is a unique identifier.
 
 Use Obsidian's aliases to make the note cross-referenceable by listing heredis record identifier, and GEDCOM id.
-Use assets/research-person-template.md as the template.
+Use `${CLAUDE_PLUGIN_ROOT}/skills/research-person/template.md` as the template.
 
 - When looking for existing, established evidence, check sources of truth, such as tool:Heredis, or tool:GEDCOM.
   Heredis files or GED files should be in the current directory.
 - When referring to other people, use hyperlinks which refer to other files in persons/
 - Hyperlinks shouldn't break unless the person hyperlinked doesn't exist yet.
-- After editing a note, run `uv run python scripts/check_vault_links.py` from the
-  vault root. The script reports two buckets:
+- After editing a note, run
+  `uv run --project "${CLAUDE_PLUGIN_ROOT}" python "${CLAUDE_PLUGIN_ROOT}/skills/research-person/check_vault_links.py"`
+  from the vault root. (`${CLAUDE_PLUGIN_ROOT}` is set by Claude Code to this
+  plugin's install dir; `--project` keeps the subprocess cwd in the vault so
+  the script picks up the right notes while resolving deps from the plugin's
+  `pyproject.toml`.) The script reports two buckets:
   - **Broken** wiki-links and markdown links — must be fixed.
   - **Unresearched persons** — links to person notes that don't exist yet; these
     are acceptable and the script exits 0 if they are the only finding.
