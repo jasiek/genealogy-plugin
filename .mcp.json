@@ -1,17 +1,13 @@
 {
   "mcpServers": {
     "genealogy": {
-      "command": "${CLAUDE_PLUGIN_ROOT}/bin/run.sh",
-      "args": [],
-      "env": {
-        "GENETEKA_MIN_INTERVAL": "${user_config.geneteka_min_interval}",
-        "GENEALOGIA_W_ARCHIWACH_MIN_INTERVAL": "${user_config.genealogia_w_archiwach_min_interval}",
-        "GENBAZA_MIN_INTERVAL": "${user_config.genbaza_min_interval}",
-        "LUBGENS_MIN_INTERVAL": "${user_config.lubgens_min_interval}",
-        "GENPOD_MIN_INTERVAL": "${user_config.genpod_min_interval}",
-        "GENPOD_USERNAME": "${user_config.genpod_username}",
-        "GENPOD_PASSWORD": "${user_config.genpod_password}"
-      }
+      "command": "uv",
+      "args": [
+        "run",
+        "--project",
+        "${CLAUDE_PLUGIN_ROOT}",
+        "genealogy-mcp"
+      ]
     }
   }
 }

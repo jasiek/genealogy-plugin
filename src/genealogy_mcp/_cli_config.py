@@ -6,25 +6,18 @@ Configuration can come from three sources, with this precedence:
     2. environment variables
     3. built-in defaults         (lowest)
 
-Claude Desktop / Claude Code provide config to the server by setting
-environment variables in the MCP server entry (see `manifest.json` and
-the README), so "Claude config" maps onto layer 2.
+MCP clients (Claude Code, etc.) provide config to the server by setting
+environment variables in the MCP server entry, so "client config" maps onto
+layer 2.
 
 The single source of truth is `CONFIG_ENTRIES` below: each entry declares
-the CLI flag, env var, help text, and (optionally) the manifest metadata
-needed to render a Claude Desktop user_config field. Three consumers read
-this registry:
+the CLI flag, env var, and help text. Two consumers read this registry:
 
   - `add_config_arguments(parser)` — register every CLI flag
   - `apply_cli_overrides(args)`    — copy CLI values into os.environ so
     each source's existing `Config.from_env()` keeps working unchanged
-  - `dxt_env_vars()`               — names that may carry an unsubstituted
-    `${user_config.*}` template at startup and need scrubbing
-  - `tests/test_manifest.py`       — asserts manifest.json is in sync
 
-Adding a new knob is one edit: add a `ConfigEntry` here. If it should also
-appear in Claude Desktop's UI, set `expose_in_manifest=True` and fill the
-manifest_* fields; the test will then require the manifest to declare it.
+Adding a new knob is one edit: add a `ConfigEntry` here.
 """
 
 from __future__ import annotations
@@ -36,23 +29,11 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class ConfigEntry:
-    """One configuration knob, surfaced as a CLI flag and an env var.
-
-    If `expose_in_manifest` is True, the entry is also expected to appear
-    in `manifest.json` under both `server.mcp_config.env` and `user_config`
-    using the manifest_* metadata below.
-    """
+    """One configuration knob, surfaced as a CLI flag and an env var."""
 
     dest: str
     env_var: str
     help: str
-    expose_in_manifest: bool = False
-    manifest_type: str = "string"  # "string" | "file"
-    manifest_title: str = ""
-    manifest_description: str = ""
-    manifest_default: str | None = None
-    manifest_required: bool = False
-    sensitive: bool = False
 
     @property
     def cli_flag(self) -> str:
@@ -80,11 +61,6 @@ CONFIG_ENTRIES: tuple[ConfigEntry, ...] = (
         dest="geneteka_min_interval",
         env_var="GENETEKA_MIN_INTERVAL",
         help="Seconds between Geneteka requests (default 5).",
-        expose_in_manifest=True,
-        manifest_type="string",
-        manifest_title="Geneteka rate limit (seconds)",
-        manifest_description="Minimum interval between Geneteka requests. Default 5.",
-        manifest_default="5",
     ),
     ConfigEntry(
         dest="geneteka_user_agent",
@@ -95,13 +71,6 @@ CONFIG_ENTRIES: tuple[ConfigEntry, ...] = (
         dest="genealogia_w_archiwach_min_interval",
         env_var="GENEALOGIA_W_ARCHIWACH_MIN_INTERVAL",
         help="Seconds between Genealogia w Archiwach requests (default 5).",
-        expose_in_manifest=True,
-        manifest_type="string",
-        manifest_title="Genealogia w Archiwach rate limit (seconds)",
-        manifest_description=(
-            "Minimum interval between Genealogia w Archiwach requests. Default 5."
-        ),
-        manifest_default="5",
     ),
     ConfigEntry(
         dest="genealogia_w_archiwach_user_agent",
@@ -112,11 +81,6 @@ CONFIG_ENTRIES: tuple[ConfigEntry, ...] = (
         dest="genbaza_min_interval",
         env_var="GENBAZA_MIN_INTERVAL",
         help="Seconds between genbaza requests (default 5).",
-        expose_in_manifest=True,
-        manifest_type="string",
-        manifest_title="GenBaza rate limit (seconds)",
-        manifest_description="Minimum interval between GenBaza requests. Default 5.",
-        manifest_default="5",
     ),
     ConfigEntry(
         dest="genbaza_user_agent",
@@ -127,13 +91,6 @@ CONFIG_ENTRIES: tuple[ConfigEntry, ...] = (
         dest="lubgens_min_interval",
         env_var="LUBGENS_MIN_INTERVAL",
         help="Seconds between Lubgens requests (default 5).",
-        expose_in_manifest=True,
-        manifest_type="string",
-        manifest_title="Lubgens rate limit (seconds)",
-        manifest_description=(
-            "Minimum interval between Lubgens (regestry.lubgens.eu) requests. " "Default 5."
-        ),
-        manifest_default="5",
     ),
     ConfigEntry(
         dest="lubgens_user_agent",
@@ -144,11 +101,6 @@ CONFIG_ENTRIES: tuple[ConfigEntry, ...] = (
         dest="genpod_min_interval",
         env_var="GENPOD_MIN_INTERVAL",
         help="Seconds between GenPod requests (default 5).",
-        expose_in_manifest=True,
-        manifest_type="string",
-        manifest_title="GenPod rate limit (seconds)",
-        manifest_description="Minimum interval between GenPod requests. Default 5.",
-        manifest_default="5",
     ),
     ConfigEntry(
         dest="genpod_user_agent",
@@ -159,23 +111,11 @@ CONFIG_ENTRIES: tuple[ConfigEntry, ...] = (
         dest="genpod_username",
         env_var="GENPOD_USERNAME",
         help="GenPod username (required to enable genpod_* tools).",
-        expose_in_manifest=True,
-        manifest_type="string",
-        manifest_title="GenPod username",
-        manifest_description=(
-            "Username for Projekt Podlasie GenPod (https://genpod.projektpodlasie.pl). "
-            "Required to enable genpod_* tools."
-        ),
     ),
     ConfigEntry(
         dest="genpod_password",
         env_var="GENPOD_PASSWORD",
         help="GenPod password (required to enable genpod_* tools).",
-        expose_in_manifest=True,
-        manifest_type="string",
-        manifest_title="GenPod password",
-        manifest_description="Password for Projekt Podlasie GenPod. Required to enable genpod_* tools.",
-        sensitive=True,
     ),
 )
 
@@ -223,12 +163,3 @@ def enabled_sources(args: argparse.Namespace) -> dict[str, bool]:
         "enable_lubgens": not args.no_lubgens,
         "enable_genpod": not args.no_genpod,
     }
-
-
-def dxt_env_vars() -> tuple[str, ...]:
-    """Env-var names that may carry an unsubstituted `${user_config.*}` template.
-
-    Used by the entry point to scrub Claude Desktop's literal-template values
-    when an optional user_config field is left blank.
-    """
-    return tuple(e.env_var for e in CONFIG_ENTRIES if e.expose_in_manifest)

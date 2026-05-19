@@ -2,32 +2,39 @@
 
 MCP server for Polish genealogy research. Two tiers:
 
-- **`heredis_*`** — read-only access to your local `.heredis` SQLite file (verified facts).
-- **`geneteka_*`** and **`genealogia_w_archiwach_*`** — live search of public Polish parish-record indexes (research candidates).
+- **`heredis_*`** / **`gedcom_*`** — read-only access to your local
+  `.heredis` SQLite file or a GEDCOM file (verified facts).
+- **`geneteka_*`**, **`genealogia_w_archiwach_*`**, **`genbaza_*`**,
+  **`lubgens_*`**, **`genpod_*`** — live search of public Polish
+  parish-record indexes (research candidates).
 
-Live sources are rate-limited (default 5 s between requests) and use a browser-style User-Agent.
+Live sources are rate-limited (default 5 s between requests) and use a
+browser-style User-Agent.
+
+This repository ships as a Claude Code plugin (the `.claude-plugin/`
+directory and the `research-person` skill under `skills/`). You can also
+run the MCP server stand-alone against any MCP client.
 
 ## Install
 
-### Claude Desktop (one-click via DXT)
+### As a Claude Code plugin
 
-1. Download the latest `genealogy-mcp-<version>.dxt` from the GitHub releases page.
-2. Open Claude Desktop → **Settings → Extensions** → drag the `.dxt` onto the window (or click *Install Extension*).
-3. When prompted, optionally point **Heredis database** at your `.heredis` file. Leave empty to use only the live research sources.
+Add the plugin to Claude Code so the bundled skills and MCP tools are
+available:
 
-**Requirements:** [`uv`](https://docs.astral.sh/uv/) on PATH (recommended —
-auto-downloads a compatible Python and resolves deps from `pyproject.toml`).
-Install with `brew install uv` or `curl -LsSf https://astral.sh/uv/install.sh | sh`.
+```bash
+claude plugin add /path/to/heredis-mcp
+```
 
-If `uv` is unavailable, the wrapper falls back to system Python ≥3.11 +
-`pip install` into the extension directory.
+Launch Claude Code from a directory containing your `.heredis` or `.ged`
+file; the server auto-discovers it. The `research-person` skill is then
+available via `/research-person`.
 
 ### Claude Code / any MCP client (via `uvx`)
 
 Once published to PyPI:
 
 ```jsonc
-// ~/Library/Application Support/Claude/claude_desktop_config.json
 // or via:  claude mcp add polish-genealogy -- uvx genealogy-mcp --heredis-db /path/to/file.heredis
 {
   "mcpServers": {
@@ -54,10 +61,9 @@ claude mcp add polish-genealogy -- \
 Every knob can be set three ways. Precedence, highest to lowest:
 
 1. **Command-line flag** — passed to `genealogy-mcp` (or `genealogy-mcp-call`).
-2. **Environment variable** — this is also the channel Claude Desktop and
-   Claude Code use. The DXT manifest exposes the most common knobs as
-   user-config fields, and `claude mcp add ... -e KEY=value` injects env
-   vars into the MCP server entry.
+2. **Environment variable** — this is the channel MCP clients use.
+   `claude mcp add ... -e KEY=value` injects env vars into the MCP server
+   entry.
 3. **Built-in default**.
 
 Run `genealogy-mcp --help` for the full list. Common knobs:
@@ -65,6 +71,7 @@ Run `genealogy-mcp --help` for the full list. Common knobs:
 | CLI flag | Environment variable | Default | Purpose |
 |---|---|---|---|
 | `--heredis-db PATH` | `HEREDIS_DB` | unset | Path to `.heredis` SQLite file. Heredis tools register only when set. |
+| `--gedcom-path PATH` | `GEDCOM_PATH` | unset | Path to a GEDCOM file. GEDCOM tools register only when set. |
 | `--no-geneteka` | — | enabled | Disable the Geneteka source. |
 | `--no-genealogia-w-archiwach` | — | enabled | Disable the Genealogia w Archiwach source. |
 | `--no-genbaza` | — | enabled | Disable the genbaza-family source. |
@@ -128,16 +135,6 @@ uv run black .           # format
 ```
 
 See [SCHEMA.md](SCHEMA.md) for the Heredis schema and [AGENTS.md](AGENTS.md) for source-tier notes.
-
-## Build a `.dxt` for distribution
-
-```bash
-./scripts/build-dxt.sh
-```
-
-Produces `dist/genealogy-mcp-<version>.dxt`. The script vendors runtime
-deps into `lib/` and packs everything via `@anthropic-ai/dxt`. Requires `uv`
-and `npx` on PATH. Attach the resulting file to a GitHub release.
 
 ## Publish to PyPI
 

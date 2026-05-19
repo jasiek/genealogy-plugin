@@ -8,8 +8,8 @@ Configuration can come from (in precedence order):
                                      current working directory (sorted)
     4. built-in defaults
 
-Claude Desktop / Claude Code supply tunables (rate limits, GenPod creds) via
-env vars from the MCP server entry; the verified-facts file (Heredis or
+MCP clients (Claude Code, etc.) supply tunables (rate limits, GenPod creds)
+via env vars from the MCP server entry; the verified-facts file (Heredis or
 GEDCOM) is discovered from the project directory the server is launched in.
 
 Examples:
@@ -29,23 +29,9 @@ from pathlib import Path
 from genealogy_mcp._cli_config import (
     add_config_arguments,
     apply_cli_overrides,
-    dxt_env_vars,
     enabled_sources,
 )
 from genealogy_mcp.server import build_server
-
-
-def _scrub_dxt_templates() -> None:
-    """Drop env vars whose value is still an unsubstituted DXT template.
-
-    When a Claude Desktop user leaves an optional user_config field blank, the
-    DXT runtime passes the literal `${user_config.<name>}` through as the env
-    var rather than an empty string. Treat that as unset.
-    """
-    for name in dxt_env_vars():
-        value = os.environ.get(name)
-        if value is not None and "${" in value:
-            os.environ.pop(name, None)
 
 
 def _discover_in_cwd(pattern: str) -> str | None:
@@ -60,7 +46,6 @@ def _discover_in_cwd(pattern: str) -> str | None:
 
 
 def main() -> None:
-    _scrub_dxt_templates()
     parser = argparse.ArgumentParser(
         prog="genealogy-mcp",
         description=(
