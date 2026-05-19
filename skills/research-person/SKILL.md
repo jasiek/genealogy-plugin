@@ -20,14 +20,22 @@ Use `${CLAUDE_PLUGIN_ROOT}/skills/research-person/template.md` as the template.
 - When looking for existing, established evidence, check sources of truth, such as tool:Heredis, or tool:GEDCOM.
   Heredis files or GED files should be in the current directory.
 - When referring to other people, use hyperlinks which refer to other files in persons/
+- Every person note MUST live under `persons/`. Person-shaped wiki-links
+  (`[[Firstname_Lastname_ID]]`) and relative markdown links to person files
+  must resolve under `persons/`. If the checker reports a misplaced person
+  link, move the target file into `persons/` (preserving the slug) and update
+  any markdown links that pointed at the old location; wiki-links resolve by
+  slug so they don't need rewriting once the file is moved.
 - Hyperlinks shouldn't break unless the person hyperlinked doesn't exist yet.
 - After editing a note, run
   `uv run --project "${CLAUDE_PLUGIN_ROOT}" python "${CLAUDE_PLUGIN_ROOT}/skills/research-person/check_vault_links.py"`
   from the vault root. (`${CLAUDE_PLUGIN_ROOT}` is set by Claude Code to this
   plugin's install dir; `--project` keeps the subprocess cwd in the vault so
   the script picks up the right notes while resolving deps from the plugin's
-  `pyproject.toml`.) The script reports two buckets:
+  `pyproject.toml`.) The script reports three buckets:
   - **Broken** wiki-links and markdown links — must be fixed.
+  - **Misplaced person links** — person notes that exist but live outside
+    `persons/`. Move them under `persons/` and rewrite affected links.
   - **Unresearched persons** — links to person notes that don't exist yet; these
     are acceptable and the script exits 0 if they are the only finding.
 
