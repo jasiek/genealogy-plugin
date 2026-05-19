@@ -2,7 +2,7 @@
 name: research-person
 description: "Perform research on a person with the given name"
 argument-hint: <given-name> <surname> <date-of-some-event-within-their-lifetime>
-tools: heredis_* genbaza_* genealogia_* geneteka_* genpod_* lubgens_* Read Grep
+tools: heredis_* genbaza_* genealogia_* geneteka_* genpod_* lubgens_* Read Grep Bash
 ---
 
 # Research person skill
@@ -21,4 +21,9 @@ Use assets/research-person-template.md as the template.
   Heredis files or GED files should be in the current directory.
 - When referring to other people, use hyperlinks which refer to other files in persons/
 - Hyperlinks shouldn't break unless the person hyperlinked doesn't exist yet.
+- After editing a note, run `uv run python scripts/check_vault_links.py` from the
+  vault root. The script reports two buckets:
+  - **Broken** wiki-links and markdown links — must be fixed.
+  - **Unresearched persons** — links to person notes that don't exist yet; these
+    are acceptable and the script exits 0 if they are the only finding.
 
