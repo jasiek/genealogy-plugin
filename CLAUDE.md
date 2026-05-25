@@ -33,6 +33,18 @@ Two source tiers, layered under `src/genealogy_mcp/sources/`:
   familysearch.org) and best-effort `father_name` / `mother_name`
   extracted from the `UWAGI` cell. Rate-limited via
   `LUBGENS_MIN_INTERVAL` (default 5s); browser-style UA required.
+- **`basia_*` tools** — live search of https://basia.famula.pl (BaSIA,
+  "Baza Systemu Indeksacji Archiwalnej"), the WTG-Gniazdo / PSNC index of
+  Wielkopolska (Greater Poland) archival vital records (6.6M+ entries,
+  18th-20th c.). Drives the advanced form (POST to `/`); the search is a
+  **slow** server-side fuzzy name match — a bare common surname can take
+  80s+ or time out upstream and return a truncated page (the parser raises
+  a "narrow your query" error in that case), so the client uses a long
+  default timeout (`BASIA_TIMEOUT`, default 200s). Narrow with given name /
+  year range / place / `record_type` / `similarity`. Results are parsed
+  from `result_box` divs into person/parents/spouse/place/year plus
+  `scan_url` (szukajwarchiwach / familysearch) and a stable `permalink`.
+  Rate-limited via `BASIA_MIN_INTERVAL` (default 5s); browser-style UA.
 
 To add a new source: create `sources/<name>/` with a `tools.py` that exposes
 `register(mcp, ...)`, then call it from `server.build_server`. Keep tool
@@ -42,7 +54,11 @@ names prefixed with the source so they don't collide.
 
 * To determine if a change was successful, run the test suite.
 * If you added a new tool, run uv run  genealogy-mcp-call --list to see that it was added. Additional configuration may be needed for it to become visible.
-* Ensure that there are corresponding configuration options surfaced via manifest.json
+* Surface any new configuration knob through `_cli_config.py` (`CONFIG_ENTRIES`
+  for `--flag`/`ENV_VAR` pairs, `_DISABLE_FLAGS` for `--no-<source>` toggles).
+  That single registry drives both the CLI and the env-var channel MCP clients
+  use; document the knob in `README.md` too. (There is no `manifest.json` — the
+  project ships as a Claude Code plugin via `.claude-plugin/`.)
 * Before committing, format code using black.
 * Manage dependencies using uv.
 * Use python >= 3.11.

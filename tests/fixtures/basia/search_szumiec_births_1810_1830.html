@@ -1,0 +1,2041 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>BaSIA - Baza Systemu Indeksacji Archiwalnej</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="/css/templatemo_style.css" rel="stylesheet" type="text/css" />
+
+<!--
+<link href="/css/jquery.ennui.contentslider.css" rel="stylesheet" type="text/css" media="screen,projection" />
+<script src="http://code.jquery.com/jquery-1.4.4.js"></script>
+
+ <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+  
+  <link type="text/css" href="/css/redmond/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+		<script type="text/javascript" src="/js/jquery-1.6.4.min.js"></script>
+		<script type="text/javascript" src="/js/jquery-ui-1.8.16.custom.min.js"></script>
+ -->
+ <link type="text/css" href="/css/redmond/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+		<script type="text/javascript" src="/js/jquery-3.5.1.min.js"></script>
+		<script type="text/javascript" src="/js/jquery-ui-1.12.1.min.js"></script>
+  
+
+<link href="/css/facebox.css" media="screen" rel="stylesheet" type="text/css" />
+<script src="/js/facebox.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	jQuery(document).ready(function($) {
+	  $('a[rel*=facebox]').facebox({
+		loadingImage : '/images/facebox/loading.gif',
+		closeImage   : '/images/facebox/closelabel.png'
+	  })
+
+	  //$("#search_box").load("/email.txt"); 
+	  
+	 
+		$('form').submit(function(){
+			//$('input[type=submit]', this).attr('disabled', 'disabled');
+		});
+		
+		$( "#reset_password" ).on( "click", function() {
+		  let email = prompt("Wpisz adres email podany przy zakładaniu konta:", "");
+
+			if (email != null) {
+				$.ajax({
+				  method: "POST",
+				  url: "reset_password.php",
+				  data: { email: email }
+				})
+				  .done(function( msg ) {
+					
+					alert(msg);
+				  });
+			  // document.getElementById("demo").innerHTML =
+			  // "Hello " + person + "! How are you today?";
+			}
+		} );
+		
+		
+
+	})
+	</script>
+  
+<!--<script type="text/javascript"
+    src="http://maps.googleapis.com/maps/api/js?sensor=false">
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJizguCvGBNlR1r4zrEvjqQ7JHCr__xXY"
+  type="text/javascript"></script>
+-->
+
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+   integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+   crossorigin=""/>
+   
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+   integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+   crossorigin=""></script>
+
+<script language="javascript" type="text/javascript">
+
+	
+function ChangeLang(dropdown)
+{
+    var myindex  = dropdown.selectedIndex;
+    var SelValue = dropdown.options[myindex].value;
+    var baseURL  = "/" + SelValue + "";
+    top.location.href = baseURL;
+    
+    return true;
+}
+
+
+
+
+
+
+</script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-21751662-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</head>
+<body>
+
+
+<div id="templatemo_site_title_bar_wrapper">
+	<div id="templatemo_site_title_bar">
+    	<div id="site_title">
+            <h1><a href="/">BaSIA<span>Baza Systemu Indeksacji Archiwalnej</span></a></h1>
+        </div>
+        
+        <ul id="templatemo_menu">
+			<li><a href='/' class='current'><span></span>Strona Główna</a></li><li><a href='/zawartosc'><span></span>Zawartość Bazy</a></li><li><a href='/asia_info'><span></span>ASIA</a></li><li><a href='/o_projekcie'><span></span>O projekcie</a></li><li><a href='/kontakt'><span></span>Kontakt</a></li>        </ul>
+        
+        <div id="search_box">
+            <form id="simpleform" action="/" method="post">
+                <input 
+				style="width:270px; height:25px; font-size: 14px;line-height: 1.5em;vertical-align: middle;padding-left:5px";
+				type="text" value="" name="q" size="10" id="searchfield" placeholder="Wpisz poszukiwane nazwisko..."
+				title="Wpisz poszukiwane nazwisko..."  />
+                <input 
+					style="width:150px; height:30px; font-size: 14px;line-height: 1.5em;text-align: center;vertical-align: middle;";
+					type="submit" name="Search" 
+					value="Szukaj" alt="Szukaj" 
+					id="searchbutton" 
+					title="Szukaj" />
+				
+            </form>
+       </div>
+	   
+	   <script>
+	   $(function() {
+			$('#searchbutton').click(function(){
+			   $('#searchbutton').prop('disabled', true);
+			   $('#searchbutton').prop('title', "Trwa wyszukiwanie");
+			   $('#AdvSearch').prop('disabled', true);
+			   $('#AdvSearch').prop('title', "Trwa wyszukiwanie");
+			   
+			   $('#searchbutton').css("background", "url(/images/ajax-loader-bar.gif)");
+			   $('#searchbutton').css("background-size", "100% 100%");
+			   $('#searchbutton').css("background-repeat", "no-repeat");
+			   $('#searchbutton').css("cursor", "wait");
+			   $('#AdvSearch').css("cursor", "wait");
+				
+			   //$('#searchbutton').val(" ");
+
+			   $('form#simpleform').submit();
+			});
+			
+			$('#AdvSearch').click(function(){
+			    $('#searchbutton').prop('disabled', true);
+			   $('#searchbutton').prop('title', "Trwa wyszukiwanie");
+			   $('#AdvSearch').prop('disabled', true);
+			   $('#AdvSearch').prop('title', "Trwa wyszukiwanie");
+			   
+
+			   $('#AdvSearch').css("background", "url(/images/ajax-loader-bar.gif)");
+			   $('#AdvSearch').css("background-size", "100% 100%");
+			   $('#AdvSearch').css("background-repeat", "no-repeat");
+			   $('#searchbutton').css("cursor", "wait");
+			   $('#AdvSearch').css("cursor", "wait");
+			  
+			   //alert("adv");
+			   $('form#AdvForm').submit();
+			});
+		});
+	   </script>
+	   <div id="lang_box">
+		<form >
+		Język: 		<!-- disabled="disabled" -->
+		<select name="language" onchange="ChangeLang(this.form.language)">
+		<option value="pl/" selected='selected'  >Polski</option>
+		<option value="de/"  >Deutsch</option>
+		<option value="en/"  >English</option>
+		<option value="fr/"  >Français</option>
+		</select>
+		<!--<img src="/images/select-language-b.png" style="vertical-align: middle;"/>-->
+		</form>
+		
+		</div>
+       
+	</div> <!-- end of templatemo_site_title_bar -->        
+       
+</div> <!-- end of templatemo_site_title_bar_wrapper -->
+
+<div id="templatemo_banner_wrapper_outter">
+<div id="templatemo_banner_top" >
+
+	
+	<div id="templatemo_banner_top_inside" >
+		<div id="top_links" >
+			<a href='http://poznan-project.psnc.pl/' target='_blank'>Poznań Project</a><span style='color: #3388EE; '> - wyszukiwarka małżeństw z Wielkopolski</span>
+		</div>
+		<div id="top_expand" >
+			<a style="display: none; line-height: 30px; vertical-align:middle;" id="open" class="open" href="#"> ⇩ Wyszukiwanie rozszerzone</a>
+			<a id="close" style="display: inline; line-height: 30px; vertical-align:middle;" class="close" href="#"> ⇧ Ukryj</a>	
+		</div>
+		<div style='clear:both'></div>
+	</div>
+	
+	
+</div>
+<div id="search_slider" style="display:block">
+	
+	
+
+
+<form id="AdvForm" name="szukaj" action="/" method="POST">
+<div id="search_ext_body" >
+
+<div id="search_person_box">
+
+	
+		<div id='person0' class='search_person'>
+			<div class='person_option'><br> Osoba: </div>
+			<div class='person_option'>Imię<br><input size='20' value='' name='fname0' type='text'></div>
+			<div class='person_option'>Nazwisko<br><input size='20' value='Szumiec' name='lname0' type='text'></div>
+			<div class='person_option'>Płeć<br>
+				<select name='sex0' ><option selected value='any' >Dowolna</option><option value='m' >Mężczyzna</option><option value='k' >Kobieta</option>
+				</select>
+			</div>
+			<div class='person_option'>Relacja<br>
+				<select name='type0' ><option selected value='any' >Dowolna</option><option value='parent' >Małżonek/Rodzic</option><option value='child' >Dziecko</option><option value='other' >Inna</option>
+		</select>
+		</div>
+		<div class='person_option' style='width:200px;'>Podobieństwo: 
+		 <input value='60' name='sim0' id='personsim0' maxlength='3' type='text' style='background-color: transparent; border:0; width: 22px; margin:0'> %<br>
+		 <div id='simslider0' style='margin: 2px 0 0 0 '></div>
+		</div>
+		
+		<script>
+			
+		$('#simslider0').slider({
+		range: true,
+		min: 0,
+		max: 100,
+		values: [0,60],
+		slide: function(event, ui) {
+			if (ui.values[0] > 0){
+				return false;
+			}
+			else if (ui.values[1] < 40){
+				return false;
+			}
+			else {
+				$('#personsim0').val(ui.values[1]);
+			}
+		}
+		});
+		
+		$('#simslider0 a').first().css('display', 'none');
+		
+		</script><div style='clear:both'></div>
+		</div><input value='1' name='p_count' id='p_count' type='hidden'>	
+</div>
+
+
+	<!--<p><a href="#" onClick="addPerson(); return false;">+ Dodaj osobę</a></p>
+	-->
+	<br>
+			
+	<script type="text/javascript">
+	function addPerson() {
+		var id = parseInt(document.getElementById("p_count").value) + 1;
+		var personform = "<div id='person" + id + "' class='search_person' style='display:none'>" + 
+		"<div class='person_option'><br> Osoba: </div>" + 
+		"<div class='person_option'>Imię<br><input size='20' value='' name='fname" + id + "' type='text'></div>" + 
+		"<div class='person_option'>Nazwisko<br><input size='20' value='' name='lname" + id + "' type='text'></div>" + 
+		"<div class='person_option'>Płeć<br><select name='sex" + id + "' >" + 
+		"	<option selected value='any'>Dowolna</option>" + 
+		"	<option value='m'>Mężczyzna</option>" + 
+		"	<option value='k'>Kobieta</option></select></div>" + 
+		"<div class='person_option'>Relacja<br><select name='type" + id + "' >" + 
+		"	<option selected value='any'>Dowolna</option>" + 
+		"	<option value='parent'>Małżonek/Rodzic</option>" + 
+		"	<option value='child'>Dziecko</option>" + 
+		"	<option value='other'>Inna</option></select></div>" + 
+		"<div class='person_option' style='width:200px;'>Podobieństwo: " + 
+		"	<input value='60' name='sim" + id + "' id='personsim" + id + "' maxlength='3' type='text' style='background-color: transparent; border:0; width: 22px; margin:0'> %<br>" + 
+		"	<div id='simslider" + id + "' style='margin: 2px 0 0 0 '></div></div>" + 
+		"<div class='person_option'><br> <a href='#' onClick='remPerson(\"#person" + id + "\"); return false;'> Usuń</a></div>" + 
+		"<div style='clear:both'></div></div>";
+		
+		
+		$("#search_person_box").append(personform);
+		
+		
+		$('#simslider' + id).slider({
+		range: true,
+		min: 0,
+		max: 100,
+		values: [0,60],
+		slide: function(event, ui) {
+			if (ui.values[0] > 0){
+				return false;
+			}
+			else if (ui.values[1] < 40){
+				return false;
+			}
+			else {
+				$('#personsim' + id).val(ui.values[1]);
+			}
+		}
+		});
+		
+		$('#simslider' + id + ' a').first().css('display', 'none');
+		
+		
+		$("#person" + id).toggle(200);
+		document.getElementById("p_count").value = id;
+		//$("#search_person_box").append("<p id='row" + id + "'><label for='txt" + id + "'>Field " + id + " <input type='text' size='20' name='txt[]' id='txt" + id + "'> <a href='#' onClick='removeFormField(\"#row" + id + "\"); return false;'>Remove</a><p>");
+	}
+	
+	function remPerson(id) {
+		//$(id).toggle(200);
+		$(id).toggle(200, function() {
+			$(id).remove();
+		});
+		
+	}
+	
+	</script>		
+	
+
+<div>	
+
+<div id="search_year_box">
+Lata <input value="1810" name="od" id="od" maxlength="4" type="text" style="background-color: transparent; border:0; width: 35px; margin:0"> - 
+<input value="1830" name="do" id="do" maxlength="4" type="text" style="background-color: transparent; border:0; width: 35px; margin:0">
+
+	<br>
+
+	<div style="width: 600px; padding-left: 10px">
+		<div id="slider-range"></div>
+	</div>
+</div>
+<br>
+
+
+
+<script type="text/javascript">
+
+	$(function() {
+		$("#slider-range").slider({
+			range: true,
+			min: 1577,
+			max: 2026,
+			values: [1810, 1830],
+			slide: function(event, ui) {
+				$("#od").val(ui.values[0]);
+				$("#do").val(ui.values[1]);
+			}
+		});
+	});
+
+</script>
+
+
+
+
+<div id="search_place_box" style="display:none">
+	<div style='float:left'>
+	Miejscowość (nazwa oraz powiat)<br>
+	<input size='30' value='' name='placename' type='text'>
+	</div>
+	<div style='float:left'>
+	Odległość (km)<br>
+	<input size='20' value='10' name='distance' type='text'>
+	</div>
+	<div style='clear:both'></div>
+	<input size='20' value='none' name='showplaces' type='hidden' id='showplaces'>
+</div>
+
+
+<p><a href="#" onClick="addPlace(); return false;" id="placelink">+ Określ miejsce</a></p><br>
+
+<script type="text/javascript">
+	
+	function addPlace() {
+		$("#search_place_box").toggle(200, function() { 
+			if ($('#search_place_box').is(':visible')) {
+				$("#placelink").html("- Miejsce dowolne");
+				$("#showplaces").val('block');
+			} else {
+				$("#placelink").html("+ Określ miejsce");
+				$("#showplaces").val('none');
+			}
+		});
+	}
+	
+	</script>		
+
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+
+<div id="search_type_box" style="display:block">
+	<div style='float:left'>
+
+		Jednostka organizacyjna<br>
+		<select name='type_unit' id='type_unit' ><option selected value='any'>Dowolna</option><option value='usc'>USC</option><option value='kat'>Parafia rzymskokatolicka</option><option value='ewa'>Parafia ewangelicka</option><option value='other'>Inna</option></select>	</div>
+	<div style='float:left'>
+		Rodzaj dokumentu<br>
+		<select name='type_record' id='type_record' ><option value='any'>Dowolny</option><option selected value='a'>Akt urodzenia/chrztu</option><option value='b'>Akt małżeństwa</option><option value='c'>Akt zgonu</option><option value='d'>Zapowiedzi</option><option value='z'>Inny</option></select>	</div>
+	<div style='clear:both'></div>
+	<input size='20' value='block' name='showtype' type='hidden' id='showtype'>
+</div>
+
+
+<p><a href="#" onClick="addType(); return false;" id="typelink">- Dowolny dokument</a></p><br>
+
+<script type="text/javascript">
+	
+	function addType() {
+		$("#search_type_box").toggle(200, function() { 
+			if ($('#search_type_box').is(':visible')) {
+				$("#typelink").html("- Dowolny dokument");
+				$("#showtype").val('block');
+			} else {
+				$("#typelink").html("+ Określ rodzaj dokumentu i jednostki organizacyjnej");
+				$("#showtype").val('none');
+			}
+		});
+	}
+
+	</script>
+	
+	
+	
+	
+	
+	
+
+<div id="search_date_box" style="display:none">
+	<div style='float:left'>
+
+		Od dnia<br>
+		<input size='20' value='2011-01-28' name='datefrom' id='datefrom' type='text'>
+	</div>
+	<div style='float:left'>
+		Do dnia<br>
+		<input size='20' value='2026-05-25' name='dateto' id='dateto' type='text'>
+	</div>
+	<div style='clear:both'></div>
+	<input size='20' value='none' name='showdate' type='hidden' id='showdate'>
+</div>
+
+
+<p><a href="#" onClick="addDate(); return false;" id="datelink">+ Określ datę dodania</a></p><br>
+
+<script type="text/javascript">
+	
+	function addDate() {
+		$("#search_date_box").toggle(200, function() { 
+			if ($('#search_date_box').is(':visible')) {
+				$("#datelink").html("- Data dodania dowolna");
+				$("#showdate").val('block');
+			} else {
+				$("#datelink").html("+ Określ datę dodania");
+				$("#showdate").val('none');
+			}
+		});
+	}
+	
+jQuery(function($){
+	$.datepicker.regional['pl'] = {
+			closeText: 'Zamknij',
+			prevText: '&#x3c;Poprzedni',
+			nextText: 'Następny&#x3e;',
+			currentText: 'Dziś',
+			monthNames: ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec',
+			'Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'],
+			monthNamesShort: ['Sty','Lut','Mar','Kwi','Maj','Cze',
+			'Lip','Sie','Wrz','Paź','Lis','Gru'],
+			dayNames: ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota'],
+			dayNamesShort: ['Nie','Pn','Wt','Śr','Czw','Pt','So'],
+			dayNamesMin: ['N','Pn','Wt','Śr','Cz','Pt','So'],
+			weekHeader: 'Tydz',
+			dateFormat: 'yy-mm-dd',
+			firstDay: 1,
+			isRTL: false,
+			showMonthAfterYear: false,
+			yearSuffix: ''};
+	$.datepicker.setDefaults($.datepicker.regional['pl']);
+});
+
+
+
+	$(function() {
+		var dates = $( "#datefrom, #dateto" ).datepicker({
+			minDate: '2011-01-28',
+			maxDate: '0',
+			showButtonPanel: true,
+			changeMonth: false,
+			numberOfMonths: 1,
+			onSelect: function( selectedDate ) {
+				var option = this.id == "datefrom" ? "minDate" : "maxDate",
+					instance = $( this ).data( "datepicker" ),
+					date = $.datepicker.parseDate(
+						instance.settings.dateFormat ||
+						$.datepicker._defaults.dateFormat,
+						selectedDate, instance.settings );
+				dates.not( this ).datepicker( "option", option, date );
+			}
+		});
+	});
+	</script>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+</div>
+
+
+</div>
+	<div id="search_ext_button">
+	<input type="hidden" name="search_ext" value="szukaj" />
+	<input id="AdvSearch" value="Szukaj" style="height: 40px; width: 150px;" type="submit" name="search_ext_button">
+	</div>
+	
+</form>
+
+
+	
+</div> <!-- end of templatemo_banner_wrapper -->
+<div id="templatemo_banner_bottom" ></div>
+</div> <!-- end of templatemo_banner_wrapper_outter -->
+
+<script>
+	// Expand Panel
+	$("#open").click(function(){
+		$("#search_slider").slideDown("slow");
+		$("#top_expand a").toggle();
+		return false;
+	});	
+	
+	// Collapse Panel
+	$("#close").click(function(){
+		$("#search_slider").slideUp("slow");	
+		$("#top_expand a").toggle();
+		return false;
+	});		
+</script>
+
+
+<div id="templatemo_content">
+	
+    <div id="twitter_section">
+    	
+				<a name="gmap" id="gmap"></a>
+				<div id="map_container" style="width:100%; margin: 0px 0 10px 0; padding-top:10px">
+				<div id="map_canvas" style="width:600px; height:400px; margin:0 0 0 0;float:left;"></div>
+				<div id="map_info" style="width:330px; margin: 0px 0 0px 10px; float:left;"><h3>Szukasz:</h3>Nazwisko:<br>- Szumiec (relacja: dowolna).<br><br>Lata: 1810-1830<br><br>Czas wyszukiwania: 10.47 s (10.39 s + 0.08 s).<br><br><b>Kliknij wybrany obszar, aby zobaczyć wyniki wyszukiwania</b><ul><li id='lgroup2' polyid='2' style='cursor: hand; cursor: pointer;'>Grodzisk Wielkopolski - Bytyń - Buk<br><div style='width:255px; height: 20px;'><div style='float:left; width:100%; height: 10px; background: rgb(100,100,255)'></div><div style='clear:both;'></div></div> </li><script>var pinfow2 = "Grodzisk Wielkopolski - Bytyń - Buk<br><div style='width:255px; height: 20px;'><div style='float:left; width:100%; height: 10px; background: rgb(100,100,255)'></div><div style='clear:both;'></div></div> ";</script><li id='lgroup3' polyid='3' style='cursor: hand; cursor: pointer;'>Dembe - Chlewo<br><div style='width:255px; height: 20px;'><div style='float:left; width:40%; height: 10px; background: rgb(100,100,255)'></div><div style='clear:both;'></div></div> </li><script>var pinfow3 = "Dembe - Chlewo<br><div style='width:255px; height: 20px;'><div style='float:left; width:40%; height: 10px; background: rgb(100,100,255)'></div><div style='clear:both;'></div></div> ";</script><li id='lgroup0' polyid='0' style='cursor: hand; cursor: pointer;'>Umień<br><div style='width:255px; height: 20px;'><div style='float:left; width:20%; height: 10px; background: rgb(57,57,255)'></div><div style='clear:both;'></div></div> </li><script>var pinfow0 = "Umień<br><div style='width:255px; height: 20px;'><div style='float:left; width:20%; height: 10px; background: rgb(57,57,255)'></div><div style='clear:both;'></div></div> ";</script><li id='lgroup1' polyid='1' style='cursor: hand; cursor: pointer;'>Iwno<br><div style='width:255px; height: 20px;'><div style='float:left; width:20%; height: 10px; background: rgb(90,90,255)'></div><div style='clear:both;'></div></div> </li><script>var pinfow1 = "Iwno<br><div style='width:255px; height: 20px;'><div style='float:left; width:20%; height: 10px; background: rgb(90,90,255)'></div><div style='clear:both;'></div></div> ";</script><li id='lgroup4' polyid='4' style='cursor: hand; cursor: pointer;'>Ostrów Wielkopolski<br><div style='width:255px; height: 20px;'><div style='float:left; width:20%; height: 10px; background: rgb(100,100,255)'></div><div style='clear:both;'></div></div> </li><script>var pinfow4 = "Ostrów Wielkopolski<br><div style='width:255px; height: 20px;'><div style='float:left; width:20%; height: 10px; background: rgb(100,100,255)'></div><div style='clear:both;'></div></div> ";</script><li id='lgroup5' polyid='5' style='cursor: hand; cursor: pointer;'>Szymanowice<br><div style='width:255px; height: 20px;'><div style='float:left; width:20%; height: 10px; background: rgb(100,100,255)'></div><div style='clear:both;'></div></div> </li><script>var pinfow5 = "Szymanowice<br><div style='width:255px; height: 20px;'><div style='float:left; width:20%; height: 10px; background: rgb(100,100,255)'></div><div style='clear:both;'></div></div> ";</script></ul>
+							<script>
+							var polygon = new Array();
+							var selpol = -1;
+							var nmarkers = [];	
+							var bounds;
+							
+							let polylatlngs = [];
+							
+							var mymap;
+							
+							$(function() {
+							
+								$('li[polyid]').click(function(){
+								  var polyid = $(this).attr('polyid');
+								  selpol = polyid;
+								  
+								  //ukrywanie
+								  $('div.resgroups').hide('fast');
+								  $('li[polyid]').css('background-color', '#FFFFFF'); 
+								  
+								  for (var i=0;i<6;i++) {
+									polygon[i].setStyle({fillColor: '#0000FF'});
+								  }
+								  
+								  //pokazywanie
+								  $('#resgroup'+polyid).show('fast');
+								  polygon[polyid].setStyle({fillColor: '#00FF00'});
+								  $(this).css('background-color', '#00FF00');
+								  
+								  $('html,body').animate({scrollTop: $('#gmap').offset().top},'slow');
+									
+								});
+								
+								
+								$('li[polyid]').mouseover(function(){
+								
+								  var polyid = $(this).attr('polyid');
+								  
+								  //ukrywanie
+								  $('li[polyid]').css('background-color', '#FFFFFF'); 
+								  
+								  for (var i=0;i<6;i++) {
+
+									if (i == selpol || i == polyid) {
+										polygon[i].setStyle({fillColor: '#00FF00'});
+										$('#lgroup'+i).css('background-color', '#00FF00');
+									}
+									else {
+										polygon[i].setStyle({fillColor: '#0000FF'});
+										$('#lgroup'+i).css('background-color', '#FFFFFF');
+									}
+								  }
+								  
+								  
+									console.log(polyid);
+
+									
+									polylatlngs = polygon[polyid].getLatLngs().flat();
+
+
+									let polybounds = L.latLngBounds(polylatlngs);
+									mymap.fitBounds(polybounds.pad(0.5));
+								  
+								});
+
+								
+								$('li[polyid]').mouseout(function(){
+								
+									var polyid = $(this).attr('polyid');
+								  
+									if (polyid != selpol) {
+										polygon[polyid].setStyle({fillColor: '#0000FF'});
+										$('#lgroup'+polyid).css('background-color', '#FFFFFF');
+									}
+									
+									if (selpol > -1) {
+										polylatlngs = polygon[selpol].getLatLngs().flat();
+										let polybounds = L.latLngBounds(polylatlngs);
+										mymap.fitBounds(polybounds.pad(0.5));
+									}
+									else {
+										mymap.fitBounds(bounds.pad(0.5));
+									}
+								  
+								});
+							
+							});
+							
+							
+							
+							</script><br><br></div>
+						<div style='clear:both'></div>
+						</div>
+						
+					
+	<script type="text/javascript">
+	  function initialize1() {
+		var latlng = new google.maps.LatLng(52.125439306358, 17.346927745665);
+		var myOptions = {
+		  zoom: 7,
+		  center: latlng,
+		  mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+		var map = new google.maps.Map(document.getElementById("map_canvas"),
+			myOptions);
+			
+		//var nimage = "http://www.google.com/mapfiles/marker.png";
+		
+		var nimage = "/images/mm_20_red.png";
+		var yimage = "/images/mm_20_yellow.png";
+		var target = "/images/icon_target.png";
+		var imageblack = "http://maps.google.com/mapfiles/marker_black.png";
+		var image0 = "http://labs.google.com/ridefinder/images/mm_20_purple.png";
+		var image1 = "http://labs.google.com/ridefinder/images/mm_20_yellow.png";
+		var image2 = "http://labs.google.com/ridefinder/images/mm_20_blue.png";
+		var image3 = "http://labs.google.com/ridefinder/images/mm_20_green.png";
+		var image4 = "http://labs.google.com/ridefinder/images/mm_20_red.png";
+		var image5 = "http://labs.google.com/ridefinder/images/mm_20_orange.png";
+		var image6 = "http://labs.google.com/ridefinder/images/mm_20_gray.png";
+		var image7 = "http://labs.google.com/ridefinder/images/mm_20_brown.png";
+		var image8 = "http://labs.google.com/ridefinder/images/mm_20_white.png";
+		var image9 = "http://labs.google.com/ridefinder/images/mm_20_black.png";
+		var image10 = "http://labs.google.com/ridefinder/images/mm_20_purple.png";
+		var image11 = "http://labs.google.com/ridefinder/images/mm_20_yellow.png";
+		var image12 = "http://labs.google.com/ridefinder/images/mm_20_blue.png";
+		var image13 = "http://labs.google.com/ridefinder/images/mm_20_green.png";
+		var image14 = "http://labs.google.com/ridefinder/images/mm_20_red.png";
+		var image15 = "http://labs.google.com/ridefinder/images/mm_20_orange.png";
+		var image16 = "http://labs.google.com/ridefinder/images/mm_20_gray.png";
+		var image17 = "http://labs.google.com/ridefinder/images/mm_20_brown.png";
+		var image18 = "http://labs.google.com/ridefinder/images/mm_20_white.png";
+		var image19 = "http://labs.google.com/ridefinder/images/mm_20_black.png";
+		
+		  
+		 
+		  
+		  
+	  }
+	  
+	  $(function() {	
+
+			var osmIcon = L.icon({
+				iconUrl: '/images/icon_target.png',
+				//shadowUrl: 'leaf-shadow.png',
+
+				iconSize:     [16, 16], // size of the icon
+				//shadowSize:   [50, 64], // size of the shadow
+				//iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+				//shadowAnchor: [4, 62],  // the same for the shadow
+				//popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+			});
+			
+			
+
+
+					  
+					mymap = L.map('map_canvas').setView([52.125439306358, 17.346927745665], 7);
+					L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+						maxZoom: 18,
+						attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+						id: 'mapbox/streets-v11'
+					}).addTo(mymap);
+					nmarkers[379] = L.marker([52.1651, 18.8276]).addTo(mymap).on('click', function(e) {
+							//console.log(e.latlng);
+
+							var polyid = 0;
+							selpol = polyid;
+
+							//ukrywanie
+							$('div.resgroups').hide('fast');
+							$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+							for (var i=0;i<6;i++) {
+								polygon[i].setStyle({fillColor: '#0000FF'});
+							}
+
+							//pokazywanie
+							$('#resgroup'+polyid).show('fast');
+							polygon[polyid].setStyle({fillColor: '#00FF00'});
+							$('#lgroup'+polyid).css('background-color', '#00FF00');
+
+							$('html,body').animate({scrollTop: $('#gmap').offset().top},'slow');
+
+
+							});
+
+
+							nmarkers[379].setIcon(osmIcon);
+
+
+							nmarkers[379].on('mouseover', function(evt) {
+							  var polyid = 0;
+		
+								var latLng = event.latLng;
+								
+								//infowindow.setContent(pinfow0);
+								//infowindow.setPosition(latLng);
+								//infowindow.open(map);
+												  
+								//ukrywanie
+								$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+								for (var i=0;i<6;i++) {
+
+									if (i == selpol || i == polyid) {
+										polygon[i].setStyle({fillColor: '#00FF00'});
+										$('#lgroup'+i).css('background-color', '#00FF00');
+									}
+									else {
+										polygon[i].setStyle({fillColor: '#0000FF'});
+										$('#lgroup'+i).css('background-color', '#FFFFFF');
+									}
+								}
+							});
+							nmarkers[379].on('mouseout', function(evt){
+							  //marker.setIcon(studioicon);
+							  //showStudioInfo('', '');
+
+
+								var polyid = 0;
+								
+								//infowindow.close();
+
+								if (polyid != selpol) {
+									polygon[polyid].setStyle({fillColor: '#0000FF'});
+									$('#lgroup'+polyid).css('background-color', '#FFFFFF');
+								}
+							});
+						nmarkers[1364] = L.marker([52.4042, 17.2731]).addTo(mymap).on('click', function(e) {
+							//console.log(e.latlng);
+
+							var polyid = 1;
+							selpol = polyid;
+
+							//ukrywanie
+							$('div.resgroups').hide('fast');
+							$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+							for (var i=0;i<6;i++) {
+								polygon[i].setStyle({fillColor: '#0000FF'});
+							}
+
+							//pokazywanie
+							$('#resgroup'+polyid).show('fast');
+							polygon[polyid].setStyle({fillColor: '#00FF00'});
+							$('#lgroup'+polyid).css('background-color', '#00FF00');
+
+							$('html,body').animate({scrollTop: $('#gmap').offset().top},'slow');
+
+
+							});
+
+
+							nmarkers[1364].setIcon(osmIcon);
+
+
+							nmarkers[1364].on('mouseover', function(evt) {
+							  var polyid = 1;
+		
+								var latLng = event.latLng;
+								
+								//infowindow.setContent(pinfow1);
+								//infowindow.setPosition(latLng);
+								//infowindow.open(map);
+												  
+								//ukrywanie
+								$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+								for (var i=0;i<6;i++) {
+
+									if (i == selpol || i == polyid) {
+										polygon[i].setStyle({fillColor: '#00FF00'});
+										$('#lgroup'+i).css('background-color', '#00FF00');
+									}
+									else {
+										polygon[i].setStyle({fillColor: '#0000FF'});
+										$('#lgroup'+i).css('background-color', '#FFFFFF');
+									}
+								}
+							});
+							nmarkers[1364].on('mouseout', function(evt){
+							  //marker.setIcon(studioicon);
+							  //showStudioInfo('', '');
+
+
+								var polyid = 1;
+								
+								//infowindow.close();
+
+								if (polyid != selpol) {
+									polygon[polyid].setStyle({fillColor: '#0000FF'});
+									$('#lgroup'+polyid).css('background-color', '#FFFFFF');
+								}
+							});
+						nmarkers[9] = L.marker([52.2255, 16.3664]).addTo(mymap).on('click', function(e) {
+							//console.log(e.latlng);
+
+							var polyid = 2;
+							selpol = polyid;
+
+							//ukrywanie
+							$('div.resgroups').hide('fast');
+							$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+							for (var i=0;i<6;i++) {
+								polygon[i].setStyle({fillColor: '#0000FF'});
+							}
+
+							//pokazywanie
+							$('#resgroup'+polyid).show('fast');
+							polygon[polyid].setStyle({fillColor: '#00FF00'});
+							$('#lgroup'+polyid).css('background-color', '#00FF00');
+
+							$('html,body').animate({scrollTop: $('#gmap').offset().top},'slow');
+
+
+							});
+
+
+							nmarkers[9].setIcon(osmIcon);
+
+
+							nmarkers[9].on('mouseover', function(evt) {
+							  var polyid = 2;
+		
+								var latLng = event.latLng;
+								
+								//infowindow.setContent(pinfow2);
+								//infowindow.setPosition(latLng);
+								//infowindow.open(map);
+												  
+								//ukrywanie
+								$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+								for (var i=0;i<6;i++) {
+
+									if (i == selpol || i == polyid) {
+										polygon[i].setStyle({fillColor: '#00FF00'});
+										$('#lgroup'+i).css('background-color', '#00FF00');
+									}
+									else {
+										polygon[i].setStyle({fillColor: '#0000FF'});
+										$('#lgroup'+i).css('background-color', '#FFFFFF');
+									}
+								}
+							});
+							nmarkers[9].on('mouseout', function(evt){
+							  //marker.setIcon(studioicon);
+							  //showStudioInfo('', '');
+
+
+								var polyid = 2;
+								
+								//infowindow.close();
+
+								if (polyid != selpol) {
+									polygon[polyid].setStyle({fillColor: '#0000FF'});
+									$('#lgroup'+polyid).css('background-color', '#FFFFFF');
+								}
+							});
+						nmarkers[172] = L.marker([52.4884, 16.5006]).addTo(mymap).on('click', function(e) {
+							//console.log(e.latlng);
+
+							var polyid = 2;
+							selpol = polyid;
+
+							//ukrywanie
+							$('div.resgroups').hide('fast');
+							$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+							for (var i=0;i<6;i++) {
+								polygon[i].setStyle({fillColor: '#0000FF'});
+							}
+
+							//pokazywanie
+							$('#resgroup'+polyid).show('fast');
+							polygon[polyid].setStyle({fillColor: '#00FF00'});
+							$('#lgroup'+polyid).css('background-color', '#00FF00');
+
+							$('html,body').animate({scrollTop: $('#gmap').offset().top},'slow');
+
+
+							});
+
+
+							nmarkers[172].setIcon(osmIcon);
+
+
+							nmarkers[172].on('mouseover', function(evt) {
+							  var polyid = 2;
+		
+								var latLng = event.latLng;
+								
+								//infowindow.setContent(pinfow2);
+								//infowindow.setPosition(latLng);
+								//infowindow.open(map);
+												  
+								//ukrywanie
+								$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+								for (var i=0;i<6;i++) {
+
+									if (i == selpol || i == polyid) {
+										polygon[i].setStyle({fillColor: '#00FF00'});
+										$('#lgroup'+i).css('background-color', '#00FF00');
+									}
+									else {
+										polygon[i].setStyle({fillColor: '#0000FF'});
+										$('#lgroup'+i).css('background-color', '#FFFFFF');
+									}
+								}
+							});
+							nmarkers[172].on('mouseout', function(evt){
+							  //marker.setIcon(studioicon);
+							  //showStudioInfo('', '');
+
+
+								var polyid = 2;
+								
+								//infowindow.close();
+
+								if (polyid != selpol) {
+									polygon[polyid].setStyle({fillColor: '#0000FF'});
+									$('#lgroup'+polyid).css('background-color', '#FFFFFF');
+								}
+							});
+						nmarkers[81] = L.marker([52.3554, 16.5196]).addTo(mymap).on('click', function(e) {
+							//console.log(e.latlng);
+
+							var polyid = 2;
+							selpol = polyid;
+
+							//ukrywanie
+							$('div.resgroups').hide('fast');
+							$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+							for (var i=0;i<6;i++) {
+								polygon[i].setStyle({fillColor: '#0000FF'});
+							}
+
+							//pokazywanie
+							$('#resgroup'+polyid).show('fast');
+							polygon[polyid].setStyle({fillColor: '#00FF00'});
+							$('#lgroup'+polyid).css('background-color', '#00FF00');
+
+							$('html,body').animate({scrollTop: $('#gmap').offset().top},'slow');
+
+
+							});
+
+
+							nmarkers[81].setIcon(osmIcon);
+
+
+							nmarkers[81].on('mouseover', function(evt) {
+							  var polyid = 2;
+		
+								var latLng = event.latLng;
+								
+								//infowindow.setContent(pinfow2);
+								//infowindow.setPosition(latLng);
+								//infowindow.open(map);
+												  
+								//ukrywanie
+								$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+								for (var i=0;i<6;i++) {
+
+									if (i == selpol || i == polyid) {
+										polygon[i].setStyle({fillColor: '#00FF00'});
+										$('#lgroup'+i).css('background-color', '#00FF00');
+									}
+									else {
+										polygon[i].setStyle({fillColor: '#0000FF'});
+										$('#lgroup'+i).css('background-color', '#FFFFFF');
+									}
+								}
+							});
+							nmarkers[81].on('mouseout', function(evt){
+							  //marker.setIcon(studioicon);
+							  //showStudioInfo('', '');
+
+
+								var polyid = 2;
+								
+								//infowindow.close();
+
+								if (polyid != selpol) {
+									polygon[polyid].setStyle({fillColor: '#0000FF'});
+									$('#lgroup'+polyid).css('background-color', '#FFFFFF');
+								}
+							});
+						nmarkers[215] = L.marker([51.799, 18.1925]).addTo(mymap).on('click', function(e) {
+							//console.log(e.latlng);
+
+							var polyid = 3;
+							selpol = polyid;
+
+							//ukrywanie
+							$('div.resgroups').hide('fast');
+							$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+							for (var i=0;i<6;i++) {
+								polygon[i].setStyle({fillColor: '#0000FF'});
+							}
+
+							//pokazywanie
+							$('#resgroup'+polyid).show('fast');
+							polygon[polyid].setStyle({fillColor: '#00FF00'});
+							$('#lgroup'+polyid).css('background-color', '#00FF00');
+
+							$('html,body').animate({scrollTop: $('#gmap').offset().top},'slow');
+
+
+							});
+
+
+							nmarkers[215].setIcon(osmIcon);
+
+
+							nmarkers[215].on('mouseover', function(evt) {
+							  var polyid = 3;
+		
+								var latLng = event.latLng;
+								
+								//infowindow.setContent(pinfow3);
+								//infowindow.setPosition(latLng);
+								//infowindow.open(map);
+												  
+								//ukrywanie
+								$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+								for (var i=0;i<6;i++) {
+
+									if (i == selpol || i == polyid) {
+										polygon[i].setStyle({fillColor: '#00FF00'});
+										$('#lgroup'+i).css('background-color', '#00FF00');
+									}
+									else {
+										polygon[i].setStyle({fillColor: '#0000FF'});
+										$('#lgroup'+i).css('background-color', '#FFFFFF');
+									}
+								}
+							});
+							nmarkers[215].on('mouseout', function(evt){
+							  //marker.setIcon(studioicon);
+							  //showStudioInfo('', '');
+
+
+								var polyid = 3;
+								
+								//infowindow.close();
+
+								if (polyid != selpol) {
+									polygon[polyid].setStyle({fillColor: '#0000FF'});
+									$('#lgroup'+polyid).css('background-color', '#FFFFFF');
+								}
+							});
+						nmarkers[693] = L.marker([51.7514, 18.4635]).addTo(mymap).on('click', function(e) {
+							//console.log(e.latlng);
+
+							var polyid = 3;
+							selpol = polyid;
+
+							//ukrywanie
+							$('div.resgroups').hide('fast');
+							$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+							for (var i=0;i<6;i++) {
+								polygon[i].setStyle({fillColor: '#0000FF'});
+							}
+
+							//pokazywanie
+							$('#resgroup'+polyid).show('fast');
+							polygon[polyid].setStyle({fillColor: '#00FF00'});
+							$('#lgroup'+polyid).css('background-color', '#00FF00');
+
+							$('html,body').animate({scrollTop: $('#gmap').offset().top},'slow');
+
+
+							});
+
+
+							nmarkers[693].setIcon(osmIcon);
+
+
+							nmarkers[693].on('mouseover', function(evt) {
+							  var polyid = 3;
+		
+								var latLng = event.latLng;
+								
+								//infowindow.setContent(pinfow3);
+								//infowindow.setPosition(latLng);
+								//infowindow.open(map);
+												  
+								//ukrywanie
+								$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+								for (var i=0;i<6;i++) {
+
+									if (i == selpol || i == polyid) {
+										polygon[i].setStyle({fillColor: '#00FF00'});
+										$('#lgroup'+i).css('background-color', '#00FF00');
+									}
+									else {
+										polygon[i].setStyle({fillColor: '#0000FF'});
+										$('#lgroup'+i).css('background-color', '#FFFFFF');
+									}
+								}
+							});
+							nmarkers[693].on('mouseout', function(evt){
+							  //marker.setIcon(studioicon);
+							  //showStudioInfo('', '');
+
+
+								var polyid = 3;
+								
+								//infowindow.close();
+
+								if (polyid != selpol) {
+									polygon[polyid].setStyle({fillColor: '#0000FF'});
+									$('#lgroup'+polyid).css('background-color', '#FFFFFF');
+								}
+							});
+						nmarkers[247] = L.marker([51.655, 17.8068]).addTo(mymap).on('click', function(e) {
+							//console.log(e.latlng);
+
+							var polyid = 4;
+							selpol = polyid;
+
+							//ukrywanie
+							$('div.resgroups').hide('fast');
+							$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+							for (var i=0;i<6;i++) {
+								polygon[i].setStyle({fillColor: '#0000FF'});
+							}
+
+							//pokazywanie
+							$('#resgroup'+polyid).show('fast');
+							polygon[polyid].setStyle({fillColor: '#00FF00'});
+							$('#lgroup'+polyid).css('background-color', '#00FF00');
+
+							$('html,body').animate({scrollTop: $('#gmap').offset().top},'slow');
+
+
+							});
+
+
+							nmarkers[247].setIcon(osmIcon);
+
+
+							nmarkers[247].on('mouseover', function(evt) {
+							  var polyid = 4;
+		
+								var latLng = event.latLng;
+								
+								//infowindow.setContent(pinfow4);
+								//infowindow.setPosition(latLng);
+								//infowindow.open(map);
+												  
+								//ukrywanie
+								$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+								for (var i=0;i<6;i++) {
+
+									if (i == selpol || i == polyid) {
+										polygon[i].setStyle({fillColor: '#00FF00'});
+										$('#lgroup'+i).css('background-color', '#00FF00');
+									}
+									else {
+										polygon[i].setStyle({fillColor: '#0000FF'});
+										$('#lgroup'+i).css('background-color', '#FFFFFF');
+									}
+								}
+							});
+							nmarkers[247].on('mouseout', function(evt){
+							  //marker.setIcon(studioicon);
+							  //showStudioInfo('', '');
+
+
+								var polyid = 4;
+								
+								//infowindow.close();
+
+								if (polyid != selpol) {
+									polygon[polyid].setStyle({fillColor: '#0000FF'});
+									$('#lgroup'+polyid).css('background-color', '#FFFFFF');
+								}
+							});
+						nmarkers[441] = L.marker([52.0555, 17.7255]).addTo(mymap).on('click', function(e) {
+							//console.log(e.latlng);
+
+							var polyid = 5;
+							selpol = polyid;
+
+							//ukrywanie
+							$('div.resgroups').hide('fast');
+							$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+							for (var i=0;i<6;i++) {
+								polygon[i].setStyle({fillColor: '#0000FF'});
+							}
+
+							//pokazywanie
+							$('#resgroup'+polyid).show('fast');
+							polygon[polyid].setStyle({fillColor: '#00FF00'});
+							$('#lgroup'+polyid).css('background-color', '#00FF00');
+
+							$('html,body').animate({scrollTop: $('#gmap').offset().top},'slow');
+
+
+							});
+
+
+							nmarkers[441].setIcon(osmIcon);
+
+
+							nmarkers[441].on('mouseover', function(evt) {
+							  var polyid = 5;
+		
+								var latLng = event.latLng;
+								
+								//infowindow.setContent(pinfow5);
+								//infowindow.setPosition(latLng);
+								//infowindow.open(map);
+												  
+								//ukrywanie
+								$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+								for (var i=0;i<6;i++) {
+
+									if (i == selpol || i == polyid) {
+										polygon[i].setStyle({fillColor: '#00FF00'});
+										$('#lgroup'+i).css('background-color', '#00FF00');
+									}
+									else {
+										polygon[i].setStyle({fillColor: '#0000FF'});
+										$('#lgroup'+i).css('background-color', '#FFFFFF');
+									}
+								}
+							});
+							nmarkers[441].on('mouseout', function(evt){
+							  //marker.setIcon(studioicon);
+							  //showStudioInfo('', '');
+
+
+								var polyid = 5;
+								
+								//infowindow.close();
+
+								if (polyid != selpol) {
+									polygon[polyid].setStyle({fillColor: '#0000FF'});
+									$('#lgroup'+polyid).css('background-color', '#FFFFFF');
+								}
+							});
+						
+						
+			var paths0 = [[52.193072250479, 18.809422529743], [52.191306074241, 18.800894676486], [52.188894617482, 18.793024396924], [52.18589725827, 18.78600548346], [52.182387801538, 18.780010765037], [52.178452661757, 18.775187851518], [52.174188735129, 18.771655499041], [52.169701013678, 18.769500685847], [52.1651, 18.768776470588], [52.160498986322, 18.769500685847], [52.156011264871, 18.771655499041], [52.151747338243, 18.775187851518], [52.147812198462, 18.780010765037], [52.14430274173, 18.78600548346], [52.141305382518, 18.793024396924], [52.138893925759, 18.800894676486], [52.137127749521, 18.809422529743], [52.136050342924, 18.818397972645], [52.135688235294, 18.8276], [52.136050342924, 18.836802027355], [52.137127749521, 18.845777470257], [52.138893925759, 18.854305323514], [52.141305382518, 18.862175603076], [52.14430274173, 18.86919451654], [52.147812198462, 18.875189234963], [52.151747338243, 18.880012148482], [52.156011264871, 18.883544500959], [52.160498986322, 18.885699314153], [52.1651, 18.886423529412], [52.169701013678, 18.885699314153], [52.174188735129, 18.883544500959], [52.178452661757, 18.880012148482], [52.182387801538, 18.875189234963], [52.18589725827, 18.86919451654], [52.188894617482, 18.862175603076], [52.191306074241, 18.854305323514], [52.193072250479, 18.845777470257], [52.194149657076, 18.836802027355], [52.194511764706, 18.8276], [52.194149657076, 18.818397972645]];
+			polygon[0] = L.polygon(paths0, {color: 'blue'}).addTo(mymap);
+			
+			polygon[0].on('mouseover', function(evt) {
+			  polygon[0].setStyle({ color: 'blue' });
+			  
+			  var polyid = 0;
+		
+							  
+			//ukrywanie
+			$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+			for (var i=0;i<6;i++) {
+
+				if (i == selpol || i == polyid) {
+					polygon[i].setStyle({fillColor: '#00FF00'});
+					$('#lgroup'+i).css('background-color', '#00FF00');
+				}
+				else {
+					polygon[i].setStyle({fillColor: '#0000FF'});
+					$('#lgroup'+i).css('background-color', '#FFFFFF');
+				}
+			}
+			  
+			  
+			});
+			polygon[0].on('mouseout', function(evt) {
+			  polygon[0].setStyle({ color: 'blue' });
+			  
+			  $('li[polyid]').css('background-color', '#FFFFFF'); 
+			  
+			  for (var i=0;i<6;i++) {
+
+				if (i == selpol ) {
+					polygon[i].setStyle({fillColor: '#00FF00'});
+					$('#lgroup'+i).css('background-color', '#00FF00');
+				}
+				else {
+					polygon[i].setStyle({fillColor: '#0000FF'});
+					$('#lgroup'+i).css('background-color', '#FFFFFF');
+				}
+			}
+			
+			
+			});
+			
+			
+			polygon[0].on('click', function(evt) {
+				var polyid = 0;
+				selpol = polyid;
+
+				//ukrywanie
+				$('div.resgroups').hide('fast');
+				$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+				for (var i=0;i<6;i++) {
+					//polygon[i].setStyle({fillColor: '#0000FF'});
+				}
+
+				//pokazywanie
+				$('#resgroup'+polyid).show('fast');
+				//polygon[polyid].setStyle({fillColor: '#00FF00'});
+				$('#lgroup'+polyid).css('background-color', '#00FF00');
+
+				$('html,body').animate({scrollTop: $('#gmap').offset().top},'slow');
+			
+			
+			});
+			
+			var paths1 = [[52.432172250479, 17.254922529743], [52.430406074241, 17.246394676486], [52.427994617482, 17.238524396924], [52.42499725827, 17.23150548346], [52.421487801538, 17.225510765037], [52.417552661757, 17.220687851518], [52.413288735129, 17.217155499041], [52.408801013678, 17.215000685847], [52.4042, 17.214276470588], [52.399598986322, 17.215000685847], [52.395111264871, 17.217155499041], [52.390847338243, 17.220687851518], [52.386912198462, 17.225510765037], [52.38340274173, 17.23150548346], [52.380405382518, 17.238524396924], [52.377993925759, 17.246394676486], [52.376227749521, 17.254922529743], [52.375150342924, 17.263897972645], [52.374788235294, 17.2731], [52.375150342924, 17.282302027355], [52.376227749521, 17.291277470257], [52.377993925759, 17.299805323514], [52.380405382518, 17.307675603076], [52.38340274173, 17.31469451654], [52.386912198462, 17.320689234963], [52.390847338243, 17.325512148482], [52.395111264871, 17.329044500959], [52.399598986322, 17.331199314153], [52.4042, 17.331923529412], [52.408801013678, 17.331199314153], [52.413288735129, 17.329044500959], [52.417552661757, 17.325512148482], [52.421487801538, 17.320689234963], [52.42499725827, 17.31469451654], [52.427994617482, 17.307675603076], [52.430406074241, 17.299805323514], [52.432172250479, 17.291277470257], [52.433249657076, 17.282302027355], [52.433611764706, 17.2731], [52.433249657076, 17.263897972645]];
+			polygon[1] = L.polygon(paths1, {color: 'blue'}).addTo(mymap);
+			
+			polygon[1].on('mouseover', function(evt) {
+			  polygon[1].setStyle({ color: 'blue' });
+			  
+			  var polyid = 1;
+		
+							  
+			//ukrywanie
+			$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+			for (var i=0;i<6;i++) {
+
+				if (i == selpol || i == polyid) {
+					polygon[i].setStyle({fillColor: '#00FF00'});
+					$('#lgroup'+i).css('background-color', '#00FF00');
+				}
+				else {
+					polygon[i].setStyle({fillColor: '#0000FF'});
+					$('#lgroup'+i).css('background-color', '#FFFFFF');
+				}
+			}
+			  
+			  
+			});
+			polygon[1].on('mouseout', function(evt) {
+			  polygon[1].setStyle({ color: 'blue' });
+			  
+			  $('li[polyid]').css('background-color', '#FFFFFF'); 
+			  
+			  for (var i=0;i<6;i++) {
+
+				if (i == selpol ) {
+					polygon[i].setStyle({fillColor: '#00FF00'});
+					$('#lgroup'+i).css('background-color', '#00FF00');
+				}
+				else {
+					polygon[i].setStyle({fillColor: '#0000FF'});
+					$('#lgroup'+i).css('background-color', '#FFFFFF');
+				}
+			}
+			
+			
+			});
+			
+			
+			polygon[1].on('click', function(evt) {
+				var polyid = 1;
+				selpol = polyid;
+
+				//ukrywanie
+				$('div.resgroups').hide('fast');
+				$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+				for (var i=0;i<6;i++) {
+					//polygon[i].setStyle({fillColor: '#0000FF'});
+				}
+
+				//pokazywanie
+				$('#resgroup'+polyid).show('fast');
+				//polygon[polyid].setStyle({fillColor: '#00FF00'});
+				$('#lgroup'+polyid).css('background-color', '#00FF00');
+
+				$('html,body').animate({scrollTop: $('#gmap').offset().top},'slow');
+			
+			
+			});
+			
+			var paths2 = [[52.33460274173, 16.56119451654], [52.338112198462, 16.567189234963], [52.342047338243, 16.572012148482], [52.346311264871, 16.575544500959], [52.350798986322, 16.577699314153], [52.3554, 16.578423529412], [52.4884, 16.559423529412], [52.493001013678, 16.558699314153], [52.497488735129, 16.556544500959], [52.501752661757, 16.553012148482], [52.505687801538, 16.548189234963], [52.50919725827, 16.54219451654], [52.512194617482, 16.535175603076], [52.514606074241, 16.527305323514], [52.516372250479, 16.518777470257], [52.517449657076, 16.509802027355], [52.517811764706, 16.5006], [52.517449657076, 16.491397972645], [52.516372250479, 16.482422529743], [52.514606074241, 16.473894676486], [52.512194617482, 16.466024396924], [52.50919725827, 16.45900548346], [52.505687801538, 16.453010765037], [52.501752661757, 16.448187851518], [52.497488735129, 16.444655499041], [52.234588735129, 16.310455499041], [52.230101013678, 16.308300685847], [52.2255, 16.307576470588], [52.220898986322, 16.308300685847], [52.216411264871, 16.310455499041], [52.212147338243, 16.313987851518], [52.208212198462, 16.318810765037], [52.20470274173, 16.32480548346], [52.201705382518, 16.331824396924], [52.199293925759, 16.339694676486], [52.197527749521, 16.348222529743], [52.196450342924, 16.357197972645], [52.196088235294, 16.3664], [52.196450342924, 16.375602027355], [52.197527749521, 16.384577470257], [52.199293925759, 16.393105323514], [52.201705382518, 16.400975603076], [52.20470274173, 16.40799451654], [52.208212198462, 16.413989234963], [52.212147338243, 16.418812148482]];
+			polygon[2] = L.polygon(paths2, {color: 'blue'}).addTo(mymap);
+			
+			polygon[2].on('mouseover', function(evt) {
+			  polygon[2].setStyle({ color: 'blue' });
+			  
+			  var polyid = 2;
+		
+							  
+			//ukrywanie
+			$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+			for (var i=0;i<6;i++) {
+
+				if (i == selpol || i == polyid) {
+					polygon[i].setStyle({fillColor: '#00FF00'});
+					$('#lgroup'+i).css('background-color', '#00FF00');
+				}
+				else {
+					polygon[i].setStyle({fillColor: '#0000FF'});
+					$('#lgroup'+i).css('background-color', '#FFFFFF');
+				}
+			}
+			  
+			  
+			});
+			polygon[2].on('mouseout', function(evt) {
+			  polygon[2].setStyle({ color: 'blue' });
+			  
+			  $('li[polyid]').css('background-color', '#FFFFFF'); 
+			  
+			  for (var i=0;i<6;i++) {
+
+				if (i == selpol ) {
+					polygon[i].setStyle({fillColor: '#00FF00'});
+					$('#lgroup'+i).css('background-color', '#00FF00');
+				}
+				else {
+					polygon[i].setStyle({fillColor: '#0000FF'});
+					$('#lgroup'+i).css('background-color', '#FFFFFF');
+				}
+			}
+			
+			
+			});
+			
+			
+			polygon[2].on('click', function(evt) {
+				var polyid = 2;
+				selpol = polyid;
+
+				//ukrywanie
+				$('div.resgroups').hide('fast');
+				$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+				for (var i=0;i<6;i++) {
+					//polygon[i].setStyle({fillColor: '#0000FF'});
+				}
+
+				//pokazywanie
+				$('#resgroup'+polyid).show('fast');
+				//polygon[polyid].setStyle({fillColor: '#00FF00'});
+				$('#lgroup'+polyid).css('background-color', '#00FF00');
+
+				$('html,body').animate({scrollTop: $('#gmap').offset().top},'slow');
+			
+			
+			});
+			
+			var paths3 = [[51.826972250479, 18.174322529743], [51.825206074241, 18.165794676486], [51.822794617482, 18.157924396924], [51.81979725827, 18.15090548346], [51.816287801538, 18.144910765037], [51.812352661757, 18.140087851518], [51.808088735129, 18.136555499041], [51.803601013678, 18.134400685847], [51.799, 18.133676470588], [51.794398986322, 18.134400685847], [51.789911264871, 18.136555499041], [51.785647338243, 18.140087851518], [51.781712198462, 18.144910765037], [51.77820274173, 18.15090548346], [51.775205382518, 18.157924396924], [51.772793925759, 18.165794676486], [51.771027749521, 18.174322529743], [51.723427749521, 18.445322529743], [51.722350342924, 18.454297972645], [51.721988235294, 18.4635], [51.722350342924, 18.472702027355], [51.723427749521, 18.481677470257], [51.725193925759, 18.490205323514], [51.727605382518, 18.498075603076], [51.73060274173, 18.50509451654], [51.734112198462, 18.511089234963], [51.738047338243, 18.515912148482], [51.742311264871, 18.519444500959], [51.746798986322, 18.521599314153], [51.7514, 18.522323529412], [51.756001013678, 18.521599314153], [51.760488735129, 18.519444500959], [51.764752661757, 18.515912148482], [51.768687801538, 18.511089234963], [51.77219725827, 18.50509451654], [51.775194617482, 18.498075603076], [51.777606074241, 18.490205323514], [51.779372250479, 18.481677470257], [51.826972250479, 18.210677470257], [51.828049657076, 18.201702027355], [51.828411764706, 18.1925], [51.828049657076, 18.183297972645]];
+			polygon[3] = L.polygon(paths3, {color: 'blue'}).addTo(mymap);
+			
+			polygon[3].on('mouseover', function(evt) {
+			  polygon[3].setStyle({ color: 'blue' });
+			  
+			  var polyid = 3;
+		
+							  
+			//ukrywanie
+			$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+			for (var i=0;i<6;i++) {
+
+				if (i == selpol || i == polyid) {
+					polygon[i].setStyle({fillColor: '#00FF00'});
+					$('#lgroup'+i).css('background-color', '#00FF00');
+				}
+				else {
+					polygon[i].setStyle({fillColor: '#0000FF'});
+					$('#lgroup'+i).css('background-color', '#FFFFFF');
+				}
+			}
+			  
+			  
+			});
+			polygon[3].on('mouseout', function(evt) {
+			  polygon[3].setStyle({ color: 'blue' });
+			  
+			  $('li[polyid]').css('background-color', '#FFFFFF'); 
+			  
+			  for (var i=0;i<6;i++) {
+
+				if (i == selpol ) {
+					polygon[i].setStyle({fillColor: '#00FF00'});
+					$('#lgroup'+i).css('background-color', '#00FF00');
+				}
+				else {
+					polygon[i].setStyle({fillColor: '#0000FF'});
+					$('#lgroup'+i).css('background-color', '#FFFFFF');
+				}
+			}
+			
+			
+			});
+			
+			
+			polygon[3].on('click', function(evt) {
+				var polyid = 3;
+				selpol = polyid;
+
+				//ukrywanie
+				$('div.resgroups').hide('fast');
+				$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+				for (var i=0;i<6;i++) {
+					//polygon[i].setStyle({fillColor: '#0000FF'});
+				}
+
+				//pokazywanie
+				$('#resgroup'+polyid).show('fast');
+				//polygon[polyid].setStyle({fillColor: '#00FF00'});
+				$('#lgroup'+polyid).css('background-color', '#00FF00');
+
+				$('html,body').animate({scrollTop: $('#gmap').offset().top},'slow');
+			
+			
+			});
+			
+			var paths4 = [[51.682972250479, 17.788622529743], [51.681206074241, 17.780094676486], [51.678794617482, 17.772224396924], [51.67579725827, 17.76520548346], [51.672287801538, 17.759210765037], [51.668352661757, 17.754387851518], [51.664088735129, 17.750855499041], [51.659601013678, 17.748700685847], [51.655, 17.747976470588], [51.650398986322, 17.748700685847], [51.645911264871, 17.750855499041], [51.641647338243, 17.754387851518], [51.637712198462, 17.759210765037], [51.63420274173, 17.76520548346], [51.631205382518, 17.772224396924], [51.628793925759, 17.780094676486], [51.627027749521, 17.788622529743], [51.625950342924, 17.797597972645], [51.625588235294, 17.8068], [51.625950342924, 17.816002027355], [51.627027749521, 17.824977470257], [51.628793925759, 17.833505323514], [51.631205382518, 17.841375603076], [51.63420274173, 17.84839451654], [51.637712198462, 17.854389234963], [51.641647338243, 17.859212148482], [51.645911264871, 17.862744500959], [51.650398986322, 17.864899314153], [51.655, 17.865623529412], [51.659601013678, 17.864899314153], [51.664088735129, 17.862744500959], [51.668352661757, 17.859212148482], [51.672287801538, 17.854389234963], [51.67579725827, 17.84839451654], [51.678794617482, 17.841375603076], [51.681206074241, 17.833505323514], [51.682972250479, 17.824977470257], [51.684049657076, 17.816002027355], [51.684411764706, 17.8068], [51.684049657076, 17.797597972645]];
+			polygon[4] = L.polygon(paths4, {color: 'blue'}).addTo(mymap);
+			
+			polygon[4].on('mouseover', function(evt) {
+			  polygon[4].setStyle({ color: 'blue' });
+			  
+			  var polyid = 4;
+		
+							  
+			//ukrywanie
+			$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+			for (var i=0;i<6;i++) {
+
+				if (i == selpol || i == polyid) {
+					polygon[i].setStyle({fillColor: '#00FF00'});
+					$('#lgroup'+i).css('background-color', '#00FF00');
+				}
+				else {
+					polygon[i].setStyle({fillColor: '#0000FF'});
+					$('#lgroup'+i).css('background-color', '#FFFFFF');
+				}
+			}
+			  
+			  
+			});
+			polygon[4].on('mouseout', function(evt) {
+			  polygon[4].setStyle({ color: 'blue' });
+			  
+			  $('li[polyid]').css('background-color', '#FFFFFF'); 
+			  
+			  for (var i=0;i<6;i++) {
+
+				if (i == selpol ) {
+					polygon[i].setStyle({fillColor: '#00FF00'});
+					$('#lgroup'+i).css('background-color', '#00FF00');
+				}
+				else {
+					polygon[i].setStyle({fillColor: '#0000FF'});
+					$('#lgroup'+i).css('background-color', '#FFFFFF');
+				}
+			}
+			
+			
+			});
+			
+			
+			polygon[4].on('click', function(evt) {
+				var polyid = 4;
+				selpol = polyid;
+
+				//ukrywanie
+				$('div.resgroups').hide('fast');
+				$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+				for (var i=0;i<6;i++) {
+					//polygon[i].setStyle({fillColor: '#0000FF'});
+				}
+
+				//pokazywanie
+				$('#resgroup'+polyid).show('fast');
+				//polygon[polyid].setStyle({fillColor: '#00FF00'});
+				$('#lgroup'+polyid).css('background-color', '#00FF00');
+
+				$('html,body').animate({scrollTop: $('#gmap').offset().top},'slow');
+			
+			
+			});
+			
+			var paths5 = [[52.083472250479, 17.707322529743], [52.081706074241, 17.698794676486], [52.079294617482, 17.690924396924], [52.07629725827, 17.68390548346], [52.072787801538, 17.677910765037], [52.068852661757, 17.673087851518], [52.064588735129, 17.669555499041], [52.060101013678, 17.667400685847], [52.0555, 17.666676470588], [52.050898986322, 17.667400685847], [52.046411264871, 17.669555499041], [52.042147338243, 17.673087851518], [52.038212198462, 17.677910765037], [52.03470274173, 17.68390548346], [52.031705382518, 17.690924396924], [52.029293925759, 17.698794676486], [52.027527749521, 17.707322529743], [52.026450342924, 17.716297972645], [52.026088235294, 17.7255], [52.026450342924, 17.734702027355], [52.027527749521, 17.743677470257], [52.029293925759, 17.752205323514], [52.031705382518, 17.760075603076], [52.03470274173, 17.76709451654], [52.038212198462, 17.773089234963], [52.042147338243, 17.777912148482], [52.046411264871, 17.781444500959], [52.050898986322, 17.783599314153], [52.0555, 17.784323529412], [52.060101013678, 17.783599314153], [52.064588735129, 17.781444500959], [52.068852661757, 17.777912148482], [52.072787801538, 17.773089234963], [52.07629725827, 17.76709451654], [52.079294617482, 17.760075603076], [52.081706074241, 17.752205323514], [52.083472250479, 17.743677470257], [52.084549657076, 17.734702027355], [52.084911764706, 17.7255], [52.084549657076, 17.716297972645]];
+			polygon[5] = L.polygon(paths5, {color: 'blue'}).addTo(mymap);
+			
+			polygon[5].on('mouseover', function(evt) {
+			  polygon[5].setStyle({ color: 'blue' });
+			  
+			  var polyid = 5;
+		
+							  
+			//ukrywanie
+			$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+			for (var i=0;i<6;i++) {
+
+				if (i == selpol || i == polyid) {
+					polygon[i].setStyle({fillColor: '#00FF00'});
+					$('#lgroup'+i).css('background-color', '#00FF00');
+				}
+				else {
+					polygon[i].setStyle({fillColor: '#0000FF'});
+					$('#lgroup'+i).css('background-color', '#FFFFFF');
+				}
+			}
+			  
+			  
+			});
+			polygon[5].on('mouseout', function(evt) {
+			  polygon[5].setStyle({ color: 'blue' });
+			  
+			  $('li[polyid]').css('background-color', '#FFFFFF'); 
+			  
+			  for (var i=0;i<6;i++) {
+
+				if (i == selpol ) {
+					polygon[i].setStyle({fillColor: '#00FF00'});
+					$('#lgroup'+i).css('background-color', '#00FF00');
+				}
+				else {
+					polygon[i].setStyle({fillColor: '#0000FF'});
+					$('#lgroup'+i).css('background-color', '#FFFFFF');
+				}
+			}
+			
+			
+			});
+			
+			
+			polygon[5].on('click', function(evt) {
+				var polyid = 5;
+				selpol = polyid;
+
+				//ukrywanie
+				$('div.resgroups').hide('fast');
+				$('li[polyid]').css('background-color', '#FFFFFF'); 
+
+				for (var i=0;i<6;i++) {
+					//polygon[i].setStyle({fillColor: '#0000FF'});
+				}
+
+				//pokazywanie
+				$('#resgroup'+polyid).show('fast');
+				//polygon[polyid].setStyle({fillColor: '#00FF00'});
+				$('#lgroup'+polyid).css('background-color', '#00FF00');
+
+				$('html,body').animate({scrollTop: $('#gmap').offset().top},'slow');
+			
+			
+			});
+			
+
+					let mlatlngs = [];
+
+					polygon.forEach(polygon => {
+						
+						//mlatlngs.push(poly.getLatLng()); // Dodanie współrzędnych do tablicy
+						mlatlngs = mlatlngs.concat(polygon.getLatLngs().flat());
+					});
+
+
+					bounds = L.latLngBounds(mlatlngs);
+					mymap.fitBounds(bounds.pad(0.5));
+
+
+					//mymap.fitBounds(nmarkers.getBounds()); 
+						
+		});
+	  function showResults(divname) {
+		//document.getElementsByName("resgroups").style.display="none";
+		//document.getElementById("resgroup" + divname).style.display="block";
+		//alert("test " + divname);
+	  }  
+	  
+	  //initialize1();
+
+	</script>
+	<div id='resgroup0' class='resgroups' style='display:none'><a name='area0'></a>
+		<div class='result_box usca' id='resboxid6744622'>
+			<div class='lbox'>
+			<span style='font-size:larger;text-decoration: underline;'><a href='/unit_info.php?lang=&id=379' rel='facebox'>Umień</a></span> (par. rzymskokatolicka) - akt urodzenia/chrztu, rok 1815 , Akta urodzonych, zaślubionych, zmarłych <br><br><b>Michał </b> , rodzice: Jan Szołajski , Marianna Szumier <div class='progress-container' title='Podobieństwo: 78%'><div style='width: 78%'></div></div>, <br><br><b>Inne osoby występujące w dokumencie</b>: <br> Antoni Szałajski <br>Piotr Rysiński <br></div>
+	<div class='rbox'><a href='/showbox.php?id=54&lang=' rel='facebox'>54 - Archiwum Państwowe w Poznaniu Oddział w Koninie </a> <br> 
+		<a href='https://www.szukajwarchiwach.gov.pl/jednostka/-/jednostka/1831954#scan36' target='_blank'>
+		821/6.1/5, skan 36</a><br>indeksacja: <a href='/profile/176'>Rafał Kędziora</a><br>
+				dodano: 2022-03-18 <br>ID 6744622<br><div><a id='comm6744622' href='/user_comments.php?lang=&rid=6744622&token=474bd206c13a8b158558aee5e827ad74' rel='facebox'
+					style='display:block; float: left; background: url(/images/comment.png); height: 32px; width: 32px; text-align:center; line-height:26px' 
+					title='Komentarze'>0</a><div style='float: left;  height: 32px; width: 5px; '></div><a id='ged6744622' href='/gedcom_download.php?lang=&rid=6744622&token=474bd206c13a8b158558aee5e827ad74'
+					style='display:block; float: left; background: url(/images/tree-icon.png); height: 32px; width: 32px;' title='Pobierz GEDCOM'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='clip6744622' href='/user_clipboard.php?lang=&rid=6744622&token=474bd206c13a8b158558aee5e827ad74' rel='facebox' 
+					style='display:block; float: left; background: url(/images/clipboard.png); height: 32px; width: 32px;' title='Dodaj do schowka'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='link6744622' href='/record/NTRfODIxXzYuMV81XzM2XzFfX18xODE1XzQ3NGJkMjA2YzEzYThiMTU4NTU4YWVlNWU4MjdhZDc0X2thdF9h' target='_blank'
+					style='display:block; float: left; background: url(/images/share.png); height: 32px; width: 32px;' title='Odnośnik do wpisu'></a><a class='arrup' href='#' 
+					style='display:block; float: right; background: url(/images/arrow_up.png); height: 32px; width: 32px;' title='Wróć do góry'></a><div class='cleaner'></div></div></div>
+	<div class='cleaner'></div>
+	</div></div><div id='resgroup1' class='resgroups' style='display:none'><a name='area1'></a>
+		<div class='result_box usca' id='resboxid5238253'>
+			<div class='lbox'>
+			<span style='font-size:larger;text-decoration: underline;'><a href='/unit_info.php?lang=&id=1364' rel='facebox'>Iwno</a></span> (par. rzymskokatolicka) - akt urodzenia/chrztu, rok 1821 , Księga urodzeń <br><br><b>Joannes </b> , rodzice: Simon Przybyski , Catharina Szumiak <div class='progress-container' title='Podobieństwo: 65%'><div style='width: 65%'></div></div>, <br><br><b>Inne osoby występujące w dokumencie</b>: <br> Valentinus Budziak  - chrzestny<br>Anna Szaynaczak  - chrzestna<br><br><b>Komentarz indeksującego</b>: <br> 15. Wiktorowo<br></div>
+	<div class='rbox'><a href='/showbox.php?id=53&lang=' rel='facebox'>Archiwum Państwowe w Poznaniu</a> <br> 
+		<a href='https://www.szukajwarchiwach.gov.pl/jednostka/-/jednostka/1476885#scan3' target='_blank'>
+		3320/1.1/4, skan 3</a><br>indeksacja: <a href='/profile/1450'>Wojciech Lis</a><br>
+				dodano: 2019-01-03 <br>ID 5238253<br><div><a id='comm5238253' href='/user_comments.php?lang=&rid=5238253&token=5363fd2da506276f4a45b1966f8009d3' rel='facebox'
+					style='display:block; float: left; background: url(/images/comment.png); height: 32px; width: 32px; text-align:center; line-height:26px' 
+					title='Komentarze'>0</a><div style='float: left;  height: 32px; width: 5px; '></div><a id='ged5238253' href='/gedcom_download.php?lang=&rid=5238253&token=5363fd2da506276f4a45b1966f8009d3'
+					style='display:block; float: left; background: url(/images/tree-icon.png); height: 32px; width: 32px;' title='Pobierz GEDCOM'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='clip5238253' href='/user_clipboard.php?lang=&rid=5238253&token=5363fd2da506276f4a45b1966f8009d3' rel='facebox' 
+					style='display:block; float: left; background: url(/images/clipboard.png); height: 32px; width: 32px;' title='Dodaj do schowka'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='link5238253' href='/record/NTNfMzMyMF8xLjFfNF8zXzE1X19fMTgyMV81MzYzZmQyZGE1MDYyNzZmNGE0NWIxOTY2ZjgwMDlkM19rYXRfYQ' target='_blank'
+					style='display:block; float: left; background: url(/images/share.png); height: 32px; width: 32px;' title='Odnośnik do wpisu'></a><a class='arrup' href='#' 
+					style='display:block; float: right; background: url(/images/arrow_up.png); height: 32px; width: 32px;' title='Wróć do góry'></a><div class='cleaner'></div></div></div>
+	<div class='cleaner'></div>
+	</div></div><div id='resgroup2' class='resgroups' style='display:none'><a name='area2'></a>
+		<div class='result_box usca' id='resboxid6611932'>
+			<div class='lbox'>
+			<span style='font-size:larger;text-decoration: underline;'><a href='/unit_info.php?lang=&id=9' rel='facebox'>Grodzisk Wielkopolski</a></span> (par. rzymskokatolicka) - akt urodzenia/chrztu, rok 1811 , wpis nr 44,  <br><br><b>Antonina </b> <div class='progress-container' title='Podobieństwo: 61%'><div style='width: 61%'></div></div>, rodzice: Joannes Szamer alias Szumer <div class='progress-container' title='Podobieństwo: 61%'><div style='width: 61%'></div></div>, Catharina Swider , <br><br><b>Inne osoby występujące w dokumencie</b>: <br> Josephus Bochynski <br>Anna Kerglowa? <br><br><b>Komentarz indeksującego</b>: <br> Słocin<br></div>
+	<div class='rbox'><a href='/showbox.php?id=AAP&lang=' rel='facebox'>Archiwum Archidiecezjalne w Poznaniu</a><br>PM 096/1<br>indeksacja: <a href='/profile/1342'>Henryk Krzyżan</a><br>
+				dodano: 2021-11-07 <br>ID 6611932<br><div><a id='comm6611932' href='/user_comments.php?lang=&rid=6611932&token=ab93c80de306255481558c42ba47dc73' rel='facebox'
+					style='display:block; float: left; background: url(/images/comment.png); height: 32px; width: 32px; text-align:center; line-height:26px' 
+					title='Komentarze'>0</a><div style='float: left;  height: 32px; width: 5px; '></div><a id='ged6611932' href='/gedcom_download.php?lang=&rid=6611932&token=ab93c80de306255481558c42ba47dc73'
+					style='display:block; float: left; background: url(/images/tree-icon.png); height: 32px; width: 32px;' title='Pobierz GEDCOM'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='clip6611932' href='/user_clipboard.php?lang=&rid=6611932&token=ab93c80de306255481558c42ba47dc73' rel='facebox' 
+					style='display:block; float: left; background: url(/images/clipboard.png); height: 32px; width: 32px;' title='Dodaj do schowka'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='link6611932' href='/record/QUFQX1BNIDA5Nl8tXzFfMF80NF9fXzE4MTFfYWI5M2M4MGRlMzA2MjU1NDgxNTU4YzQyYmE0N2RjNzNfa2F0X2E' target='_blank'
+					style='display:block; float: left; background: url(/images/share.png); height: 32px; width: 32px;' title='Odnośnik do wpisu'></a><a class='arrup' href='#' 
+					style='display:block; float: right; background: url(/images/arrow_up.png); height: 32px; width: 32px;' title='Wróć do góry'></a><div class='cleaner'></div></div></div>
+	<div class='cleaner'></div>
+	</div>
+		<div class='result_box usca' id='resboxid5134248'>
+			<div class='lbox'>
+			<span style='font-size:larger;text-decoration: underline;'><a href='/unit_info.php?lang=&id=172' rel='facebox'>Bytyń</a></span> (par. rzymskokatolicka) - akt urodzenia/chrztu, rok 1813 , wpis nr 14,  <br><br><b>Joannes Nepomucenus Christophurus </b> , rodzice: Andreas Grzegorzewski , Agnes Majeska , <br><br><b>Inne osoby występujące w dokumencie</b>: <br> Valentinus Olbinski <br>Eva Szumbek <div class='progress-container' title='Podobieństwo: 61%'><div style='width: 61%'></div></div><br><br><b>Komentarz indeksującego</b>: <br> Bytyń<br></div>
+	<div class='rbox'><a href='/showbox.php?id=AAP&lang=' rel='facebox'>Archiwum Archidiecezjalne w Poznaniu</a><br>PM 033/1<br>indeksacja: <a href='/profile/1342'>Henryk Krzyżan</a><br>
+				dodano: 2018-10-23 <br>ID 5134248<br><div><a id='comm5134248' href='/user_comments.php?lang=&rid=5134248&token=7aa005a7175e214100266b6fd3a582d7' rel='facebox'
+					style='display:block; float: left; background: url(/images/comment.png); height: 32px; width: 32px; text-align:center; line-height:26px' 
+					title='Komentarze'>0</a><div style='float: left;  height: 32px; width: 5px; '></div><a id='ged5134248' href='/gedcom_download.php?lang=&rid=5134248&token=7aa005a7175e214100266b6fd3a582d7'
+					style='display:block; float: left; background: url(/images/tree-icon.png); height: 32px; width: 32px;' title='Pobierz GEDCOM'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='clip5134248' href='/user_clipboard.php?lang=&rid=5134248&token=7aa005a7175e214100266b6fd3a582d7' rel='facebox' 
+					style='display:block; float: left; background: url(/images/clipboard.png); height: 32px; width: 32px;' title='Dodaj do schowka'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='link5134248' href='/record/QUFQX1BNIDAzM18tXzFfMF8xNF9fXzE4MTNfN2FhMDA1YTcxNzVlMjE0MTAwMjY2YjZmZDNhNTgyZDdfa2F0X2E' target='_blank'
+					style='display:block; float: left; background: url(/images/share.png); height: 32px; width: 32px;' title='Odnośnik do wpisu'></a><a class='arrup' href='#' 
+					style='display:block; float: right; background: url(/images/arrow_up.png); height: 32px; width: 32px;' title='Wróć do góry'></a><div class='cleaner'></div></div></div>
+	<div class='cleaner'></div>
+	</div>
+		<div class='result_box usca' id='resboxid443745'>
+			<div class='lbox'>
+			<span style='font-size:larger;text-decoration: underline;'><a href='/unit_info.php?lang=&id=81' rel='facebox'>Buk</a></span> (par. rzymskokatolicka) - akt urodzenia/chrztu, rok 1822 , Duplikat urodzonych <br><br><b>Agnes </b> , rodzice: Thomas Cwiklinski szewc , Rosalia Szumner <div class='progress-container' title='Podobieństwo: 61%'><div style='width: 61%'></div></div>, <br><br><b>Inne osoby występujące w dokumencie</b>: <br> Laurentius Suchoski <br>Catharina Dybisbanska <br><br><b>Komentarz indeksującego</b>: <br> Buk<br></div>
+	<div class='rbox'><a href='/showbox.php?id=53&lang=' rel='facebox'>Archiwum Państwowe w Poznaniu</a> <br> 
+		<a href='https://www.szukajwarchiwach.gov.pl/jednostka/-/jednostka/1472327#scan14' target='_blank'>
+		3253/1.1/6, skan 14</a><br>indeksacja: <a href='/profile/85'>Maria Sadowska</a><br>
+				dodano: 2012-04-18 <br>ID 443745<br><div><a id='comm443745' href='/user_comments.php?lang=&rid=443745&token=6648117698011625222bc65ac241c303' rel='facebox'
+					style='display:block; float: left; background: url(/images/comment.png); height: 32px; width: 32px; text-align:center; line-height:26px' 
+					title='Komentarze'>0</a><div style='float: left;  height: 32px; width: 5px; '></div><a id='ged443745' href='/gedcom_download.php?lang=&rid=443745&token=6648117698011625222bc65ac241c303'
+					style='display:block; float: left; background: url(/images/tree-icon.png); height: 32px; width: 32px;' title='Pobierz GEDCOM'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='clip443745' href='/user_clipboard.php?lang=&rid=443745&token=6648117698011625222bc65ac241c303' rel='facebox' 
+					style='display:block; float: left; background: url(/images/clipboard.png); height: 32px; width: 32px;' title='Dodaj do schowka'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='link443745' href='/record/NTNfMzI1M18xLjFfNl8xNF8xNF9fXzE4MjJfNjY0ODExNzY5ODAxMTYyNTIyMmJjNjVhYzI0MWMzMDNfa2F0X2E' target='_blank'
+					style='display:block; float: left; background: url(/images/share.png); height: 32px; width: 32px;' title='Odnośnik do wpisu'></a><a class='arrup' href='#' 
+					style='display:block; float: right; background: url(/images/arrow_up.png); height: 32px; width: 32px;' title='Wróć do góry'></a><div class='cleaner'></div></div></div>
+	<div class='cleaner'></div>
+	</div>
+		<div class='result_box usca' id='resboxid879037'>
+			<div class='lbox'>
+			<span style='font-size:larger;text-decoration: underline;'><a href='/unit_info.php?lang=&id=9' rel='facebox'>Grodzisk Wielkopolski</a></span> (par. rzymskokatolicka) - akt urodzenia/chrztu, rok 1825 , Liber baptisatorum <br><br><b>Marianna </b> , rodzice: Mathias Szwider , Catharina Marcinionka , <br><br><b>Inne osoby występujące w dokumencie</b>: <br> Valentinus Szumer <div class='progress-container' title='Podobieństwo: 61%'><div style='width: 61%'></div></div><br>Rosalia Plamirowna <br></div>
+	<div class='rbox'><a href='/showbox.php?id=53&lang=' rel='facebox'>Archiwum Państwowe w Poznaniu</a> <br> 
+		<a href='https://www.szukajwarchiwach.gov.pl/jednostka/-/jednostka/1476318#scan15' target='_blank'>
+		3312/1/16, skan 15</a><br>indeksacja: <a href='/profile/47'>Agnieszka Matusiewicz-Koza</a><br>
+				dodano: 2013-03-09 <br>ID 879037<br><div><a id='comm879037' href='/user_comments.php?lang=&rid=879037&token=15bf6c4509dc597a1889cf60c8a5da80' rel='facebox'
+					style='display:block; float: left; background: url(/images/comment.png); height: 32px; width: 32px; text-align:center; line-height:26px' 
+					title='Komentarze'>0</a><div style='float: left;  height: 32px; width: 5px; '></div><a id='ged879037' href='/gedcom_download.php?lang=&rid=879037&token=15bf6c4509dc597a1889cf60c8a5da80'
+					style='display:block; float: left; background: url(/images/tree-icon.png); height: 32px; width: 32px;' title='Pobierz GEDCOM'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='clip879037' href='/user_clipboard.php?lang=&rid=879037&token=15bf6c4509dc597a1889cf60c8a5da80' rel='facebox' 
+					style='display:block; float: left; background: url(/images/clipboard.png); height: 32px; width: 32px;' title='Dodaj do schowka'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='link879037' href='/record/NTNfMzMxMl8xXzE2XzE1XzEyX19fMTgyNV8xNWJmNmM0NTA5ZGM1OTdhMTg4OWNmNjBjOGE1ZGE4MF9rYXRfYQ' target='_blank'
+					style='display:block; float: left; background: url(/images/share.png); height: 32px; width: 32px;' title='Odnośnik do wpisu'></a><a class='arrup' href='#' 
+					style='display:block; float: right; background: url(/images/arrow_up.png); height: 32px; width: 32px;' title='Wróć do góry'></a><div class='cleaner'></div></div></div>
+	<div class='cleaner'></div>
+	</div>
+		<div class='result_box usca' id='resboxid1365657'>
+			<div class='lbox'>
+			<span style='font-size:larger;text-decoration: underline;'><a href='/unit_info.php?lang=&id=9' rel='facebox'>Grodzisk Wielkopolski</a></span> (par. rzymskokatolicka) - akt urodzenia/chrztu, rok 1828 , Liber baptisatorum, copulatorum, mortuorum <br><br><b>Catharina </b> , rodzice: Mathias Swider , Catharina Drzymała , <br><br><b>Inne osoby występujące w dokumencie</b>: <br> Laurentius Szumer <div class='progress-container' title='Podobieństwo: 61%'><div style='width: 61%'></div></div><br>Antonina Drzymalonka <br></div>
+	<div class='rbox'><a href='/showbox.php?id=53&lang=' rel='facebox'>Archiwum Państwowe w Poznaniu</a> <br> 
+		<a href='https://www.szukajwarchiwach.gov.pl/jednostka/-/jednostka/1476344#scan11' target='_blank'>
+		3312/6.1/25, skan 11</a><br>indeksacja: <a href='/profile/52'>Eryk Jan Grzeszkowiak</a><br>
+				dodano: 2013-11-18 <br>ID 1365657<br><div><a id='comm1365657' href='/user_comments.php?lang=&rid=1365657&token=c3188ea19475570c8bbf6885c20aedee' rel='facebox'
+					style='display:block; float: left; background: url(/images/comment.png); height: 32px; width: 32px; text-align:center; line-height:26px' 
+					title='Komentarze'>0</a><div style='float: left;  height: 32px; width: 5px; '></div><a id='ged1365657' href='/gedcom_download.php?lang=&rid=1365657&token=c3188ea19475570c8bbf6885c20aedee'
+					style='display:block; float: left; background: url(/images/tree-icon.png); height: 32px; width: 32px;' title='Pobierz GEDCOM'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='clip1365657' href='/user_clipboard.php?lang=&rid=1365657&token=c3188ea19475570c8bbf6885c20aedee' rel='facebox' 
+					style='display:block; float: left; background: url(/images/clipboard.png); height: 32px; width: 32px;' title='Dodaj do schowka'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='link1365657' href='/record/NTNfMzMxMl82LjFfMjVfMTFfMTFfX18xODI4X2MzMTg4ZWExOTQ3NTU3MGM4YmJmNjg4NWMyMGFlZGVlX2thdF9h' target='_blank'
+					style='display:block; float: left; background: url(/images/share.png); height: 32px; width: 32px;' title='Odnośnik do wpisu'></a><a class='arrup' href='#' 
+					style='display:block; float: right; background: url(/images/arrow_up.png); height: 32px; width: 32px;' title='Wróć do góry'></a><div class='cleaner'></div></div></div>
+	<div class='cleaner'></div>
+	</div></div><div id='resgroup3' class='resgroups' style='display:none'><a name='area3'></a>
+		<div class='result_box usca' id='resboxid2293162'>
+			<div class='lbox'>
+			<span style='font-size:larger;text-decoration: underline;'><a href='/unit_info.php?lang=&id=215' rel='facebox'>Dembe</a></span> (par. rzymskokatolicka) - akt urodzenia/chrztu, rok 1818 , Akta urodzenia <br><br><b>Anna </b> <div class='progress-container' title='Podobieństwo: 61%'><div style='width: 61%'></div></div>, rodzice: Jan Szumer <div class='progress-container' title='Podobieństwo: 61%'><div style='width: 61%'></div></div>, Elżbieta  , <br><br><b>Inne osoby występujące w dokumencie</b>: <br> Wawrzyniec Maliński  - świadek lat 26<br>Andrzej Krępa  - świadek lat 36<br><br><b>Komentarz indeksującego</b>: <br> akt 25<br>Holendry Dębskie<br></div>
+	<div class='rbox'><a href='/showbox.php?id=53&lang=' rel='facebox'>Archiwum Państwowe w Poznaniu</a> <br> 
+		<a href='https://www.szukajwarchiwach.gov.pl/jednostka/-/jednostka/1496089#scan8' target='_blank'>
+		3618/-/5, skan 8</a><br>indeksacja: <a href='/profile/2020'>Adam Mikołajczyk</a><br>
+				dodano: 2014-11-27 <br>ID 2293162<br><div><a id='comm2293162' href='/user_comments.php?lang=&rid=2293162&token=a09b0325d98d3c8a906b55ade811a533' rel='facebox'
+					style='display:block; float: left; background: url(/images/comment.png); height: 32px; width: 32px; text-align:center; line-height:26px' 
+					title='Komentarze'>0</a><div style='float: left;  height: 32px; width: 5px; '></div><a id='ged2293162' href='/gedcom_download.php?lang=&rid=2293162&token=a09b0325d98d3c8a906b55ade811a533'
+					style='display:block; float: left; background: url(/images/tree-icon.png); height: 32px; width: 32px;' title='Pobierz GEDCOM'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='clip2293162' href='/user_clipboard.php?lang=&rid=2293162&token=a09b0325d98d3c8a906b55ade811a533' rel='facebox' 
+					style='display:block; float: left; background: url(/images/clipboard.png); height: 32px; width: 32px;' title='Dodaj do schowka'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='link2293162' href='/record/NTNfMzYxOF8tXzVfOF8yX19fMTgxOF9hMDliMDMyNWQ5OGQzYzhhOTA2YjU1YWRlODExYTUzM19rYXRfYQ' target='_blank'
+					style='display:block; float: left; background: url(/images/share.png); height: 32px; width: 32px;' title='Odnośnik do wpisu'></a><a class='arrup' href='#' 
+					style='display:block; float: right; background: url(/images/arrow_up.png); height: 32px; width: 32px;' title='Wróć do góry'></a><div class='cleaner'></div></div></div>
+	<div class='cleaner'></div>
+	</div>
+		<div class='result_box usca' id='resboxid3056063'>
+			<div class='lbox'>
+			<span style='font-size:larger;text-decoration: underline;'><a href='/unit_info.php?lang=&id=693' rel='facebox'>Chlewo</a></span> (par. rzymskokatolicka) - akt urodzenia/chrztu, rok 1826 , Akta urodzeń, małżeństw i zgonu <br><br><b>Katarzyna </b> , rodzice: Karol Kowalczyk , Marianna Krawczyk , <br><br><b>Inne osoby występujące w dokumencie</b>: <br> Wojciech Stanecki  - świadek<br>Wojciech Fiś  - świadek<br>Bogusław Szummer <div class='progress-container' title='Podobieństwo: 61%'><div style='width: 61%'></div></div> - chrzestny<br>Marianna Fiś  - chrzestna<br><br><b>Komentarz indeksującego</b>: <br> akt 33 Swinice<br>ur. 26-04-1826r.<br></div>
+	<div class='rbox'><a href='/showbox.php?id=54&lang=' rel='facebox'>Archiwum Państwowe w Poznaniu. Oddział w Koninie</a> <br> 
+			<a href='https://szukajwarchiwach.pl/54/737/0/6.1/50/str/1/1/15/#select8' target='_blank'>
+			737/6.1/50, skan 8</a><br>indeksacja: <a href='/profile/4337'>Anna Winkiel</a><br>
+				dodano: 2015-10-29 <br>ID 3056063<br><div><a id='comm3056063' href='/user_comments.php?lang=&rid=3056063&token=9c68aab6d605b663562202840ddd5456' rel='facebox'
+					style='display:block; float: left; background: url(/images/comment.png); height: 32px; width: 32px; text-align:center; line-height:26px' 
+					title='Komentarze'>0</a><div style='float: left;  height: 32px; width: 5px; '></div><a id='ged3056063' href='/gedcom_download.php?lang=&rid=3056063&token=9c68aab6d605b663562202840ddd5456'
+					style='display:block; float: left; background: url(/images/tree-icon.png); height: 32px; width: 32px;' title='Pobierz GEDCOM'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='clip3056063' href='/user_clipboard.php?lang=&rid=3056063&token=9c68aab6d605b663562202840ddd5456' rel='facebox' 
+					style='display:block; float: left; background: url(/images/clipboard.png); height: 32px; width: 32px;' title='Dodaj do schowka'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='link3056063' href='/record/NTRfNzM3XzYuMV81MF84XzZfX18xODI2XzljNjhhYWI2ZDYwNWI2NjM1NjIyMDI4NDBkZGQ1NDU2X2thdF9h' target='_blank'
+					style='display:block; float: left; background: url(/images/share.png); height: 32px; width: 32px;' title='Odnośnik do wpisu'></a><a class='arrup' href='#' 
+					style='display:block; float: right; background: url(/images/arrow_up.png); height: 32px; width: 32px;' title='Wróć do góry'></a><div class='cleaner'></div></div></div>
+	<div class='cleaner'></div>
+	</div></div><div id='resgroup4' class='resgroups' style='display:none'><a name='area4'></a>
+		<div class='result_box usca' id='resboxid755501'>
+			<div class='lbox'>
+			<span style='font-size:larger;text-decoration: underline;'><a href='/unit_info.php?lang=&id=247' rel='facebox'>Ostrów Wielkopolski</a></span> (par. rzymskokatolicka) - akt urodzenia/chrztu, rok 1828 , Duplikat liber baptisatorum <br><br><b>Ignatius Valentinus </b> , rodzice: Josephus Cieślicki , Catharina Tomalska , <br><br><b>Inne osoby występujące w dokumencie</b>: <br> Carolus Heintka <br>Beate Marianna Szumen <div class='progress-container' title='Podobieństwo: 61%'><div style='width: 61%'></div></div><br></div>
+	<div class='rbox'><a href='/showbox.php?id=53&lang=' rel='facebox'>Archiwum Państwowe w Poznaniu</a> <br> 
+		<a href='https://www.szukajwarchiwach.gov.pl/jednostka/-/jednostka/1483944#scan3' target='_blank'>
+		3434/1/12, skan 3</a><br>indeksacja: <a href='/profile/850'>Jacek Cyba</a><br>
+				dodano: 2013-02-04 <br>ID 755501<br><div><a id='comm755501' href='/user_comments.php?lang=&rid=755501&token=1c1918c0a37b0cfa86af829965546bd6' rel='facebox'
+					style='display:block; float: left; background: url(/images/comment.png); height: 32px; width: 32px; text-align:center; line-height:26px' 
+					title='Komentarze'>0</a><div style='float: left;  height: 32px; width: 5px; '></div><a id='ged755501' href='/gedcom_download.php?lang=&rid=755501&token=1c1918c0a37b0cfa86af829965546bd6'
+					style='display:block; float: left; background: url(/images/tree-icon.png); height: 32px; width: 32px;' title='Pobierz GEDCOM'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='clip755501' href='/user_clipboard.php?lang=&rid=755501&token=1c1918c0a37b0cfa86af829965546bd6' rel='facebox' 
+					style='display:block; float: left; background: url(/images/clipboard.png); height: 32px; width: 32px;' title='Dodaj do schowka'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='link755501' href='/record/NTNfMzQzNF8xXzEyXzNfMV9fXzE4MjhfMWMxOTE4YzBhMzdiMGNmYTg2YWY4Mjk5NjU1NDZiZDZfa2F0X2E' target='_blank'
+					style='display:block; float: left; background: url(/images/share.png); height: 32px; width: 32px;' title='Odnośnik do wpisu'></a><a class='arrup' href='#' 
+					style='display:block; float: right; background: url(/images/arrow_up.png); height: 32px; width: 32px;' title='Wróć do góry'></a><div class='cleaner'></div></div></div>
+	<div class='cleaner'></div>
+	</div></div><div id='resgroup5' class='resgroups' style='display:none'><a name='area5'></a>
+		<div class='result_box usca' id='resboxid6391759'>
+			<div class='lbox'>
+			<span style='font-size:larger;text-decoration: underline;'><a href='/unit_info.php?lang=&id=441' rel='facebox'>Szymanowice</a></span> (par. rzymskokatolicka) - akt urodzenia/chrztu, rok 1828 , Akta urodzeń, małżeństw i zgonu <br><br><b>Krystyna Karolina </b> , rodzice: Ludwik Faltemberg , Anna Krystyna Szumer <div class='progress-container' title='Podobieństwo: 61%'><div style='width: 61%'></div></div>, <br><br><b>Inne osoby występujące w dokumencie</b>: <br> Andrzej Szulc  - świadek<br>Andrzej Dymarski  - organista<br>Jakob Hersch  - chrzestny<br>Julianna Tezner <br><br><b>Komentarz indeksującego</b>: <br> 99 Tomice<br></div>
+	<div class='rbox'><a href='/showbox.php?id=53&lang=' rel='facebox'>Archiwum Państwowe w Poznaniu</a> <br> 
+		<a href='https://www.szukajwarchiwach.gov.pl/jednostka/-/jednostka/1504092#scan28' target='_blank'>
+		3717/6.1/9, skan 28</a><br>indeksacja: <a href='/profile/9952'>marta tomkowiak</a><br>
+				dodano: 2021-04-14 <br>ID 6391759<br><div><a id='comm6391759' href='/user_comments.php?lang=&rid=6391759&token=d4572ee2736955fe50c6e40d5b330bfe' rel='facebox'
+					style='display:block; float: left; background: url(/images/comment.png); height: 32px; width: 32px; text-align:center; line-height:26px' 
+					title='Komentarze'>0</a><div style='float: left;  height: 32px; width: 5px; '></div><a id='ged6391759' href='/gedcom_download.php?lang=&rid=6391759&token=d4572ee2736955fe50c6e40d5b330bfe'
+					style='display:block; float: left; background: url(/images/tree-icon.png); height: 32px; width: 32px;' title='Pobierz GEDCOM'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='clip6391759' href='/user_clipboard.php?lang=&rid=6391759&token=d4572ee2736955fe50c6e40d5b330bfe' rel='facebox' 
+					style='display:block; float: left; background: url(/images/clipboard.png); height: 32px; width: 32px;' title='Dodaj do schowka'></a><div style='float: left;  height: 32px; width: 5px; '></div><a id='link6391759' href='/record/NTNfMzcxN182LjFfOV8yOF8zX19fMTgyOF9kNDU3MmVlMjczNjk1NWZlNTBjNmU0MGQ1YjMzMGJmZV9rYXRfYQ' target='_blank'
+					style='display:block; float: left; background: url(/images/share.png); height: 32px; width: 32px;' title='Odnośnik do wpisu'></a><a class='arrup' href='#' 
+					style='display:block; float: right; background: url(/images/arrow_up.png); height: 32px; width: 32px;' title='Wróć do góry'></a><div class='cleaner'></div></div></div>
+	<div class='cleaner'></div>
+	</div></div><script>
+							$('.arrup').click(function(){
+								$('html,body').animate({scrollTop: $('#gmap').offset().top},'slow');
+								return false;
+							});	
+						</script>       
+    	<div class="cleaner"></div>
+    </div>
+    
+    
+    <div class="cleaner"></div>
+</div> <!-- end of templatemo_content -->
+ 
+
+<div id="templatemo_footer_wrapper">
+<div id="templatemo_footer">
+
+    <div class="section_w240">
+        <!--
+        <h3>Privacy Policy</h3>
+        
+        <div class="sub_content">
+            <p>Nullam ultrices tempor nisi, ac egestas diam aliquam a. Ut eleifend semper turpis, id feugiat arcu dignissim eu. Donec mattis adipiscing imperdiet.</p>
+        </div>
+        -->
+    </div>
+
+    <div class="section_w240">
+        <!--
+        <h3>Partners</h3>
+        
+        <div class="sub_content">
+            
+            <ul class="footer_list">
+                <li><a href="http://www.templatemo.com/page/1" target="_parent">Free CSS Templates</a></li>
+                <li><a href="http://www.flashmo.com/page/1" target="_parent">Free Flash Templates</a></li>
+                <li><a href="http://www.flashmo.com/store" target="_parent">Template Store</a></li>
+                <li><a href="http://www.webdesignmo.com/blog" target="_parent">Web Design Tips</a></li>
+                <li><a href="http://www.koflash.com" target="_parent">Best Flash Gallery</a></li>               
+            </ul>
+            
+        </div>
+        -->
+    </div>
+    
+    <div class="section_w240">
+        <!--
+        <h3>About</h3>
+        
+        <div class="sub_content">
+        
+            <ul class="footer_list">
+                <li><a href="#">Lorem ipsum dolor</a></li>
+                <li><a href="#">Cum sociis</a></li>
+                <li><a href="#">Donec quam</a></li>
+                <li><a href="#">Nulla consequat</a></li>
+                <li><a href="#">In enim justo</a></li>
+            </ul>
+        
+        </div>
+        -->
+    </div>
+    <!--
+    <div class="section_w240">
+        
+        <h3>XHTML/CSS validations</h3>
+        
+        <div class="sub_content">
+        	
+            <p>Aliquam vehicula...</p>
+            
+            <div class="cleaner_h20"></div>
+			
+            <a href="http://validator.w3.org/check?uri=referer"><img style="border:0;width:88px;height:31px" src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Transitional" width="88" height="31" vspace="8" border="0" /></a>
+            
+            <a href="http://jigsaw.w3.org/css-validator/check/referer"><img style="border:0;width:88px;height:31px"  src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="Valid CSS!" vspace="8" border="0" /></a>
+            
+        </div>
+           
+    </div>
+    
+    <div class="cleaner_h40"></div>
+    -->
+    
+    <center>
+        Copyright © 2011-2025 <a href="http://www.famula.pl">famula.pl</a> | 
+        Designed by <a href="http://www.templatemo.com" target="_parent">Free CSS Templates</a>
+    </center>
+    
+
+</div> <!-- end of footer -->
+</div> <!-- end of footer wrapper -->
+
+</body>
+</html>
+
+<!--<script type="text/javascript" src="/js/markerwithlabel_packed.js"></script>-->
+

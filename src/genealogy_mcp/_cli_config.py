@@ -98,6 +98,24 @@ CONFIG_ENTRIES: tuple[ConfigEntry, ...] = (
         help="Override the User-Agent sent to Lubgens.",
     ),
     ConfigEntry(
+        dest="basia_min_interval",
+        env_var="BASIA_MIN_INTERVAL",
+        help="Seconds between BaSIA requests (default 5).",
+    ),
+    ConfigEntry(
+        dest="basia_user_agent",
+        env_var="BASIA_USER_AGENT",
+        help="Override the User-Agent sent to BaSIA.",
+    ),
+    ConfigEntry(
+        dest="basia_timeout",
+        env_var="BASIA_TIMEOUT",
+        help=(
+            "Per-request timeout for BaSIA in seconds (default 200). "
+            "BaSIA's fuzzy search is slow; broad queries need a high value."
+        ),
+    ),
+    ConfigEntry(
         dest="genpod_min_interval",
         env_var="GENPOD_MIN_INTERVAL",
         help="Seconds between GenPod requests (default 5).",
@@ -125,6 +143,7 @@ _DISABLE_FLAGS: tuple[tuple[str, str], ...] = (
     ("no_genealogia_w_archiwach", "Disable the Genealogia w Archiwach research source."),
     ("no_genbaza", "Disable the genbaza-family research source."),
     ("no_lubgens", "Disable the Lubgens research source."),
+    ("no_basia", "Disable the BaSIA research source."),
     ("no_genpod", "Disable the GenPod research source."),
 )
 
@@ -161,5 +180,6 @@ def enabled_sources(args: argparse.Namespace) -> dict[str, bool]:
         "enable_genealogia_w_archiwach": not args.no_genealogia_w_archiwach,
         "enable_genbaza": not args.no_genbaza,
         "enable_lubgens": not args.no_lubgens,
+        "enable_basia": not args.no_basia,
         "enable_genpod": not args.no_genpod,
     }

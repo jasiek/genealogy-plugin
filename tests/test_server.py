@@ -45,6 +45,10 @@ LUBGENS_TOOLS = {
     "lubgens_search",
 }
 
+BASIA_TOOLS = {
+    "basia_search",
+}
+
 
 def _tool_names(server) -> set[str]:
     tools = asyncio.run(server.list_tools())
@@ -60,6 +64,7 @@ def test_build_server_registers_all_tools(db_path):
     assert GENPOD_TOOLS.issubset(names)
     assert GENBAZA_TOOLS.issubset(names)
     assert LUBGENS_TOOLS.issubset(names)
+    assert BASIA_TOOLS.issubset(names)
 
 
 def test_build_server_geneteka_only():
@@ -144,6 +149,7 @@ def test_build_server_rejects_no_sources():
             enable_genpod=False,
             enable_genbaza=False,
             enable_lubgens=False,
+            enable_basia=False,
         )
 
 
