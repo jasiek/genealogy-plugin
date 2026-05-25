@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Read",
+      "Edit",
+      "Write",
+      "Agent",
+      "Task",
+      "Bash(uv run *)",
+      "Bash(genealogy-mcp *)",
+      "Bash(genealogy-mcp-call *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git status *)",
+      "Bash(git log *)",
+      "Bash(git diff *)",
+      "Bash(curl *)",
+      "Bash(grep *)",
+      "Bash(ls *)",
+      "Bash(find *)",
+      "Bash(wc *)",
+      "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(diff *)",
+      "Bash(sed *)",
+      "Bash(mkdir *)",
+      "Bash(cp *)",
+      "Bash(sleep *)",
+      "Bash(act *)",
+      "WebFetch",
+      "WebSearch",
+      "Agent",
+      "Glob",
+      "Grep",
+      "PushNotification",
+      "SendMessage"
+    ]
+  }
+}
