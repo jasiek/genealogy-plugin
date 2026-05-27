@@ -43,6 +43,8 @@ from genealogy_mcp.sources.genealogia_w_archiwach import (
 from genealogy_mcp.sources.genealogia_w_archiwach.client import (
     GenealogiaWArchiwachConfig,
 )
+from genealogy_mcp.sources.genealogyindexer import register as register_genealogyindexer
+from genealogy_mcp.sources.genealogyindexer.client import GenealogyIndexerConfig
 from genealogy_mcp.sources.genpod import register as register_genpod
 from genealogy_mcp.sources.genpod.client import GenpodConfig
 from genealogy_mcp.sources.geneteka import register as register_geneteka
@@ -83,11 +85,17 @@ INSTRUCTIONS = (
     "vital records — *research candidates only*. A slow fuzzy match over "
     "6.6M+ entries; narrow with given name / year / place / record type. "
     "Returns scan URLs and a stable permalink per hit.\n"
+    "  - genealogyindexer_*: full-text OCR search over Genealogy Indexer "
+    "(https://genealogyindexer.org) — digitised directories, yizkor "
+    "(memorial) books, military lists, histories, and school sources from "
+    "Central/Eastern Europe — *research candidates only*. Surfaces a "
+    "context snippet (or directory row) and a scan URL per matching page; "
+    "good for finding where a surname was *printed* rather than registered.\n"
     "Workflow: call heredis_search_persons / heredis_get_family for "
     "context, then geneteka_search, genealogia_w_archiwach_search_person, "
-    "genpod_search_vital_records, genbaza_search, lubgens_search, or "
-    "basia_search to find candidate records, then present matches for the "
-    "user to confirm."
+    "genpod_search_vital_records, genbaza_search, lubgens_search, "
+    "basia_search, or genealogyindexer_search to find candidate records, "
+    "then present matches for the user to confirm."
 )
 
 
@@ -100,12 +108,14 @@ def build_server(
     genbaza_config: GenbazaConfig | None = None,
     lubgens_config: LubgensConfig | None = None,
     basia_config: BasiaConfig | None = None,
+    genealogyindexer_config: GenealogyIndexerConfig | None = None,
     enable_geneteka: bool = True,
     enable_genealogia_w_archiwach: bool = True,
     enable_genpod: bool = True,
     enable_genbaza: bool = True,
     enable_lubgens: bool = True,
     enable_basia: bool = True,
+    enable_genealogyindexer: bool = True,
 ) -> FastMCP:
     """Construct the unified FastMCP server.
 
@@ -138,6 +148,9 @@ def build_server(
     if enable_basia:
         register_basia(mcp, basia_config)
 
+    if enable_genealogyindexer:
+        register_genealogyindexer(mcp, genealogyindexer_config)
+
     if (
         heredis_db is None
         and gedcom_path is None
@@ -147,12 +160,14 @@ def build_server(
         and not enable_genbaza
         and not enable_lubgens
         and not enable_basia
+        and not enable_genealogyindexer
     ):
         raise ValueError(
             "build_server: at least one source must be enabled "
             "(provide heredis_db, gedcom_path, set enable_geneteka=True, "
             "enable_genealogia_w_archiwach=True, enable_genpod=True, "
-            "enable_genbaza=True, enable_lubgens=True, or enable_basia=True)"
+            "enable_genbaza=True, enable_lubgens=True, enable_basia=True, "
+            "or enable_genealogyindexer=True)"
         )
 
     return mcp

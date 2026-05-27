@@ -150,6 +150,7 @@ def test_build_server_rejects_no_sources():
             enable_genbaza=False,
             enable_lubgens=False,
             enable_basia=False,
+            enable_genealogyindexer=False,
         )
 
 

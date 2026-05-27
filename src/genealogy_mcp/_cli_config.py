@@ -116,6 +116,24 @@ CONFIG_ENTRIES: tuple[ConfigEntry, ...] = (
         ),
     ),
     ConfigEntry(
+        dest="genealogyindexer_min_interval",
+        env_var="GENEALOGYINDEXER_MIN_INTERVAL",
+        help="Seconds between Genealogy Indexer requests (default 5).",
+    ),
+    ConfigEntry(
+        dest="genealogyindexer_user_agent",
+        env_var="GENEALOGYINDEXER_USER_AGENT",
+        help="Override the User-Agent sent to Genealogy Indexer.",
+    ),
+    ConfigEntry(
+        dest="genealogyindexer_timeout",
+        env_var="GENEALOGYINDEXER_TIMEOUT",
+        help=(
+            "Per-request timeout for Genealogy Indexer in seconds (default 90). "
+            "Result pages for very common terms can be several megabytes."
+        ),
+    ),
+    ConfigEntry(
         dest="genpod_min_interval",
         env_var="GENPOD_MIN_INTERVAL",
         help="Seconds between GenPod requests (default 5).",
@@ -144,6 +162,7 @@ _DISABLE_FLAGS: tuple[tuple[str, str], ...] = (
     ("no_genbaza", "Disable the genbaza-family research source."),
     ("no_lubgens", "Disable the Lubgens research source."),
     ("no_basia", "Disable the BaSIA research source."),
+    ("no_genealogyindexer", "Disable the Genealogy Indexer research source."),
     ("no_genpod", "Disable the GenPod research source."),
 )
 
@@ -181,5 +200,6 @@ def enabled_sources(args: argparse.Namespace) -> dict[str, bool]:
         "enable_genbaza": not args.no_genbaza,
         "enable_lubgens": not args.no_lubgens,
         "enable_basia": not args.no_basia,
+        "enable_genealogyindexer": not args.no_genealogyindexer,
         "enable_genpod": not args.no_genpod,
     }

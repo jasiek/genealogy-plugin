@@ -17,6 +17,7 @@
       "Bash(git diff *)",
       "Bash(curl *)",
       "Bash(grep *)",
+      "Bash(jq *)",
       "Bash(ls *)",
       "Bash(find *)",
       "Bash(wc *)",
@@ -35,7 +36,8 @@
       "Glob",
       "Grep",
       "PushNotification",
-      "SendMessage"
+      "SendMessage",
+      "mcp__genealogy"
     ]
   }
 }

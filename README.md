@@ -7,6 +7,10 @@ MCP server for Polish genealogy research. Two tiers:
 - **`geneteka_*`**, **`genealogia_w_archiwach_*`**, **`genbaza_*`**,
   **`lubgens_*`**, **`basia_*`**, **`genpod_*`** — live search of public
   Polish parish-record indexes (research candidates).
+- **`genealogyindexer_*`** — full-text OCR search of
+  [Genealogy Indexer](https://genealogyindexer.org): digitised directories,
+  yizkor (memorial) books, military lists, histories, and school sources from
+  Central/Eastern Europe (research candidates).
 
 Live sources are rate-limited (default 5 s between requests) and use a
 browser-style User-Agent.
@@ -77,6 +81,7 @@ Run `genealogy-mcp --help` for the full list. Common knobs:
 | `--no-genbaza` | — | enabled | Disable the genbaza-family source. |
 | `--no-lubgens` | — | enabled | Disable the Lubgens source. |
 | `--no-basia` | — | enabled | Disable the BaSIA source. |
+| `--no-genealogyindexer` | — | enabled | Disable the Genealogy Indexer source. |
 | `--no-genpod` | — | enabled | Disable the GenPod source. |
 | `--geneteka-min-interval N` | `GENETEKA_MIN_INTERVAL` | `5` | Seconds between Geneteka requests. |
 | `--genealogia-w-archiwach-min-interval N` | `GENEALOGIA_W_ARCHIWACH_MIN_INTERVAL` | `5` | Seconds between Genealogia w Archiwach requests. |
@@ -84,12 +89,15 @@ Run `genealogy-mcp --help` for the full list. Common knobs:
 | `--lubgens-min-interval N` | `LUBGENS_MIN_INTERVAL` | `5` | Seconds between Lubgens requests. |
 | `--basia-min-interval N` | `BASIA_MIN_INTERVAL` | `5` | Seconds between BaSIA requests. |
 | `--basia-timeout N` | `BASIA_TIMEOUT` | `200` | Per-request timeout for BaSIA (its fuzzy search is slow). |
+| `--genealogyindexer-min-interval N` | `GENEALOGYINDEXER_MIN_INTERVAL` | `5` | Seconds between Genealogy Indexer requests. |
+| `--genealogyindexer-timeout N` | `GENEALOGYINDEXER_TIMEOUT` | `90` | Per-request timeout for Genealogy Indexer (common-term pages are large). |
 | `--genpod-min-interval N` | `GENPOD_MIN_INTERVAL` | `5` | Seconds between GenPod requests. |
 | `--geneteka-user-agent UA` | `GENETEKA_USER_AGENT` | browser UA | Outgoing User-Agent for Geneteka. |
 | `--genealogia-w-archiwach-user-agent UA` | `GENEALOGIA_W_ARCHIWACH_USER_AGENT` | browser UA | Outgoing User-Agent for Genealogia w Archiwach. |
 | `--genbaza-user-agent UA` | `GENBAZA_USER_AGENT` | browser UA | Outgoing User-Agent for genbaza. |
 | `--lubgens-user-agent UA` | `LUBGENS_USER_AGENT` | browser UA | Outgoing User-Agent for Lubgens. |
 | `--basia-user-agent UA` | `BASIA_USER_AGENT` | browser UA | Outgoing User-Agent for BaSIA. |
+| `--genealogyindexer-user-agent UA` | `GENEALOGYINDEXER_USER_AGENT` | browser UA | Outgoing User-Agent for Genealogy Indexer. |
 | `--genpod-user-agent UA` | `GENPOD_USER_AGENT` | browser UA | Outgoing User-Agent for GenPod. |
 | `--genpod-username NAME` | `GENPOD_USERNAME` | unset | Required to enable `genpod_*` tools. |
 | `--genpod-password PW` | `GENPOD_PASSWORD` | unset | Required to enable `genpod_*` tools. |
