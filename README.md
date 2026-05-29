@@ -1,6 +1,9 @@
-# genealogy-mcp
+# genealogy-plugin
 
-MCP server for Polish genealogy research. Two tiers:
+Plugin for Claude and other agents to help you do your genealogy research.
+Claude knows about where things are located, what historical events took place and how births/marriages/deaths tie together. This plugin
+uses different data sources which lets Claude do autonomous research. You can hook up a source of truth in the form of a Heredis file, or
+a GEDCOM file and it'll treat it as a source of reference.
 
 - **`heredis_*`** / **`gedcom_*`** — read-only access to your local
   `.heredis` SQLite file or a GEDCOM file (verified facts).
@@ -18,47 +21,6 @@ browser-style User-Agent.
 This repository ships as a Claude Code plugin (the `.claude-plugin/`
 directory and the `research-person` skill under `skills/`). You can also
 run the MCP server stand-alone against any MCP client.
-
-## Install
-
-### As a Claude Code plugin
-
-Add the plugin to Claude Code so the bundled skills and MCP tools are
-available:
-
-```bash
-claude plugin add /path/to/heredis-mcp
-```
-
-Launch Claude Code from a directory containing your `.heredis` or `.ged`
-file; the server auto-discovers it. The `research-person` skill is then
-available via `/research-person`.
-
-### Claude Code / any MCP client (via `uvx`)
-
-Once published to PyPI:
-
-```jsonc
-// or via:  claude mcp add polish-genealogy -- uvx genealogy-mcp --heredis-db /path/to/file.heredis
-{
-  "mcpServers": {
-    "polish-genealogy": {
-      "command": "uvx",
-      "args": ["genealogy-mcp", "--heredis-db", "/path/to/file.heredis"]
-    }
-  }
-}
-```
-
-### From source
-
-```bash
-git clone https://github.com/jszumiec/heredis-mcp
-cd heredis-mcp
-uv sync
-claude mcp add polish-genealogy -- \
-  uv --directory "$PWD" run genealogy-mcp --heredis-db /path/to/file.heredis
-```
 
 ## Configuration
 
@@ -103,19 +65,6 @@ Run `genealogy-mcp --help` for the full list. Common knobs:
 | `--genpod-password PW` | `GENPOD_PASSWORD` | unset | Required to enable `genpod_*` tools. |
 
 If neither a Heredis DB nor any live source is enabled, the server refuses to start.
-
-### Examples
-
-```bash
-# CLI flag wins over env var
-GENETEKA_MIN_INTERVAL=2 genealogy-mcp --geneteka-min-interval 10  # → 10s
-
-# Claude Code: pass config as env vars
-claude mcp add polish-genealogy \
-  -e HEREDIS_DB=/path/to/file.heredis \
-  -e GENETEKA_MIN_INTERVAL=3 \
-  -- uvx genealogy-mcp
-```
 
 ## Testing tools from the command line
 
