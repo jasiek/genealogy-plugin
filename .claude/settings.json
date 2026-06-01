@@ -37,7 +37,8 @@
       "Grep",
       "PushNotification",
       "SendMessage",
-      "mcp__genealogy"
+      "mcp__genealogy",
+      "mcp__plugin:genealogy:genealogy"
     ]
   }
 }

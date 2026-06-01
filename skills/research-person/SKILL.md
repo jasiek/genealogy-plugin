@@ -2,7 +2,6 @@
 name: research-person
 description: "Perform research on a person with the given name"
 argument-hint: <given-name> <surname> <date-of-some-event-within-their-lifetime>
-tools: heredis_* genbaza_* genealogia_* geneteka_* genpod_* lubgens_* Read Grep Bash
 ---
 
 # Research person skill
@@ -17,8 +16,20 @@ where ID is a unique identifier.
 Use Obsidian's aliases to make the note cross-referenceable by listing heredis record identifier, and GEDCOM id.
 Use `${CLAUDE_PLUGIN_ROOT}/skills/research-person/template.md` as the template.
 
-- When looking for existing, established evidence, check sources of truth, such as tool:Heredis, or tool:GEDCOM.
-  Heredis files or GED files should be in the current directory.
+- Use uv for running python scripts.
+- The set of genealogy sources grows over time — don't assume a fixed list.
+  Discover what's available at runtime rather than hardcoding tool names:
+  - `uv run --project "${CLAUDE_PLUGIN_ROOT}" genealogy-mcp-call --list`
+    — every enabled tool, one per line with a one-line summary.
+  - `uv run --project "${CLAUDE_PLUGIN_ROOT}" genealogy-mcp-call --tool <name> --schema`
+    — a single tool's input JSON Schema before calling it.
+  The same tool names work whether you invoke them as MCP tools or via
+  `genealogy-mcp-call --tool <name> key=value` (or `--json '{...}'`).
+- Treat sources by tier: `heredis_*` and `gedcom_*` are **verified facts**
+  (sources of truth) — check these first; their files should be in the
+  current directory. Every other prefix (`geneteka_*`, `genbaza_*`,
+  `basia_*`, …) is a **research candidate** — present matches for the user
+  to confirm before recording them as fact.
 - When referring to other people, use hyperlinks which refer to other files in persons/
 - Every person note MUST live under `persons/`. Person-shaped wiki-links
   (`[[Firstname_Lastname_ID]]`) and relative markdown links to person files
@@ -38,4 +49,3 @@ Use `${CLAUDE_PLUGIN_ROOT}/skills/research-person/template.md` as the template.
     `persons/`. Move them under `persons/` and rewrite affected links.
   - **Unresearched persons** — links to person notes that don't exist yet; these
     are acceptable and the script exits 0 if they are the only finding.
-
