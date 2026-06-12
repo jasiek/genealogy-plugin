@@ -1,0 +1,36 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/check-uv.sh\"",
+            "shell": "bash"
+          },
+          {
+            "type": "command",
+            "command": "Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force; & \"${CLAUDE_PLUGIN_ROOT}/hooks/check-uv.ps1\"",
+            "shell": "powershell"
+          }
+        ]
+      },
+      {
+        "matcher": "resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/check-uv.sh\"",
+            "shell": "bash"
+          },
+          {
+            "type": "command",
+            "command": "Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force; & \"${CLAUDE_PLUGIN_ROOT}/hooks/check-uv.ps1\"",
+            "shell": "powershell"
+          }
+        ]
+      }
+    ]
+  }
+}

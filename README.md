@@ -22,6 +22,28 @@ This repository ships as a Claude Code plugin (the `.claude-plugin/`
 directory and the `research-person` skill under `skills/`). You can also
 run the MCP server stand-alone against any MCP client.
 
+## Requirements
+
+[**uv**](https://docs.astral.sh/uv/) must be installed and on your `PATH` —
+the MCP server is launched with `uv run` (see `.mcp.json`), which also
+installs the Python dependencies on first run. Without uv the server cannot
+start and none of the tools load. Install it with:
+
+```bash
+# macOS / Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Windows (PowerShell)
+irm https://astral.sh/uv/install.ps1 | iex
+```
+
+then restart Claude Code. As a convenience the plugin runs a `SessionStart`
+hook that detects a missing uv and prints these instructions instead of
+failing silently. The check ships in two flavours so it works regardless of
+the shell Claude Code uses: `hooks/check-uv.sh` (bash — macOS, Linux, and
+Windows with Git Bash) and `hooks/check-uv.ps1` (PowerShell — Windows
+without Git Bash); `hooks/hooks.json` pins each to its shell.
+
 ## Configuration
 
 Every knob can be set three ways. Precedence, highest to lowest:
