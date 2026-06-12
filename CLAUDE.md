@@ -50,6 +50,18 @@ To add a new source: create `sources/<name>/` with a `tools.py` that exposes
 `register(mcp, ...)`, then call it from `server.build_server`. Keep tool
 names prefixed with the source so they don't collide.
 
+The server is launched via `uv run` (see `.mcp.json`), so `uv` must be on the
+user's PATH. A `SessionStart` hook (`hooks/hooks.json`) checks for uv at
+session start and, when missing, prints install instructions to the user (and
+tells Claude the tools are unavailable) instead of letting the server fail
+silently. It ships in two shell-pinned flavours so it runs whichever shell
+Claude Code picks: `hooks/check-uv.sh` (bash; macOS/Linux/Windows+Git Bash)
+and `hooks/check-uv.ps1` (PowerShell; Windows without Git Bash) — both emit
+the same SessionStart JSON. Neither depends on uv itself, and both stay silent
+on the happy path. The `.ps1` path has not been exercised on a real Windows
+host yet (cross-platform `shell`-field behaviour is undocumented), so verify
+there before relying on it.
+
 ## Instructions
 
 * To determine if a change was successful, run the test suite.
